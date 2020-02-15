@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="bfd25569-9722-4618-a57c-c0bcf369fb08" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectId" id="1XNWVlxAIjtRjTlkzL7dHeVJ4X9" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="bfd25569-9722-4618-a57c-c0bcf369fb08" name="Default Changelist" comment="" />
+      <created>1580887061754</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1580887061754</updated>
+      <workItem from="1580887074830" duration="14903000" />
+      <workItem from="1581133168064" duration="3233000" />
+      <workItem from="1581304831819" duration="15081000" />
+      <workItem from="1581406365023" duration="17579000" />
+      <workItem from="1581676369940" duration="8374000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="UnknownFeatures">
+    <option featureType="com.intellij.fileTypeFactory" implementationName="*.env" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="546" y="326" width="817" height="453" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1580888477927">
+      <screen x="0" y="28" width="1920" height="1052" />
+    </state>
+    <state x="546" y="326" width="817" height="453" key="#com.intellij.fileTypes.FileTypeChooser/0.28.1920.1052@0.28.1920.1052" timestamp="1580888477927" />
+    <state x="778" y="280" key="FileChooserDialogImpl" timestamp="1581254226153">
+      <screen x="0" y="28" width="1920" height="1052" />
+    </state>
+    <state x="778" y="280" key="FileChooserDialogImpl/0.28.1920.1052@0.28.1920.1052" timestamp="1581254226153" />
+    <state x="303" y="101" key="SettingsEditor" timestamp="1581254228979">
+      <screen x="0" y="28" width="1920" height="1052" />
+    </state>
+    <state x="303" y="101" key="SettingsEditor/0.28.1920.1052@0.28.1920.1052" timestamp="1581254228978" />
+    <state x="615" y="390" width="926" height="384" key="org.intellij.images.editor.actions.BackgroundImageDialog" timestamp="1581254227802">
+      <screen x="0" y="28" width="1920" height="1052" />
+    </state>
+    <state x="615" y="390" width="926" height="384" key="org.intellij.images.editor.actions.BackgroundImageDialog/0.28.1920.1052@0.28.1920.1052" timestamp="1581254227802" />
+  </component>
+</project>
