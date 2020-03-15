@@ -7,7 +7,6 @@
       <span>username</span><span v-show="loginForm.usernameError"
                                  class="invalid-feedback">{{ loginForm.usernameError }}</span>
       <br/>
-      <br/>
       <input class="text" v-model="loginForm.password" type="text" value=""
              id="login_password" required minlength="8" />
       <span>password</span><span v-show="loginForm.passwordError"
@@ -18,11 +17,7 @@
       <button class="sign_btn">Submit</button>
     </form>
     <div class="select">
-      <p>New User? <router-link to="/register">Click to Register!</router-link></p>
-      <p>
-        Forgot Your Password?
-        <a href="#">Click to Reset It</a>
-      </p>
+      <div>Register <i>----</i><router-link to="/register">click</router-link></div>
     </div>
     <div class="tip">
       <p class="tip-text">
@@ -31,8 +26,9 @@
     </div>
   </div>
 </template>
+
 <script>
-import store from '../store/store'
+import store from '../../store/store'
 
 export default {
   name: 'Login',
@@ -83,8 +79,9 @@ export default {
         .then((response) => {
           window.localStorage.setItem('madblog-token', response.data.token)
           store.loginAction()
-          const name = JSON.parse(atob(response.data.token.split('.')[1])).name
-          this.$toasted.success(`Welcome ${name}!`, { icon: 'fingerprint' })
+          const name = JSON.parse(atob(response.data.token.split('.')[1])).user_name
+          this.$toasted.success(`Welcome ${name}!`,
+            { icon: 'fingerprint' })
           if (typeof this.$route.query.redirect === 'undefined') {
             this.$router.push('/')
           } else {
@@ -121,10 +118,11 @@ export default {
   }
   .tip-text {
     opacity: 0.8;
-    color: #e8cbc0;
+    color: #928bad;
+    font-weight: bold;
   }
   form {
-    padding-top: 80px;
+    padding-top: 30px;
   }
 
   .active {
@@ -156,12 +154,11 @@ export default {
     opacity: 0.8;
     display: inline-block;
     position: relative;
-    top: -65px;
+    top: -75px;
     transition: all 0.5s ease-in-out;
   }
 
   .text {
-    border: none;
     width: 89%;
     padding: 10px 20px;
     display: block;
@@ -240,7 +237,7 @@ export default {
     background-color: #928bad;
     font-family: 'Montserrat', sans-serif;
     color: #fff;
-    width: 100%;
+    width: 80%;
     padding: 10px 20px;
     display: block;
     height: 39px;
@@ -266,19 +263,12 @@ export default {
     top: 85px;
     position: relative;
   }
-
-  a {
-    text-align: center;
-    display: block;
-    top: 120px;
-    position: relative;
-    text-decoration: none;
-    color: rgba(255, 255, 255, 0.2);
-  }
   .select {
+    font-size: 14px;
+    margin-top: 50px;
     text-align: center;
     color: #eee;
-    opacity: 0.6;
+    display: block;
   }
   .tip{
     position: fixed;

@@ -7,12 +7,10 @@
         <span>username</span><span v-show="registerForm.usernameError"
                                    class="invalid-feedback">{{ registerForm.usernameError }}</span>
         <br/>
-        <br/>
         <input class="text" v-model="registerForm.password" type="text" value=""
                id="register_password" required minlength="8" />
         <span>password</span><span v-show="registerForm.passwordError"
                                    class="invalid-feedback">{{ registerForm.passwordError }}</span>
-        <br/>
         <br/>
         <input class="text" name="email" v-model="registerForm.email"
                type="email" value=""
@@ -31,8 +29,6 @@
 </template>
 
 <script>
-import store from '../store/store'
-
 export default {
   name: 'Register',
   data () {
@@ -89,7 +85,6 @@ export default {
       }
       this.$axios.post(path, payload)
         .then((response) => {
-          store.setNewAction()
           this.$router.push('/login')
         })
         .catch((error) => {
@@ -133,7 +128,7 @@ export default {
     color: #e8cbc0;
   }
   form {
-    padding-top: 80px;
+    padding-top: 30px;
   }
 
   .active {
@@ -165,12 +160,11 @@ export default {
     opacity: 0.8;
     display: inline-block;
     position: relative;
-    top: -65px;
+    top: -75px;
     transition: all 0.5s ease-in-out;
   }
 
   .text {
-    border: none;
     width: 89%;
     padding: 10px 20px;
     display: block;
@@ -250,7 +244,7 @@ export default {
     background-color: #928bad;
     font-family: 'Montserrat', sans-serif;
     color: #fff;
-    width: 100%;
+    width: 80%;
     padding: 10px 20px;
     display: block;
     height: 39px;

@@ -23,13 +23,19 @@
       <router-link v-if="$route.params.id == sharedState.user_id" to='/edit-profile'>
         <button class="sign_btn">EDIT</button>
       </router-link>
+
+      <div v-if="$route.params.id != sharedState.user_id">
+        <router-link :to="{ path: '/message' }">
+          <button class="common-btn">Send Message</button>
+        </router-link>
+      </div>
     </main>
   </div>
 </template>
 
 <script>
 import store from '../../store/store'
-import NavBar from '../NavBar'
+import NavBar from '../../components/common/nav/NavBar'
 
 export default {
   name: 'Mine',
@@ -89,11 +95,10 @@ export default {
     width: 100%;
 
   }
-  .infor-card .mine-title{
+  .infor-card {
     font-size: 60px;
     font-weight: 500;
     letter-spacing: 5px;
-    font-family: "ITC";
   }
   .infor-card .detail-card {
     width: 80%;

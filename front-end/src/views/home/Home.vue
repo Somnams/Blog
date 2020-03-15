@@ -1,9 +1,9 @@
 <template>
   <div class="page">
     <main>
-      <img class="myImg"  alt="" src="../assets/user.jpeg"/>
+      <img class="myImg"  alt="" src="../../assets/user.jpeg"/>
       <p class="myName">
-        <span>--</span>Tang YiGuang<span>--</span>
+        <span>--</span>The good seaman is known in bad weather.<span>--</span>
       </p>
     </main>
     <nav id="home-nav">

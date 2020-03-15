@@ -3,6 +3,8 @@
       <header>Edit Your Profile</header>
       <div class="main">
         <form @submit.prevent="onSubmit" class="edit">
+<!--          <label for="user_avatar">Update Avatar</label>-->
+<!--          <input type="file" id="user_avatar" class="edit-input">-->
           <label for="name" class="edit-label">Real Name</label>
           <input type="text" v-model="profileForm.name" id="name" class="edit-input">
           <br>
@@ -23,7 +25,7 @@
 </template>
 
 <script>
-import store from '../store/store'
+import store from '../../../../store/store'
 
 export default {
   name: 'EditProfile',

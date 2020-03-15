@@ -10,11 +10,15 @@ html, body, .page{
     overflow-y: auto;
 }
 
+ul li {
+    list-style-type: none;
+}
+
 .nav-bar{
     position: fixed;
     top: 0;
     left: 0;
-    width: 20%;
+    width: 15%;
     height: 100%;
     border-right: 5px solid;
     border-color: #434343;
@@ -33,7 +37,6 @@ html, body, .page{
     margin-left: 26%;
     margin-right: 80px;
     height: 100%;
-    display: flex;
 }
 
 header{
@@ -58,7 +61,7 @@ a:hover,
     margin-right: 20px;
     background: #000;
     color: #fff;
-    width: 180px;
+    width: 100px;
     height: 30px;
     border-radius: 20px;
     border: 2px solid #fff;
@@ -68,4 +71,29 @@ a:hover,
     background: #fff;
     color: #000;
     cursor: pointer;
+}
+
+.icon-font {
+    font-size: 12px;
+}
+.icon-btn {
+    width: 80px;
+    height: 30px;
+    border: 1px solid #928bad;
+    background: transparent;
+    color: #fff;
+}
+.icon-btn:hover {
+    background: #928bad;
+    transition: all 0.5s ease-in-out;
+    cursor: pointer;
+}
+
+.icon-img {
+    width: 20px;
+}
+.user-img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
 }

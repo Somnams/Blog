@@ -13,8 +13,7 @@
       </div>
       <mavon-editor v-model="EditForm.body" :ishljs="true"/>
       <br>
-      <input type="text" v-model="EditForm.tag">
-      <button class="mark-button">submit</button>
+      <button class="mark-button" type="submit">submit</button>
     </form>
     <div class="tip">
       *你可以点击编辑器的菜单栏进入全屏模式哦～编写完成后记得提交吖～
@@ -23,7 +22,7 @@
 </template>
 
 <script>
-import store from '../store/store'
+import store from '../../../store/store'
 import hljs from 'highlight.js'
 const highLightCode = () => {
   const blocks = document.querySelectorAll('pre code')
@@ -39,7 +38,6 @@ export default {
       sharedState: store.state,
       EditForm: {
         title: '',
-        tag: '',
         summary: '',
         body: '',
         errors: 0,
@@ -50,21 +48,19 @@ export default {
   },
   methods: {
     onSubmit (e) {
-      const path = '/posts'
+      const path = '/diaries/'
       const payload = {
         title: this.EditForm.title,
-        tag: this.EditForm.tag,
         summary: this.EditForm.summary,
         body: this.EditForm.body
       }
 
       this.$axios.post(path, payload)
         .then((res) => {
-          console.log('post created Ok.')
+          console.log('diary created Ok.')
           this.EditForm.title = ''
           this.EditForm.summary = ''
           this.EditForm.body = ''
-          this.EditForm.tag = ''
         })
         .catch((err) => {
           console.error(err)

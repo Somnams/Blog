@@ -5,8 +5,8 @@
         <p class="content">{{content}}</p>
       </div>
       <div class="confirm-btn">
-        <span @click.prevent="noClick" class="cancel-btn">Cancel</span>
-        <span @click.prevent="yesClick" class="ok-btn">Sure</span>
+        <span @click.prevent="noClick" class="my-btn-text cancel-btn">Cancel</span>
+        <span @click.prevent="yesClick" class="my-btn-text sure-btn">Sure</span>
       </div>
     </div>
   </div>
@@ -81,17 +81,18 @@ export default {
   .confirm-btn {
     display: flex;
     border-top: 1px solid #eee;
+    color: #928bad;
   }
   .cancel-btn {
-    flex: 1;
-  }
-  .confirm-btn {
-    color: #ffb000;
-  }
-  .my-operation .my-btn-text {
     text-align: center;
-    font-size: 16px;
-    margin: 14px 0;
-    padding: 6px 0;
+    flex: 1;
+    font-size: 14px;
+    cursor: pointer;
+  }
+  .sure-btn {
+    text-align: center;
+    flex: 1;
+    font-size: 14px;
+    cursor: pointer;
   }
 </style>

@@ -1,27 +1,26 @@
 <template>
   <div class="page">
-    <nav-bar class="nav-bar" id="post-nav"/>
+    <nav-bar class="nav-bar" id="diary-nav"/>
     <div>
       <header></header>
-      <main class="main-content" v-if="post.author">
+      <main class="main-content" v-if="diary.author">
         <div>
-          <div id="post-title">{{post.title}}</div>
+          <div id="post-title">{{diary.title}}</div>
           <div id="post-other">
-            <span>{{post.author.username}}</span>
-            <span>{{post.timestamp}}</span>
-            <span>{{post.views}}次阅读</span>
+            <span>{{diary.author.username}}</span>
+            <span>{{diary.timestamp}}</span>
+            <span>{{diary.views}}次阅读</span>
           </div>
           <article>
             <vue-markdown
-              :source="post.body"
-              :toc="showToc"
+              :source="diary.body"
               :toc-first-level="1"
               :toc-last-level="3"/>
             <br>
           </article>
           <confirm ref="confirm"/>
-          <div class="operation" v-if="post.author.id == sharedState.user_id">
-            <button @click="onDeletePost(post)" class="common-btn">delete</button>
+          <div class="operation" v-if="diary.author.id == sharedState.user_id">
+            <button @click="onDeleteDiary(diary)" class="common-btn">delete</button>
             <button @click="toEdit" class="common-btn">edit</button>
           </div>
         </div>
@@ -33,9 +32,9 @@
 </template>
 
 <script>
-import NavBar from './NavBar'
-import Confirm from './common/Confirm'
-import store from '../store/store'
+import NavBar from '../../../components/common/nav/NavBar'
+import Confirm from '../../../components/common/confirm/Confirm'
+import store from '../../../store/store'
 import VueMarkdown from 'vue-markdown'
 import hljs from 'highlight.js'
 const highLightCode = () => {
@@ -46,7 +45,7 @@ const highLightCode = () => {
 }
 
 export default {
-  name: 'Post',
+  name: 'Passage',
   components: {
     NavBar,
     VueMarkdown,
@@ -55,37 +54,35 @@ export default {
   data () {
     return {
       sharedState: store.state,
-      showToc: true,
-      post: {}
+      diary: {}
     }
   },
   methods: {
-    getPost (id) {
-      const path = `/posts/${id}`
+    getDiary (id) {
+      const path = `/diaries/${id}`
       this.$axios.get(path)
         .then((res) => {
-          this.post = res.data
+          this.diary = res.data
         })
         .catch((error) => {
           console.error(error)
         })
     },
-    onDeletePost (post) {
+    onDeleteDiary (diary) {
       this.$refs.confirm.confirm()
         .then((res) => {
-          console.log('delete.')
-          const path = `/posts/${post.id}`
+          const path = `/diaries/${diary.id}`
           this.$axios.delete(path)
             .then((res) => {
               console.log('delete successful')
               if (typeof this.$route.query.redirect === 'undefined') {
-                this.$router.push('/blog')
+                this.$router.push('/life')
               } else {
                 this.$router.push(this.$route.query.redirect)
               }
             })
         })
-        // eslint-disable-next-line handle-callback-err
+      // eslint-disable-next-line handle-callback-err
         .catch((err) => {
           console.log('this post is safity')
         })
@@ -96,8 +93,9 @@ export default {
   },
   created () {
     // eslint-disable-next-line camelcase
-    const post_id = this.$route.params.id
-    this.getPost(post_id)
+    const diary_id = this.$route.params.id
+    this.getDiary(diary_id)
+    this.onDeleteDiary(diary_id)
   },
   mounted () {
     highLightCode()
@@ -125,5 +123,11 @@ export default {
   }
   .operation {
     float: right;
+  }
+  textarea {
+    color: #fff;
+  }
+  #replyForm textarea{
+    border: 2px solid rgba(255, 255, 255, 0.5);
   }
 </style>

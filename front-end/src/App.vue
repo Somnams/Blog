@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" class="page">
     <router-view v-if="isRouterAlive"/>
   </div>
 </template>
@@ -7,9 +7,6 @@
 <script>
 export default {
   name: 'app',
-  // mounted () {
-  //   window.location.hash = '/'
-  // }
   provide () {
     return {
       reload: this.reload

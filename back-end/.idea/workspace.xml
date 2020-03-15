@@ -1,7 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="bfd25569-9722-4618-a57c-c0bcf369fb08" name="Default Changelist" comment="" />
+    <list default="true" id="bfd25569-9722-4618-a57c-c0bcf369fb08" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.db" beforeDir="false" afterPath="$PROJECT_DIR$/app.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/api/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/api/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/api/auth.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/api/auth.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/api/comments.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/api/comments.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/api/ping.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/api/ping.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/api/posts.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/api/posts.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/api/users.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/api/users.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/config.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front-end/public/favicon.ico" beforeDir="false" afterPath="$PROJECT_DIR$/../front-end/public/favicon.ico" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front-end/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/../front-end/public/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front-end/src/App.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../front-end/src/App.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front-end/src/assets/commen.css" beforeDir="false" afterPath="$PROJECT_DIR$/../front-end/src/assets/commen.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front-end/src/assets/logo.png" beforeDir="false" afterPath="$PROJECT_DIR$/../front-end/src/assets/logo.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front-end/src/components/Continar.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front-end/src/components/EditProfile.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front-end/src/components/NavBar.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front-end/src/components/Post.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front-end/src/components/common/Blog.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front-end/src/components/common/Confirm.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front-end/src/components/common/Life.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front-end/src/components/common/Mine.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front-end/src/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/../front-end/src/main.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front-end/src/router/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/../front-end/src/router/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front-end/src/views/Add.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front-end/src/views/Home.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front-end/src/views/Login.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front-end/src/views/Register.vue" beforeDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -14,14 +45,22 @@
       </list>
     </option>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
   <component name="ProjectId" id="1XNWVlxAIjtRjTlkzL7dHeVJ4X9" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showExcludedFiles" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
@@ -46,6 +85,11 @@
       <workItem from="1581304831819" duration="15081000" />
       <workItem from="1581406365023" duration="17579000" />
       <workItem from="1581676369940" duration="8374000" />
+      <workItem from="1581772823164" duration="30317000" />
+      <workItem from="1582014966707" duration="3400000" />
+      <workItem from="1583582888331" duration="1262000" />
+      <workItem from="1583748581549" duration="11899000" />
+      <workItem from="1584246066691" duration="738000" />
     </task>
     <servers />
   </component>
@@ -60,17 +104,21 @@
       <screen x="0" y="28" width="1920" height="1052" />
     </state>
     <state x="546" y="326" width="817" height="453" key="#com.intellij.fileTypes.FileTypeChooser/0.28.1920.1052@0.28.1920.1052" timestamp="1580888477927" />
-    <state x="778" y="280" key="FileChooserDialogImpl" timestamp="1581254226153">
+    <state x="778" y="280" key="FileChooserDialogImpl" timestamp="1581930899198">
       <screen x="0" y="28" width="1920" height="1052" />
     </state>
-    <state x="778" y="280" key="FileChooserDialogImpl/0.28.1920.1052@0.28.1920.1052" timestamp="1581254226153" />
-    <state x="303" y="101" key="SettingsEditor" timestamp="1581254228979">
+    <state x="778" y="280" key="FileChooserDialogImpl/0.28.1920.1052@0.28.1920.1052" timestamp="1581930899198" />
+    <state x="303" y="101" key="SettingsEditor" timestamp="1581930902357">
       <screen x="0" y="28" width="1920" height="1052" />
     </state>
-    <state x="303" y="101" key="SettingsEditor/0.28.1920.1052@0.28.1920.1052" timestamp="1581254228978" />
-    <state x="615" y="390" width="926" height="384" key="org.intellij.images.editor.actions.BackgroundImageDialog" timestamp="1581254227802">
+    <state x="303" y="101" key="SettingsEditor/0.28.1920.1052@0.28.1920.1052" timestamp="1581930902357" />
+    <state x="628" y="449" width="654" height="208" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1582017474927">
       <screen x="0" y="28" width="1920" height="1052" />
     </state>
-    <state x="615" y="390" width="926" height="384" key="org.intellij.images.editor.actions.BackgroundImageDialog/0.28.1920.1052@0.28.1920.1052" timestamp="1581254227802" />
+    <state x="628" y="449" width="654" height="208" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.28.1920.1052@0.28.1920.1052" timestamp="1582017474927" />
+    <state x="615" y="390" width="926" height="384" key="org.intellij.images.editor.actions.BackgroundImageDialog" timestamp="1581930900373">
+      <screen x="0" y="28" width="1920" height="1052" />
+    </state>
+    <state x="615" y="390" width="926" height="384" key="org.intellij.images.editor.actions.BackgroundImageDialog/0.28.1920.1052@0.28.1920.1052" timestamp="1581930900373" />
   </component>
 </project>

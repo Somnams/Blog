@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
+import plugins from './utils'
 import axios from './network/request'
 import store from './store'
 import VueToasted from 'vue-toasted'
@@ -15,6 +16,8 @@ Vue.config.productionTip = false
 Vue.prototype.$axios = axios
 
 Vue.prototype.$moment = moment
+
+Vue.use(plugins)
 
 const originalPush = Router.prototype.push
 Router.prototype.push = function push (location) {
