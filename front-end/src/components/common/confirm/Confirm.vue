@@ -1,15 +1,17 @@
 <template>
-  <div class="confirm" v-if="confirmShow">
-    <div class="confirm-content-wrap">
-      <div class="confirm-content">
-        <p class="content">{{content}}</p>
-      </div>
-      <div class="confirm-btn">
-        <span @click.prevent="noClick" class="my-btn-text cancel-btn">Cancel</span>
-        <span @click.prevent="yesClick" class="my-btn-text sure-btn">Sure</span>
+  <transition name="fade">
+    <div class="confirm" v-if="confirmShow">
+      <div class="confirm-content-wrap">
+        <div class="confirm-content">
+          <p class="content">{{content}}</p>
+        </div>
+        <div class="confirm-btn">
+          <span @click.prevent="noClick" class="my-btn-text cancel-btn">Cancel</span>
+          <span @click.prevent="yesClick" class="my-btn-text sure-btn">Sure</span>
+        </div>
       </div>
     </div>
-  </div>
+  </transition>
 </template>
 
 <script>
@@ -47,6 +49,12 @@ export default {
 </script>
 
 <style scoped>
+  .fade-enter-active, .fade-leave-active {
+    transition: opacity .5s;
+  }
+  .fade-enter, .fade-leave-to {
+    opacity: 0;
+  }
   .confirm {
     position: fixed;
     top: 0;

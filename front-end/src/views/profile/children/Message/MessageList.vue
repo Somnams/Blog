@@ -105,7 +105,7 @@ export default {
         })
     },
     onResetMessage () {
-      console.log('rest')
+      // console.log('rest')
     }
   },
   created () {

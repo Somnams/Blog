@@ -25,8 +25,8 @@
       </router-link>
 
       <div v-if="$route.params.id != sharedState.user_id">
-        <router-link :to="{ path: '/message' }">
-          <button class="common-btn">Send Message</button>
+        <router-link :to="{ path: '/message' }" title="send message">
+          <img src="../../assets/icon-img/youjianxinjian.svg" alt="" class="icon-img">
         </router-link>
       </div>
     </main>

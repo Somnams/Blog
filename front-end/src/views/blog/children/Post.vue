@@ -7,9 +7,9 @@
         <div>
           <div id="post-title">{{post.title}}</div>
           <div id="post-other">
-            <span>{{post.author.username}}</span>
-            <span>{{post.timestamp}}</span>
-            <span>{{post.views}}次阅读</span>
+            <div><img src="../../../assets/icon-img/iconzhucetouxiang.svg" alt="" class="icon-img">: {{post.author.username}}</div>
+            <div><img src="../../../assets/icon-img/shijian.svg" alt="" class="icon-img">{{post.timestamp}}</div>
+            <div><img src="../../../assets/icon-img/chakancishu.svg" alt="" class="icon-img">{{post.views}}</div>
           </div>
           <article>
             <vue-markdown
@@ -22,12 +22,14 @@
           <confirm ref="confirm"/>
           <reply ref="reply"/>
           <div class="operation" v-if="post.author.id == sharedState.user_id">
-            <button @click="onDeletePost(post)" class="common-btn">delete</button>
-            <button @click="toEdit" class="common-btn">edit</button>
+            <a @click="onDeletePost(post)" title="delete this post">
+              <img src="../../../assets/icon-img/shanchu.svg" alt="" class="icon-img"></a>
+            <a @click="toEdit" title="edit this post">
+              <img src="../../../assets/icon-img/bianji.svg" alt="" class="icon-img"></a>
           </div>
           <!-- 评论区 -->
           <div class="comments">
-            <div class="comments-title">Comments ^v^</div>
+            <div class="comments-title">Comments <img src="../../../assets/icon-img/liuyan.svg" alt="" class="icon-img"></div>
 
             <form v-if="sharedState.is_authenticated" @submit.prevent="onSubmitAddComment"
                   @reset.prevent="onResetAddComment">
@@ -72,7 +74,7 @@
                           </li>
                           <li v-if="!comment.disabled">
                             <a @click="onClickReply(comment)" title="reply">
-                              <img src="../../../assets/icon-img/youjianxinjian.svg" class="icon-img">
+                              <img src="../../../assets/icon-img/tubiaozhizuo-_1.svg" class="icon-img">
                             </a>
                           </li>
                           <li v-if="!comment.disabled && post.author.id == sharedState.user_id">
@@ -106,7 +108,7 @@
                         <div class="comment">
                           <div class="comment-title">
                             <span v-if="child.author.id == child.post.author_id">
-                              <router-link :to="{ path: `/user/${child.author.id }`}">{{child.author.username}}</router-link> <span>author of post</span>
+                              <router-link :to="{ path: `/user/${child.author.id }`}">{{child.author.username}}</router-link> <span>author</span>
                             </span>
                             <span v-else><router-link :to="{ path: `/user/${child.author.id}`}">{{child.author.username}}</router-link></span>
                             <span>{{ $moment(child.timestamp).format('YYYY-MM-DD HH:mm:ss') }}</span>
@@ -114,7 +116,7 @@
                           <div class="comment-body">
                             <div v-if="child.disabled">The comment has been disabled.</div>
                             <div v-else>
-                              {{child.body}}
+                              &nbsp;&nbsp;{{child.body}}
                             </div>
                           </div>
                           <div class="comment-bottom">
@@ -127,7 +129,7 @@
                               </li>
                               <li v-if="!child.disabled">
                                 <a @click="onClickReply(child)">
-                                  <img src="../../../assets/icon-img/youjianxinjian.svg" alt="" class="icon-img">
+                                  <img src="../../../assets/icon-img/tubiaozhizuo-_1.svg" alt="" class="icon-img">
                                 </a>
                               </li>
                               <li v-if="!child.disabled && post.author.id == sharedState.user_id">
@@ -342,7 +344,7 @@ export default {
             const path = '/comments/'
             // 回复评论
             // eslint-disable-next-line camelcase
-            const at_who = `@${this.commentsForm.author_name}`
+            const at_who = `@${this.commentsForm.author_name}  `
             const payload = {
               // eslint-disable-next-line camelcase
               body: at_who + Form.body,
@@ -439,6 +441,9 @@ export default {
   }
   .operation {
     float: right;
+  }
+  .operation a {
+    margin-right: 50px;
   }
   .comments {
     width: 100%;

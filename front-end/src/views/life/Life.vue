@@ -63,7 +63,6 @@ export default {
       this.$axios.get(path)
         .then((res) => {
           this.diaries = res.data
-          console.log(this.diaries)
         })
         .catch((err) => {
           console.error(err)

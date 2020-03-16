@@ -1,10 +1,10 @@
 from flask import Flask
 from app.api import bp as api_bp
-from app.extensions import cors, db, migrate
+from app.extensions import cors, db, migrate, socketio, mail
 
 
 def create_app(config_class=None):
-    '''Factory Pattern: Create Flask app.'''
+    """Factory Pattern: Create Flask app."""
     app = Flask(__name__)
 
     # Initialization flask app
@@ -33,25 +33,29 @@ def configure_blueprints(app):
 
 
 def configure_extensions(app):
-    '''Configures the extensions.'''
+    """Configures the extensions."""
     # Enable CORS
     cors.init_app(app)
     # Init Flask-SQLAlchemy
     db.init_app(app)
     # Init Flask-Migrate
     migrate.init_app(app, db)
+    # Init Flask-SocketIo
+    socketio.init_app(app)
+    # Init Flask-Mail
+    mail.init_app(app)
 
 
 def configure_before_handlers(app):
-    '''Configures the before request handlers'''
+    """Configures the before request handlers"""
     pass
 
 
 def configure_after_handlers(app):
-    '''Configures the after request handlers'''
+    """Configures the after request handlers"""
     pass
 
 
 def configure_errorhandlers(app):
-    '''Configures the error handlers'''
+    """Configures the error handlers"""
     pass

@@ -9,7 +9,7 @@ import Mine from '../views/profile/Mine'
 import EditProfile from '../views/profile/children/edit/EditProfile'
 import Post from '../views/blog/children/Post'
 import Passage from '../views/life/children/Passage'
-import Notifications from '../views/profile/children/Notifications/Notifications'
+import RecivedComments from '../views/profile/children/Comments/RecivedComments'
 import Add from '../components/common/addPost/Add'
 import AddLife from '../components/common/addPost/AddLife'
 import Index from '../views/profile/children/Message/Index'
@@ -29,7 +29,7 @@ const router = new VueRouter({
     { path: '/life', name: Life, component: Life },
     { path: '/life/diary/:id', name: Passage, component: Passage, meta: { requiresAuth: true } },
     { path: '/user/:id', name: Mine, component: Mine },
-    { path: '/notice', name: Notifications, component: Notifications },
+    { path: '/receive-comments', name: RecivedComments, component: RecivedComments },
     { path: '/add', name: Add, component: Add, meta: { requiresAuth: true } },
     { path: '/test/:id', name: Demo, component: Demo, meta: { requiresAuth: true } },
     { path: '/add-life', name: AddLife, component: AddLife, meta: { requiresAuth: true } },

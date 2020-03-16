@@ -17,7 +17,7 @@
           <textarea v-model="profileForm.about_me" cols="30" rows="10"
                     id="about_me" class="edit-textarea edit-input"></textarea>
           <br>
-          <button id="edit-btn">submit</button>
+          <button class="common-btn edit-btn">submit</button>
           <br>
         </form>
       </div>
@@ -89,11 +89,21 @@ export default {
   .main {
     margin: 30px auto;
     width: 50%;
-    border: 1px #434343 solid;
-    background: #434343;
-    box-shadow: 0 0 3px 5px #434343;
+    /*background: linear-gradient(180deg, #00223e, #000);*/
     border-radius: 6px;
-    opacity: 0.7;
+    animation: bgmove 2s ease infinite;
+  }
+
+  @keyframes bgmove {
+    0% {
+      background-position: 0% 0%;
+    }
+    50% {
+      background-position: 50% 100%;
+    }
+    100% {
+      background-position: 100% 0%;
+    }
   }
   .edit {
     width: 100%;
@@ -129,20 +139,10 @@ export default {
   textarea {
     color: #fff;
   }
-  #edit-btn {
-    width: 45%;
+  .edit-btn {
+    width: 40%;
     margin: 0 auto;
     height: 40px;
-    border-radius: 20px;
-    background: #948e99;
-    border: none;
-    color: #fff;
     font-size: 18px;
-    transition: all 0.5s ease-in-out;
-  }
-  #edit-btn:hover {
-    background: #928bad;
-    box-shadow: 0px 4px 35px -5px #928bad;
-    cursor: pointer;
   }
 </style>

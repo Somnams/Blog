@@ -201,22 +201,22 @@ class User(PaginatedAPIMixin, db.Model):
         return User.query.get(payload.get('user_id'))
 
     def is_following(self, user):
-        '''判断当前用户是否已经关注了 user 这个用户对象，如果关注了，下面表达式左边是1，否则是0'''
+        """判断当前用户是否已经关注了 user 这个用户对象，如果关注了，下面表达式左边是1，否则是0"""
         return self.followeds.filter(
             followers.c.followed_id == user.id).count() > 0
 
     def follow(self, user):
-        '''当前用户开始关注 user 这个用户对象'''
+        """当前用户开始关注 user 这个用户对象"""
         if not self.is_following(user):
             self.followeds.append(user)
 
     def unfollow(self, user):
-        '''当前用户取消关注 user 这个用户对象'''
+        """当前用户取消关注 user 这个用户对象"""
         if self.is_following(user):
             self.followeds.remove(user)
 
     def followeds_posts(self):
-        '''获取当前用户的关注者的所有博客列表'''
+        """获取当前用户的关注者的所有博客列表"""
         followed = Post.query.join(
             followers, (followers.c.followed_id == Post.author_id)).filter(
                 followers.c.follower_id == self.id)
@@ -226,7 +226,7 @@ class User(PaginatedAPIMixin, db.Model):
         return followed.order_by(Post.timestamp.desc())
 
     def add_notification(self, name, data):
-        '''给用户实例对象增加通知'''
+        """给用户实例对象增加通知"""
         # 如果具有相同名称的通知已存在，则先删除该通知
         self.notifications.filter_by(name=name).delete()
         # 为用户添加通知，写入数据库
@@ -235,11 +235,11 @@ class User(PaginatedAPIMixin, db.Model):
         return n
 
     def new_recived_comments(self):
-        '''用户收到的新评论计数
+        """用户收到的新评论计数
         包括:
         1. 用户的所有文章下面新增的评论
         2. 用户发表的评论(或下面的子孙)被人回复了
-        '''
+        """
         last_read_time = self.last_recived_comments_read_time or datetime(1900, 1, 1)
         # 用户发布的所有文章
         user_posts_ids = [post.id for post in self.posts.all()]
@@ -257,12 +257,12 @@ class User(PaginatedAPIMixin, db.Model):
         return len([c for c in recived_comments if c.timestamp > last_read_time])
 
     def new_follows(self):
-        '''用户的新粉丝计数'''
+        """用户的新粉丝计数"""
         last_read_time = self.last_follows_read_time or datetime(1900, 1, 1)
         return self.followers.filter(followers.c.timestamp > last_read_time).count()
 
     def new_likes(self):
-        '''用户收到的新点赞计数'''
+        """用户收到的新点赞计数"""
         last_read_time = self.last_likes_read_time or datetime(1900, 1, 1)
         # 当前用户发表的所有评论当中，哪些被点赞了
         comments = self.comments.join(comments_likes).all()
@@ -280,12 +280,12 @@ class User(PaginatedAPIMixin, db.Model):
         return new_likes_count
 
     def new_followeds_posts(self):
-        '''用户关注的人的新发布的文章计数'''
+        """用户关注的人的新发布的文章计数"""
         last_read_time = self.last_followeds_posts_read_time or datetime(1900, 1, 1)
         return self.followeds_posts().filter(Post.timestamp > last_read_time).count()
 
     def new_recived_messages(self):
-        '''用户未读的私信计数'''
+        """用户未读的私信计数"""
         last_read_time = self.last_messages_read_time or datetime(1900, 1, 1)
         return Message.query.filter_by(recipient=self).filter(
             Message.timestamp > last_read_time).count()

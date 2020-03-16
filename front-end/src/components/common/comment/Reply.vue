@@ -1,9 +1,10 @@
 <template>
+  <transition name="fade">
     <div id="reply" v-if="replyShow">
       <div id="reply-content">
         <form @submit.prevent="onSubmitReply" @reset.prevent="onRestReply">
           <textarea v-model="replyForm.body" cols="30" rows="10"
-                placeholder="Please input your comment." class="replay-form"></textarea>
+                    placeholder="Please input your comment." class="replay-form"></textarea>
           <small v-show="replyForm.bodyError">{{replyForm.bodyError}}</small>
           <div class="operation">
             <button class="reply-btn" type="submit">Submit</button>
@@ -12,6 +13,7 @@
         </form>
       </div>
     </div>
+  </transition>
 </template>
 
 <script>
@@ -66,15 +68,21 @@ export default {
 </script>
 
 <style scoped>
-#reply {
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  background: rgba(0, 0, 0, 0.5);
-  z-index: 990;
-}
+  .fade-enter-active, .fade-leave-active {
+    transition: opacity .5s;
+  }
+  .fade-enter, .fade-leave-to {
+    opacity: 0;
+  }
+  #reply {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 990;
+  }
   #reply-content {
     position: absolute;
     top: 30%;

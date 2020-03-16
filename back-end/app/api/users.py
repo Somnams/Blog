@@ -5,7 +5,7 @@ from flask import request, jsonify, url_for, g, current_app
 from app.api import bp
 from app.api.auth import token_auth
 from app.api.errors import bad_request, error_response
-from app.extensions import db
+from app.extensions import db, socketio
 from app.models import comments_likes, User, Post, Comment, Notification, Message
 
 
@@ -283,7 +283,7 @@ def get_user_comments(id):
 @bp.route('/users/<int:id>/recived-comments/', methods=['GET'])
 @token_auth.login_required
 def get_user_recived_comments(id):
-    '''返回该用户收到的所有评论'''
+    """返回该用户收到的所有评论"""
     user = User.query.get_or_404(id)
     if g.current_user != user:
         return error_response(403)
@@ -322,7 +322,7 @@ def get_user_recived_comments(id):
 @bp.route('/users/<int:id>/recived-likes/', methods=['GET'])
 @token_auth.login_required
 def get_user_recived_likes(id):
-    '''返回该用户收到的赞和喜欢'''
+    """返回该用户收到的赞和喜欢"""
     user = User.query.get_or_404(id)
     if g.current_user != user:
         return error_response(403)
@@ -378,8 +378,8 @@ def get_user_recived_likes(id):
 @bp.route('/users/<int:id>/messages-recipients/', methods=['GET'])
 @token_auth.login_required
 def get_user_messages_recipients(id):
-    '''我给哪些用户发过私信，按用户分组，返回我给各用户最后一次发送的私信
-    即: 我给 (谁) 最后一次 发了 (什么私信)'''
+    """我给哪些用户发过私信，按用户分组，返回我给各用户最后一次发送的私信
+    即: 我给 (谁) 最后一次 发了 (什么私信)"""
     user = User.query.get_or_404(id)
     if g.current_user != user:
         return error_response(403)
@@ -402,8 +402,7 @@ def get_user_messages_recipients(id):
         if item['timestamp'] > last_read_time:
             item['is_new'] = True
             # 继续获取发给这个用户的私信有几条是新的
-            item['new_count'] = user.messages_sent.filter_by(recipient_id=item['recipient']['id']).filter(
-                Message.timestamp > last_read_time).count()
+            item['new_count'] = user.messages_sent.filter_by(recipient_id=item['recipient']['id']).filter(Message.timestamp > last_read_time).count()
     return jsonify(data)
 
 
@@ -427,15 +426,14 @@ def get_user_messages_senders(id):
     new_items = []  # 最后一条是新的
     not_new_items = []  # 最后一条不是新的
     for item in data['items']:
+        # 判断我有没有拉黑他
         if user.is_blocking(User.query.get(item['sender']['id'])):
             item['is_blocking'] = True
-    for item in data['items']:
         # item 是他发的最后一条，如果最后一条不是新的，肯定就没有啦
         if item['timestamp'] > last_read_time:
             item['is_new'] = True
             # 继续获取这个用户发的私信有几条是新的
-            item['new_count'] = user.messages_received.filter_by(sender_id=item['sender']['id']).filter(
-                Message.timestamp > last_read_time).count()
+            item['new_count'] = user.messages_received.filter_by(sender_id=item['sender']['id']).filter(Message.timestamp > last_read_time).count()
             new_items.append(item)
         else:
             not_new_items.append(item)
@@ -494,7 +492,7 @@ def get_user_history_messages(id):
 @bp.route('/users/<int:id>/notifications/', methods=['GET'])
 @token_auth.login_required
 def get_user_notifications(id):
-    '''返回该用户的新通知'''
+    """返回该用户的新通知"""
     user = User.query.get_or_404(id)
     if g.current_user != user:
         return error_response(403)

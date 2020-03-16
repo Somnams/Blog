@@ -1,6 +1,10 @@
 <template>
   <div id="app" class="page">
-    <router-view v-if="isRouterAlive"/>
+    <transition name="fade">
+      <keep-alive include="Blog, Life, Mine">
+        <router-view v-if="isRouterAlive"/>
+      </keep-alive>
+    </transition>
   </div>
 </template>
 
@@ -30,4 +34,10 @@ export default {
 
 <style>
   @import "assets/commen.css";
+  .fade-enter-active, .fade-leave-active {
+    transition: opacity .5s;
+  }
+  .fade-enter, .fade-leave-to {
+    opacity: 0;
+  }
 </style>

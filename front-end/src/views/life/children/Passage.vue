@@ -7,9 +7,9 @@
         <div>
           <div id="post-title">{{diary.title}}</div>
           <div id="post-other">
-            <span>{{diary.author.username}}</span>
-            <span>{{diary.timestamp}}</span>
-            <span>{{diary.views}}次阅读</span>
+            <div><img src="../../../assets/icon-img/iconzhucetouxiang.svg" alt="" class="icon-img">: {{diary.author.username}}</div>
+            <div><img src="../../../assets/icon-img/shijian.svg" alt="" class="icon-img">{{diary.timestamp}}</div>
+            <div><img src="../../../assets/icon-img/chakancishu.svg" alt="" class="icon-img">{{diary.views}}</div>
           </div>
           <article>
             <vue-markdown
@@ -20,8 +20,10 @@
           </article>
           <confirm ref="confirm"/>
           <div class="operation" v-if="diary.author.id == sharedState.user_id">
-            <button @click="onDeleteDiary(diary)" class="common-btn">delete</button>
-            <button @click="toEdit" class="common-btn">edit</button>
+            <a @click="onDeleteDiary(diary)" title="delete this diary">
+              <img src="../../../assets/icon-img/shanchu.svg" alt="" class="icon-img"></a>
+            <a @click="toEdit" title="edit this diary">
+              <img src="../../../assets/icon-img/bianji.svg" alt="" class="icon-img"></a>
           </div>
         </div>
       </main>
@@ -123,6 +125,9 @@ export default {
   }
   .operation {
     float: right;
+  }
+  .operation a {
+    margin-right: 50px;
   }
   textarea {
     color: #fff;

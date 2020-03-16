@@ -11,7 +11,12 @@
             {{article.title}}
           </a>
         </div>
-        <div class="article-other">AUTHOR:{{article.author.username}}  <span>TIME:{{article.timestamp}}</span></div>
+        <div class="article-other">
+          <img src="../../../assets/icon-img/iconzhucetouxiang.svg" alt="" class="icon-img">
+          :{{article.author.username}}
+          <span>
+            <img src="../../../assets/icon-img/shijian.svg" alt="" class="icon-img">
+            :{{article.timestamp}}</span></div>
         <div class="article-body">SUMMARY:{{article.summary}}</div>
       </div>
     </div>

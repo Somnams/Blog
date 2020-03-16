@@ -11,20 +11,31 @@
             <router-link :to="{ path: `/users/${message.sender.id}` }">
             <span v-if="message.is_new">
               <img :src="message.sender._links.avatar" alt="" class="user-img">
+              <img src="../../../../assets/icon-img/tubiaozhizuo-.svg" class="icon-img">
             </span>
               <span v-else>
-              <img :src="message.sender._links.avatar" alt="" class="user-img">old
+              <img :src="message.sender._links.avatar" alt="" class="user-img">
             </span>
             </router-link>
           </div>
           <div v-if="message.sender" id="index-detail">
             <div>{{message.sender.username}} send {{message.new_count || 0}} messages to you.</div>
             <span>
-            <span class="icon-font">{{$moment(message.timestamp).format('YYYY/MM/DD HH:mm:ss')}}</span>
-            <router-link :to="{ path: `/message/list`, query: { from: message.sender.id, username: message.sender.username } }">
-              <button class="icon-btn btn">Check chat</button>
-            </router-link>
-          </span>
+              <span class="icon-font">{{$moment(message.recipient.last_seen).format('YYYY/MM/DD HH:mm:ss')}}</span>
+              <router-link title="check chat" :to="{ path: `/message/list`, query: { from: message.sender.id, username: message.sender.username } }">
+                <img src="../../../../assets/icon-img/wenzhangguanli.svg" alt="" class="icon-img">
+              </router-link>
+            </span>
+            <span v-if="!message.is_blocking">
+              <a @click="onBlock(message.sender.id)" title="block this person">
+                <img src="../../../../assets/icon-img/lahei_1.svg" alt="" class="icon-img">
+              </a>
+            </span>
+            <span v-else>
+              <a @click="unBlock(message.sender.id)" title="unblock this person">
+                <img src="../../../../assets/icon-img/iconfuzhi.svg" alt="" class="icon-img">
+              </a>
+            </span>
           </div>
         </div>
       </div>
@@ -73,6 +84,25 @@ export default {
         })
         .catch((error) => {
           console.error(error)
+        })
+    },
+    onBlock (id) {
+      const path = `/block/${id}`
+      this.$axios.get(path)
+        .then((res) => {
+          this.$toasted.success('block this person success')
+        }).catch((err) => {
+          console.error(err)
+        })
+    },
+    unBlock (id) {
+      const path = `/unblock/${id}`
+      this.$axios.get(path)
+        .then((res) => {
+          this.$toasted.success('unblock this person success')
+        })
+        .catch((err) => {
+          console.error(err)
         })
     }
   },

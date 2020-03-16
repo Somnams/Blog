@@ -18,7 +18,7 @@
       </div>
       <ul class="ul-mine">
         <li class="nav-link">
-          <router-link :to="{ path: '/notice' }">Comments</router-link>
+          <router-link :to="{ path: '/receive-comments' }">Comments</router-link>
         </li>
         <li class="nav-link">
           <router-link :to="{ path: '/message' }">Message</router-link>
@@ -37,7 +37,8 @@ export default {
   name: 'NavBar',
   data () {
     return {
-      current_id: store.state.user_id
+      current_id: store.state.user_id,
+      total_count: 0
     }
   },
   methods: {
