@@ -5,31 +5,6 @@
       <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app.db" beforeDir="false" afterPath="$PROJECT_DIR$/app.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/api/messages.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/api/messages.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/api/users.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/api/users.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/extensions.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/extensions.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/config.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front-end/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../front-end/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front-end/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../front-end/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front-end/src/App.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../front-end/src/App.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front-end/src/assets/commen.css" beforeDir="false" afterPath="$PROJECT_DIR$/../front-end/src/assets/commen.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front-end/src/components/common/comment/Reply.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../front-end/src/components/common/comment/Reply.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front-end/src/components/common/confirm/Confirm.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../front-end/src/components/common/confirm/Confirm.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front-end/src/components/common/list/List.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../front-end/src/components/common/list/List.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front-end/src/components/common/nav/NavBar.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../front-end/src/components/common/nav/NavBar.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front-end/src/router/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/../front-end/src/router/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front-end/src/views/blog/children/Post.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../front-end/src/views/blog/children/Post.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front-end/src/views/life/Life.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../front-end/src/views/life/Life.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front-end/src/views/life/children/Passage.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../front-end/src/views/life/children/Passage.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front-end/src/views/profile/Mine.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../front-end/src/views/profile/Mine.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front-end/src/views/profile/children/Message/Index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../front-end/src/views/profile/children/Message/Index.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front-end/src/views/profile/children/Message/Message.vue" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front-end/src/views/profile/children/Message/MessageList.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../front-end/src/views/profile/children/Message/MessageList.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front-end/src/views/profile/children/Notifications/Notifications.vue" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front-end/src/views/profile/children/Notifications/RecivedComments.vue" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front-end/src/views/profile/children/edit/EditProfile.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../front-end/src/views/profile/children/edit/EditProfile.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -88,7 +63,7 @@
       <workItem from="1583582888331" duration="1262000" />
       <workItem from="1583748581549" duration="11899000" />
       <workItem from="1584246066691" duration="1380000" />
-      <workItem from="1584334819996" duration="12769000" />
+      <workItem from="1584334819996" duration="15110000" />
     </task>
     <servers />
   </component>
