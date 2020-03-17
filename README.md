@@ -7,4 +7,4 @@
 # 前端页面展示
 
 主页(没错我喜欢的就是五彩斑斓的黑233)
-![image](https://github.com/Somnams/Blog/static/master/001.gif)
+![image](https://github.com/Somnams/Blog/blob/master/static/001.gif)
