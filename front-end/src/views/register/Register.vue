@@ -79,6 +79,7 @@ export default {
 
       const path = '/users'
       const payload = {
+        confirm_email_base_url: window.location.href.split('/', 4).join('/') + '/unconfirmed/?token=',
         username: this.registerForm.username,
         password: this.registerForm.password,
         email: this.registerForm.email

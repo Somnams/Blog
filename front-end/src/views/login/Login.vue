@@ -14,10 +14,14 @@
       <br/>
       <input name="" type="checkbox" value="" id="checkbox-1-1" class="custom-checkbox" />
       <label for="checkbox-1-1">Keep me Signed in</label>
-      <button class="sign_btn">Submit</button>
+      <button class="sign_btn" type="submit">Submit</button>
     </form>
     <div class="select">
       <div>Register <i>----</i><router-link to="/register">click</router-link></div>
+      <div>
+        Forget Your Password?
+        <router-link :to="{ name: 'ResetPasswordRequest' }">Click here to reset it.</router-link>
+      </div>
     </div>
     <div class="tip">
       <p class="tip-text">
@@ -47,12 +51,11 @@ export default {
   },
   methods: {
     onSubmit (e) {
-      this.loginForm.submitted = true
-      this.loginForm.errors = 0
+      this.loginForm.errors = 0 // 重置
 
       if (!this.loginForm.username) {
         this.loginForm.errors++
-        this.loginForm.usernameError = 'Username required'
+        this.loginForm.usernameError = 'Username required.'
       } else {
         this.loginForm.usernameError = null
       }
@@ -70,31 +73,35 @@ export default {
       }
 
       const path = '/tokens'
+      // axios 实现Basic Auth需要在config中设置 auth 这个属性即可
       this.$axios.post(path, {}, {
         auth: {
           username: this.loginForm.username,
           password: this.loginForm.password
         }
+      }).then((response) => {
+        // handle success
+        window.localStorage.setItem('madblog-token', response.data.token)
+        store.loginAction()
+
+        this.$toasted.success(`Welcome ${this.sharedState.user_name}!`, { icon: 'fingerprint' })
+        if (typeof this.$route.query.redirect === 'undefined') {
+          this.$router.push('/')
+        } else {
+          this.$router.push(this.$route.query.redirect)
+        }
       })
-        .then((response) => {
-          window.localStorage.setItem('madblog-token', response.data.token)
-          store.loginAction()
-          const name = JSON.parse(atob(response.data.token.split('.')[1])).user_name
-          this.$toasted.success(`Welcome ${name}!`,
-            { icon: 'fingerprint' })
-          if (typeof this.$route.query.redirect === 'undefined') {
-            this.$router.push('/')
-          } else {
-            this.$router.push(this.$route.query.redirect)
-          }
-        })
         .catch((error) => {
-          // eslint-disable-next-line eqeqeq
-          if (error.response.status == 401) {
-            this.loginForm.usernameError = 'Invalid username.'
-            this.loginForm.passwordError = 'Invalid password.'
-          } else {
-            console.log(error.response)
+          // handle error
+          // console.log('failed', error.response);
+          if (typeof error.response !== 'undefined') {
+            // eslint-disable-next-line eqeqeq
+            if (error.response.status === 401) {
+              this.loginForm.usernameError = 'Invalid username or password.'
+              this.loginForm.passwordError = 'Invalid username or password.'
+            } else {
+              console.log(error.response)
+            }
           }
         })
     }

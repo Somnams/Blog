@@ -17,9 +17,11 @@
                       :total-pages="posts._meta.total_pages" class="list-nav">
           </pagination>
         </div>
-        <router-link to="/add">
-          <button class="common-btn">Add</button>
-        </router-link>
+        <div>
+          <router-link to="/add">
+            <button class="common-btn">Add</button>
+          </router-link>
+        </div>
       </div>
     </div>
     <br>
@@ -31,6 +33,7 @@
 import NavBar from '../../components/common/nav/NavBar'
 import List from '../../components/common/list/List'
 import Pagination from '../../components/common/pagination/Pagination'
+import store from '../../store/store'
 
 export default {
   name: 'Blog',
@@ -41,6 +44,7 @@ export default {
   },
   data () {
     return {
+      sharedState: store.state,
       posts: ''
     }
   },

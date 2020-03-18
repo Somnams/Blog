@@ -66,6 +66,7 @@ export default {
       this.$axios.get(path)
         .then((response) => {
           this.user = response.data
+          console.log(this.user)
         })
         .catch((error) => {
           // eslint-disable-next-line
@@ -78,10 +79,13 @@ export default {
     const user_id = this.$route.params.id
     this.getUser(user_id)
   },
+  // mounted () {
+  //   console.log(this.$route)
+  // },
   // 当 id 变化后重新加载数据
   beforeRouteUpdate (to, from, next) {
-    this.getUser(to.params.id)
     next()
+    this.getUser(to.params.id)
   }
 }
 </script>

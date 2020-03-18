@@ -26,6 +26,9 @@
         <br/>
         <br/>
       </ul>
+      <div class="nav-title" v-if="sharedState.is_authenticated">
+        <router-link to="/admin"><div class="anchor">Admin</div></router-link>
+      </div>
     </div>
   </div>
 </template>
@@ -37,6 +40,7 @@ export default {
   name: 'NavBar',
   data () {
     return {
+      sharedState: store.state,
       current_id: store.state.user_id,
       total_count: 0
     }

@@ -6,9 +6,12 @@
 
 # 前端页面展示
 
-* 主页(没错我喜欢的就是五彩斑斓的黑233，不晓得为啥子动不了..)
+* 主页(没错我喜欢的就是五彩斑斓的黑233，不晓得为啥子动不了..)  
+
 ![image](https://github.com/Somnams/Blog/blob/master/static/001.gif)
-* 评论功能展示
+* 评论功能展示  
+
 ![image](https://github.com/Somnams/Blog/blob/master/static/002.gif)
-* 文章展示
+* 文章展示  
+
 ![image](https://github.com/Somnams/Blog/blob/master/static/comments.png)

@@ -77,7 +77,7 @@
             </div>
           </div>
         </div>
-        <div v-if="comments">
+        <div v-if="comments && comments._meta.total_page > 1">
           <pagination :cur-page="comments._meta.page"
                       :per-page="comments._meta.per_page"
                       :total-pages="comments._meta.total_pages" class="list-nav">
@@ -129,34 +129,25 @@ export default {
     }
   },
   methods: {
-    getUser (id) {
-      const path = `/users/${id}`
-      this.$axios.get(path)
-        .then((res) => {
-          this.user = res.data
-        })
-        .catch((error) => {
-          console.error(error)
-        })
-    },
-    getUserNotifications (id) {
-      let since = 0
-      const path = `/users/${id}/notifications/?since=${since}`
-      this.$axios.get(path)
-        .then((res) => {
-          const len = res.data.length
-          for (let i = 0; i < len; i++) {
-            if (res.data[i].name === 'unread_recived_comments_count') {
-              this.unread_recived_comments_counts = res.data[i].payload
-              break
-            }
-            since = res.data[i].timestamp
-          }
-        })
-        .catch((error) => {
-          console.error(error)
-        })
-    },
+    // getUserNotifications (id) {
+    //   let since = 0
+    //   const path = `/users/${id}/notifications/?since=${since}`
+    //   this.$axios.get(path)
+    //     .then((res) => {
+    //       console.log(res)
+    //       const len = res.data.length
+    //       for (let i = 0; i < len; i++) {
+    //         if (res.data[i].name === 'unread_recived_comments_count') {
+    //           this.unread_recived_comments_counts = res.data[i].payload
+    //           break
+    //         }
+    //         since = res.data[i].timestamp
+    //       }
+    //     })
+    //     .catch((error) => {
+    //       console.error(error)
+    //     })
+    // },
     getUserRecivedComments (id) {
       let page = 1
       // eslint-disable-next-line camelcase
@@ -239,7 +230,7 @@ export default {
           const path = `/comments/${comment.id}`
           this.$axios.delete(path)
             .then((res) => {
-              this.getPostComments(this.$route.params.id)
+              this.getUserRecivedComments(this.sharedState.user_id)
             })
             .catch((error) => {
               console.error(error)
@@ -276,13 +267,12 @@ export default {
   created () {
     // eslint-disable-next-line camelcase
     const user_id = this.sharedState.user_id
-    this.getUser(user_id)
-    this.getUserNotifications(user_id)
+    // this.getUserNotifications(user_id)
     this.getUserRecivedComments(user_id)
   },
   beforeRouteUpdate (to, from, next) {
     next()
-    this.getUserNotifications(this.sharedState.user_id)
+    // this.getUserNotifications(this.sharedState.user_id)
     this.getUserRecivedComments(this.sharedState.user_id)
   }
 }

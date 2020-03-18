@@ -17,7 +17,7 @@
                       :total-pages="diaries._meta.total_pages" class="list-nav">
           </pagination>
         </div>
-        <router-link to="/addlife">
+        <router-link to="/add-life">
           <button class="common-btn">Add</button>
         </router-link>
       </div>

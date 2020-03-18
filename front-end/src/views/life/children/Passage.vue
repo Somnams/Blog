@@ -18,7 +18,6 @@
               :toc-last-level="3"/>
             <br>
           </article>
-          <confirm ref="confirm"/>
           <div class="operation" v-if="diary.author.id == sharedState.user_id">
             <a @click="onDeleteDiary(diary)" title="delete this diary">
               <img src="../../../assets/icon-img/shanchu.svg" alt="" class="icon-img"></a>
@@ -27,6 +26,7 @@
           </div>
         </div>
       </main>
+      <confirm ref="confirm"/>
       <br>
       <br>
     </div>
@@ -35,8 +35,8 @@
 
 <script>
 import NavBar from '../../../components/common/nav/NavBar'
-import Confirm from '../../../components/common/confirm/Confirm'
 import store from '../../../store/store'
+import { confirmMiXin } from '../../../common/mixin'
 import VueMarkdown from 'vue-markdown'
 import hljs from 'highlight.js'
 const highLightCode = () => {
@@ -50,9 +50,9 @@ export default {
   name: 'Passage',
   components: {
     NavBar,
-    VueMarkdown,
-    Confirm
+    VueMarkdown
   },
+  mixins: [confirmMiXin],
   data () {
     return {
       sharedState: store.state,
@@ -76,7 +76,6 @@ export default {
           const path = `/diaries/${diary.id}`
           this.$axios.delete(path)
             .then((res) => {
-              console.log('delete successful')
               if (typeof this.$route.query.redirect === 'undefined') {
                 this.$router.push('/life')
               } else {
@@ -86,7 +85,7 @@ export default {
         })
       // eslint-disable-next-line handle-callback-err
         .catch((err) => {
-          console.log('this post is safity')
+          this.$toasted.success('This Passage is safety.')
         })
     },
     toEdit () {
@@ -97,7 +96,6 @@ export default {
     // eslint-disable-next-line camelcase
     const diary_id = this.$route.params.id
     this.getDiary(diary_id)
-    this.onDeleteDiary(diary_id)
   },
   mounted () {
     highLightCode()
