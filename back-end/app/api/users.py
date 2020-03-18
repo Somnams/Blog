@@ -713,7 +713,7 @@ def resend_confirmation():
 @bp.route('/confirm/<token>', methods=['GET'])
 @token_auth.login_required
 def confirm(token):
-    '''用户收到验证邮件后，验证其账户'''
+    """用户收到验证邮件后，验证其账户"""
     if g.current_user.confirmed:
         return bad_request(_('You have already confirmed your account.'))
     if g.current_user.verify_confirm_jwt(token):

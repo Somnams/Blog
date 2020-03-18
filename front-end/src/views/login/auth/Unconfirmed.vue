@@ -26,6 +26,7 @@ export default {
         .then((response) => {
           // handle success
           this.user = response.data
+          console.log(this.user)
         })
         .catch((error) => {
           // handle error
@@ -68,9 +69,13 @@ export default {
   },
   created () {
     // 点击邮件中的链接后，确认账户
-    console.log(this.$route.query)
-    if (this.$route.query.token) {
-      this.onConfirm(this.$route.query.token)
+    console.log(typeof this.$route.query.redirect)
+    const st = this.$route.query.redirect
+    const res = st.split('token=')[1]
+    console.log(res)
+    if (res) {
+      this.onConfirm(res)
+      console.log('ok')
     }
 
     // 未确认的用户，显示提示信息

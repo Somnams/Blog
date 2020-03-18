@@ -39,9 +39,11 @@
           </div>
         </div>
       </div>
-      <pagination :cur-page="messages._meta.page"
-                  :per-page="messages._meta.per_page"
-                  :total-pages="messages._meta.total_pages"/>
+      <div v-if="messages && messages._meta.total_pages > 1">
+        <pagination :cur-page="messages._meta.page"
+                    :per-page="messages._meta.per_page"
+                    :total-pages="messages._meta.total_pages"/>
+      </div>
     </main>
   </div>
 </template>
