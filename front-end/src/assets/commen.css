@@ -92,6 +92,7 @@ a:hover,
 .icon-img {
     width: 20px;
     padding-left: 20px;
+    padding-right: 5px;
     vertical-align: text-bottom;
 }
 .icon-img-dian {

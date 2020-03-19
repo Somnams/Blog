@@ -60,7 +60,7 @@ def create_role():
 @token_auth.login_required
 @admin_required
 def get_roles():
-    '''返回所有角色的集合'''
+    """返回所有角色的集合"""
     page = request.args.get('page', 1, type=int)
     per_page = min(request.args.get('per_page', 10, type=int), 100)
     data = Role.to_collection_dict(Role.query, page, per_page, 'api.get_roles')
@@ -71,7 +71,7 @@ def get_roles():
 @token_auth.login_required
 @admin_required
 def get_role(id):
-    '''返回一个角色'''
+    """返回一个角色"""
     role = Role.query.get_or_404(id)
     data = role.to_dict()
 

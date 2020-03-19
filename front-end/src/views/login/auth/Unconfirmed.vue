@@ -69,6 +69,7 @@ export default {
   },
   created () {
     // 点击邮件中的链接后，确认账户
+    // 疑惑：query获取不到路径的查询参数
     console.log(typeof this.$route.query.redirect)
     const st = this.$route.query.redirect
     const res = st.split('token=')[1]

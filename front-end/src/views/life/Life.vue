@@ -17,9 +17,11 @@
                       :total-pages="diaries._meta.total_pages" class="list-nav">
           </pagination>
         </div>
-        <router-link to="/add-life">
-          <button class="common-btn">Add</button>
-        </router-link>
+        <div v-if="sharedState.user_perms.includes('write')">
+          <router-link to="/add-life">
+            <button class="common-btn">Add</button>
+          </router-link>
+        </div>
       </div>
     </div>
     <br>
@@ -31,6 +33,7 @@
 import NavBar from '../../components/common/nav/NavBar'
 import List from '../../components/common/list/List'
 import Pagination from '../../components/common/pagination/Pagination'
+import store from '../../store/store'
 export default {
   name: 'Life',
   components: {
@@ -40,6 +43,7 @@ export default {
   },
   data () {
     return {
+      sharedState: store.state,
       diaries: ''
     }
   },

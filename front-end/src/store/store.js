@@ -8,7 +8,7 @@ export default {
     // 后端传 URL 必须先用 base64 编码，所以这里还要多进行一次 atob 解码 base64 字符串
     user_avatar: window.localStorage.getItem('madblog-token') ? atob(JSON.parse(atob(window.localStorage.getItem('madblog-token').split('.')[1])).user_avatar) : '',
     // 用户权限
-    user_perms: window.localStorage.getItem('madblog-token') ? JSON.parse(atob(window.localStorage.getItem('madblog-token').split('.')[1])).permissions : ''
+    user_perms: window.localStorage.getItem('madblog-token') ? JSON.parse(atob(window.localStorage.getItem('madblog-token').split('.')[1])).permissions.split(',') : ''
   },
   loginAction () {
     if (this.debug) { console.log('loginAction triggered') }
@@ -17,7 +17,7 @@ export default {
     this.state.user_id = payload.user_id
     this.state.user_name = payload.user_name
     this.state.user_avatar = atob(payload.user_avatar)
-    // this.state.user_perms = payload.permissions.split(',') // 转换成数组
+    this.state.user_perms = payload.permissions.split(',') // 转换成数组
   },
   logoutAction () {
     if (this.debug) console.log('logoutAction triggered')

@@ -2,7 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="bfd25569-9722-4618-a57c-c0bcf369fb08" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app.db" beforeDir="false" afterPath="$PROJECT_DIR$/app.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/api/roles.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/api/roles.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front-end/src/components/common/nav/NavBar.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../front-end/src/components/common/nav/NavBar.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front-end/src/router/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/../front-end/src/router/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front-end/src/store/store.js" beforeDir="false" afterPath="$PROJECT_DIR$/../front-end/src/store/store.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front-end/src/views/blog/Blog.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../front-end/src/views/blog/Blog.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front-end/src/views/life/Life.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../front-end/src/views/life/Life.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../front-end/src/views/login/auth/Unconfirmed.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../front-end/src/views/login/auth/Unconfirmed.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -71,7 +78,7 @@
       <workItem from="1583748581549" duration="11899000" />
       <workItem from="1584246066691" duration="1380000" />
       <workItem from="1584334819996" duration="31725000" />
-      <workItem from="1584511012929" duration="19520000" />
+      <workItem from="1584511012929" duration="21026000" />
     </task>
     <servers />
   </component>

@@ -18,7 +18,15 @@ import Unconfirmed from '../views/login/auth/Unconfirmed'
 import ResetPasswordRequest from '../views/login/auth/ResetPasswordRequest'
 import Demo from '../components/Demo'
 import ResetPassword from '../views/login/auth/ResetPassword'
+
 import Admin from '../views/admin/Admin'
+import Comments from '../views/admin/comments/Comments'
+import Posts from '../views/admin/posts/Posts'
+import Roles from '../views/admin/roles/Roles'
+import AddRoles from '../views/admin/roles/chirden/AddRoles'
+import EditRoles from '../views/admin/roles/chirden/EditRoles'
+import Users from '../views/admin/users/Users'
+import EditUsers from '../views/admin/users/chirden/EditUsers'
 
 Vue.use(VueRouter)
 
@@ -42,7 +50,25 @@ const router = new VueRouter({
     { path: '/add-life', name: AddLife, component: AddLife, meta: { requiresAuth: true } },
     { path: '/message', name: Index, component: Index, meta: { requiresAuth: true } },
     { path: '/message/list', name: MessageList, component: MessageList, meta: { requiresAuth: true } },
-    { path: '/admin', name: Admin, component: Admin, meta: { requiresAuth: true } }
+    // ADMIN
+    {
+      path: '/admin',
+      component: Admin,
+      children: [
+        { path: '', component: Roles },
+        { path: 'roles', name: 'AdminRoles', component: Roles },
+        { path: 'add-roles', name: 'AdminAddRoles', component: AddRoles },
+        { path: 'edit-roles', name: 'AdminEditRoles', component: EditRoles },
+        { path: 'users', name: 'AdminUsers', component: Users },
+        { path: 'edit-users', name: 'AdminEditUsers', component: EditUsers },
+        { path: 'posts', name: 'AdminPosts', component: Posts },
+        { path: 'comments', name: 'AdminComments', component: Comments }
+      ],
+      meta: {
+        requiresAuth: true,
+        requiresAdmin: true
+      }
+    }
   ]
 })
 
@@ -50,6 +76,8 @@ router.beforeEach((to, from, next) => {
   const token = window.localStorage.getItem('madblog-token')
   if (token) {
     var payload = JSON.parse(atob(token.split('.')[1]))
+    // eslint-disable-next-line camelcase
+    var user_perms = payload.permissions.split(',')
   }
   if (to.matched.some(record => record.meta.requiresAuth) && (!token)) {
     Vue.toasted.show('Please log in to access this page.', { icon: 'fingerprint' })
@@ -70,6 +98,11 @@ router.beforeEach((to, from, next) => {
   } else if (token && (to.path === '/login' || to.path === '/register' || to.name === 'ResetPassword')) {
     next({
       path: from.fullPath
+    })
+  } else if (to.matched.some(record => record.meta.requiresAdmin && token && !user_perms.includes('admin'))) {
+    Vue.toasted.error('403: Forbidden', { icon: 'fingerprint' })
+    next({
+      path: '/'
     })
   } else if (to.matched.length === 0) {
     Vue.toasted.error('404:Not Found', { icon: 'fingerprint' })

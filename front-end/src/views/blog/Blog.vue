@@ -17,7 +17,7 @@
                       :total-pages="posts._meta.total_pages" class="list-nav">
           </pagination>
         </div>
-        <div>
+        <div v-if="sharedState.user_perms.includes('write')">
           <router-link to="/add">
             <button class="common-btn">Add</button>
           </router-link>

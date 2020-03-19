@@ -23,13 +23,13 @@
         <li class="nav-link">
           <router-link :to="{ path: '/message' }">Message</router-link>
         </li>
-        <br/>
-        <br/>
       </ul>
-      <div class="nav-title" v-if="sharedState.is_authenticated">
+      <div class="nav-title" v-if="sharedState.is_authenticated && sharedState.user_perms.includes('admin')">
         <router-link to="/admin"><div class="anchor">Admin</div></router-link>
       </div>
     </div>
+    <br>
+    <br>
   </div>
 </template>
 
