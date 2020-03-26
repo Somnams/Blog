@@ -1,8 +1,9 @@
 <template>
     <div class="page">
       <!-- Sidebar -->
-      <div class="nav-bar wrapper">
+      <div class="nav-bar" :class="{ close: isHidden }">
         <div class="sidebar-wrapper">
+          <a @click="onShow" class="closeBtn">&times;</a>
           <ul class="sidebar-nav">
             <li class="sidebar-brand">
               SideBar
@@ -11,7 +12,7 @@
               <img class="icon-img" src="../../assets/icon-img/iconfuzhi.svg">
               <router-link :to="{ name: 'AdminUsers' }">Users</router-link>
             </li>
-            <li>
+            <li class="active">
               <img src="../../assets/icon-img/iconzhucetouxiang.svg" alt="" class="icon-img">
               <router-link :to="{ name: 'AdminRoles' }">Roles</router-link>
             </li>
@@ -26,16 +27,9 @@
           </ul>
         </div>
       </div>
-      <div class="container-wrapper">
-        <div class="bg-faded">
-          <a id="menu-toggle">
-            <img src="../../assets/icon-img/liebiao.svg" class="icon-img">
-          </a>
-          <span>List</span>
-        </div>
-        <div class="main-content">
-          <router-view/>
-        </div>
+      <div class="main-content" :class="{ open: isHidden }">
+        <a class="openBtn" @click="onHidden">&#9776;</a>
+        <router-view/>
       </div>
     </div>
 </template>
@@ -48,7 +42,8 @@ export default {
   data () {
     return {
       sharedState: store.state,
-      user: ''
+      user: '',
+      isHidden: true
     }
   },
   methods: {
@@ -61,6 +56,12 @@ export default {
         .catch((err) => {
           console.error(err)
         })
+    },
+    onShow () {
+      this.isHidden = true
+    },
+    onHidden () {
+      this.isHidden = false
     }
   },
   computed: {
@@ -75,14 +76,24 @@ export default {
 </script>
 
 <style scoped>
-  .wrapper {
-    transition: all .5s ease;
-    -webkit-transition: all .5s ease;
-    -moz-transition: all .5s ease;
-    -o-transition: all .5s ease;
+  .close {
+    left: -300px;
   }
-  .container-wrapper {
-    margin-left: 26%;
+  .open {
+    margin-left: 0;
+  }
+  .closeBtn {
     position: absolute;
+    top: 10px;
+    right: 25px;
+    font-size: 28px;
+  }
+  .openBtn {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+  }
+  .active {
+    border-right: 4px solid #fff;
   }
 </style>

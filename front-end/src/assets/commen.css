@@ -23,6 +23,7 @@ ul li {
     border-right: 5px solid;
     border-color: #434343;
     z-index: 1;
+    transition: 1s;
 }
 
 .page {
@@ -34,9 +35,11 @@ ul li {
 }
 
 .page .main-content {
-    margin-left: 26%;
+    position: relative;
+    margin-left: 25%;
     margin-right: 80px;
     height: 100%;
+    transition: 1s;
 }
 
 header{
