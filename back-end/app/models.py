@@ -131,9 +131,8 @@ class User(PaginatedAPIMixin, db.Model):
     confirmed = db.Column(db.Boolean, default=False)
     # 用户所属的角色
     role_id = db.Column(db.Integer, db.ForeignKey('roles.id'))
-
-    def __repr__(self):
-        return '<User {}>'.format(self.username)
+    # 用户的RQ后台任务
+    tasks = db.relationship('Task', backref='user', lazy='dynamic')
 
     def set_password(self, password):
         """设置用户密码，保存为 Hash 值"""
@@ -145,8 +144,9 @@ class User(PaginatedAPIMixin, db.Model):
 
     def avatar(self, size):
         """用户头像"""
-        digest = md5(self.email.lower().encode('utf-8')).hexdigest()
-        return 'https://www.gravatar.com/avatar/{}?d=identicon&s={}'.format(digest, size)
+        if self.email is not None:
+            digest = md5(self.email.lower().encode('utf-8')).hexdigest()
+            return 'https://www.gravatar.com/avatar/{}?d=identicon&s={}'.format(digest, size)
 
     def to_dict(self, include_email=False):
         data = {
@@ -174,7 +174,7 @@ class User(PaginatedAPIMixin, db.Model):
                 'diaries': url_for('api.get_diaries', id=self.id),
                 'followeds_posts': url_for('api.get_user_followeds_posts', id=self.id),
                 'comments': url_for('api.get_user_comments', id=self.id),
-                'role': url_for('api.get_token', id=self.role_id)
+                'role': url_for('api.get_role', id=self.role_id)
             }
         }
         if include_email:
@@ -200,7 +200,7 @@ class User(PaginatedAPIMixin, db.Model):
         db.session.add(self)
 
     def get_jwt(self, expires_in=3600):
-        '''用户登录后，发放有效的 JWT'''
+        """用户登录后，发放有效的 JWT"""
         now = datetime.utcnow()
         payload = {
             'user_id': self.id,
@@ -243,12 +243,12 @@ class User(PaginatedAPIMixin, db.Model):
             self.followeds.append(user)
 
     def unfollow(self, user):
-        '''当前用户取消关注 user 这个用户对象'''
+        """当前用户取消关注 user 这个用户对象"""
         if self.is_following(user):
             self.followeds.remove(user)
 
     def followeds_posts(self):
-        '''获取当前用户的关注者的所有博客列表'''
+        """获取当前用户的关注者的所有博客列表"""
         followed = Post.query.join(
             followers, (followers.c.followed_id == Post.author_id)).filter(
                 followers.c.follower_id == self.id)
@@ -423,6 +423,25 @@ class User(PaginatedAPIMixin, db.Model):
         """检查用户是否为管理员"""
         return self.can(Permission.ADMIN)
 
+    def get_task_in_progress(self, name):
+        """检查指定任务名的RQ任务是否还在运行中"""
+        return Task.query.filter_by(name=name, user=self, complete=False).first()
+
+    def launch_task(self, name, description, *args, **kwargs):
+        """用户启动一个新的后台任务"""
+        rq_job = current_app.task_queue.enqueue('app.utils.tasks.' + name, *args, **kwargs)
+        task = Task(id=rq_job.get_id(), name=name, description=description, user=self)
+        db.session.add(task)
+        db.session.commit()
+        return task
+
+    def get_tasks_in_progress(self):
+        """返回用户所有正在运行中的后台任务"""
+        return Task.query.filter_by(user=self, complete=False).all()
+
+    def __repr__(self):
+        return '<User {}>'.format(self.username)
+
 
 class Task(PaginatedAPIMixin, db.Model):
     __tablename__ = 'tasks'
@@ -567,10 +586,10 @@ class Post(PaginatedAPIMixin, db.Model):
 
     @staticmethod
     def on_changed_body(target, value, oldvalue, initiator):
-        '''
+        """
         target: 有监听事件发生的 Post 实例对象
         value: 监听哪个字段的变化
-        '''
+        """
         if not target.summary:  # 如果前端不填写摘要，是空str，而不是None
             target.summary = value[:200] + '  ... ...'  # 截取 body 字段的前200个字符给 summary
 
@@ -613,16 +632,16 @@ class Post(PaginatedAPIMixin, db.Model):
                 setattr(self, field, data[field])
 
     def is_liked_by(self, user):
-        '''判断用户 user 是否已经收藏过该文章'''
+        """判断用户 user 是否已经收藏过该文章"""
         return user in self.likers
 
     def liked_by(self, user):
-        '''收藏'''
+        """收藏"""
         if not self.is_liked_by(user):
             self.likers.append(user)
 
     def unliked_by(self, user):
-        '''取消收藏'''
+        """取消收藏"""
         if self.is_liked_by(user):
             self.likers.remove(user)
 

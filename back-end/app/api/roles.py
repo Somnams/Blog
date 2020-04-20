@@ -91,7 +91,7 @@ def get_role(id):
 @token_auth.login_required
 @admin_required
 def update_role(id):
-    '''修改一个角色'''
+    """修改一个角色"""
     role = Role.query.get_or_404(id)
     data = request.get_json()
     if not data:
@@ -123,7 +123,7 @@ def update_role(id):
 @token_auth.login_required
 @admin_required
 def delete_role(id):
-    '''删除一个角色'''
+    """删除一个角色"""
     role = Role.query.get_or_404(id)
     db.session.delete(role)
     db.session.commit()

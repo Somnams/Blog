@@ -107,3 +107,35 @@ a:hover,
     height: 50px;
     border-radius: 50%;
 }
+
+.admin-content {
+    position: absolute;
+    top: 10%;
+    right: 0;
+    left: 50px;
+    width: 100%;
+}
+
+.table-reason {
+    width: 90%;
+}
+td {
+    opacity: 0.8;
+}
+th, td {
+    text-align: center;
+    border-bottom: 1px solid #fff;
+}
+
+textarea {
+    color: #fff;
+    border: 2px solid rgba(0, 0, 0, 0);
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.1);
+}
+textarea:focus {
+    outline: none;
+    background: rgba(0, 0, 0, 0);
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    transition: all 0.5s ease-in-out;
+}

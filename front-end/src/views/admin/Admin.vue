@@ -27,10 +27,13 @@
           </ul>
         </div>
       </div>
-      <div class="main-content" :class="{ open: isHidden }">
-        <a class="openBtn" @click="onHidden">&#9776;</a>
-        <router-view/>
-      </div>
+      <main class="main-content" :class="{ open: isHidden }">
+        <header>Hello, {{ user.username }}(Admin)</header>
+        <a @click="onHidden" class="openBtn">&#9776;</a>
+        <div>
+          <router-view/>
+        </div>
+      </main>
     </div>
 </template>
 
@@ -43,7 +46,7 @@ export default {
     return {
       sharedState: store.state,
       user: '',
-      isHidden: true
+      isHidden: false
     }
   },
   methods: {
@@ -67,7 +70,6 @@ export default {
   computed: {
   },
   created () {
-    console.log(this.$route)
     // eslint-disable-next-line camelcase
     const user_id = this.sharedState.user_id
     this.getUser(user_id)
@@ -90,7 +92,7 @@ export default {
   }
   .openBtn {
     position: absolute;
-    top: 20px;
+    top: 0;
     left: 20px;
   }
   .active {

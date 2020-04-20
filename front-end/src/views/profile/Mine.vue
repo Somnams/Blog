@@ -5,6 +5,18 @@
       Personal Profile
     </header>
     <main class="main-content" id="mine-content">
+      <div class="group-messages" v-if="isShow">
+        <div class="msg-form">
+          <img src="../../assets/icon-img/youjianxinjian.svg" class="icon-img">Group Messages
+          <form @submit.prevent="">
+            <textarea name="" id="" cols="30" rows="10" class="msg-input"></textarea>
+            <div class="msg-bottom">
+              <button type="submit" class="icon-btn">submit</button>
+              <button type="reset" class="icon-btn">reset</button>
+            </div>
+          </form>
+        </div>
+      </div>
       {{ user.username }}
       {{ user.location }}
       <!-- Member since -->
@@ -29,6 +41,10 @@
           <img src="../../assets/icon-img/youjianxinjian.svg" alt="" class="icon-img">
         </router-link>
       </div>
+
+      <div v-if="$route.params.id == sharedState.user_id && sharedState.user_perms.includes('admin')">
+        <button class="common-btn mine-btn" @click="onShow">send Messages</button>
+      </div>
     </main>
   </div>
 </template>
@@ -45,6 +61,7 @@ export default {
   data () {
     return {
       sharedState: store.state,
+      isShow: true,
       user: {
         username: '',
         email: '',
@@ -72,6 +89,9 @@ export default {
           // eslint-disable-next-line
             console.error(error)
         })
+    },
+    onShow () {
+      this.isShow = true
     }
   },
   created () {
@@ -98,11 +118,6 @@ export default {
   #mine .main-content .infor-card {
     width: 100%;
 
-  }
-  .infor-card {
-    font-size: 60px;
-    font-weight: 500;
-    letter-spacing: 5px;
   }
   .infor-card .detail-card {
     width: 80%;
@@ -149,5 +164,32 @@ export default {
 
   .sign_btn:focus {
     outline: none;
+  }
+  .mine-btn {
+    width: 180px;
+  }
+  .group-messages {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 990;
+  }
+  .msg-form {
+    position: absolute;
+    top: 50px;
+    left: 20%;
+    bottom: 0;
+    width: 60%;
+    border: 1px solid #eee;
+    text-align: center;
+    background: #000;
+  }
+  .msg-input {
+    padding: 20px;
+    width: 80%;
+    height: 100%;
   }
 </style>

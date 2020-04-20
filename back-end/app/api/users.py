@@ -83,12 +83,13 @@ def create_user():
 @bp.route('/users/', methods=['GET'])
 @token_auth.login_required
 def get_users():
-    '''返回用户集合，分页'''
+    """返回用户集合，分页"""
     page = request.args.get('page', 1, type=int)
     per_page = min(
         request.args.get(
             'per_page', current_app.config['USERS_PER_PAGE'], type=int), 100)
-    data = User.to_collection_dict(User.query.order_by(User.member_since.desc()), page, per_page, 'api.get_users')
+    data = User.to_collection_dict(User.query.order_by(User.member_since.desc()),
+                                   page, per_page, 'api.get_users')
     return jsonify(data)
 
 
@@ -140,7 +141,7 @@ def update_user(id):
 @bp.route('/users/<int:id>', methods=['DELETE'])
 @token_auth.login_required
 def delete_user(id):
-    """删除一个用户"""
+    '''删除一个用户'''
     user = User.query.get_or_404(id)
     if g.current_user != user and not g.current_user.can(Permission.ADMIN):
         return error_response(403)
@@ -634,7 +635,7 @@ def get_user_tasks_in_progress(id):
 @token_auth.login_required
 @permission_required(Permission.FOLLOW)
 def block(id):
-    """开始拉黑一个用户"""
+    '''开始拉黑一个用户'''
     user = User.query.get_or_404(id)
     if g.current_user == user:
         return bad_request('You cannot block yourself.')
@@ -653,7 +654,7 @@ def block(id):
 @token_auth.login_required
 @permission_required(Permission.FOLLOW)
 def unblock(id):
-    """取消拉黑一个用户"""
+    '''取消拉黑一个用户'''
     user = User.query.get_or_404(id)
     if g.current_user == user:
         return bad_request('You cannot unblock yourself.')
@@ -670,7 +671,7 @@ def unblock(id):
 @bp.route('/resend-confirm', methods=['POST'])
 @token_auth.login_required
 def resend_confirmation():
-    """重新发送确认账户的邮件"""
+    '''重新发送确认账户的邮件'''
     data = request.get_json()
     if not data:
         return bad_request(_('You must post JSON data.'))
@@ -713,7 +714,7 @@ def resend_confirmation():
 @bp.route('/confirm/<token>', methods=['GET'])
 @token_auth.login_required
 def confirm(token):
-    """用户收到验证邮件后，验证其账户"""
+    '''用户收到验证邮件后，验证其账户'''
     if g.current_user.confirmed:
         return bad_request(_('You have already confirmed your account.'))
     if g.current_user.verify_confirm_jwt(token):
@@ -784,7 +785,7 @@ def reset_password_request():
 
 @bp.route('/reset-password/<token>', methods=['POST'])
 def reset_password(token):
-    """用户点击邮件中的链接，通过验证 JWT 来重置对应的账户的密码"""
+    '''用户点击邮件中的链接，通过验证 JWT 来重置对应的账户的密码'''
     data = request.get_json()
     if not data:
         return bad_request(_('You must post JSON data.'))
@@ -804,7 +805,7 @@ def reset_password(token):
 @bp.route('/update-password', methods=['POST'])
 @token_auth.login_required
 def update_password():
-    """已登录的用户更新自己的密码"""
+    '''已登录的用户更新自己的密码'''
     data = request.get_json()
     if not data:
         return bad_request(_('You must post JSON data.'))

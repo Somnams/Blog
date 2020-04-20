@@ -40,7 +40,7 @@ const router = new VueRouter({
     { path: '/login', name: Login, component: Login },
     { path: '/edit-profile', name: EditProfile, component: EditProfile, meta: { requiresAuth: true } },
     { path: '/blog', name: Blog, component: Blog, meta: { requiresAuth: true } },
-    { path: '/blog/post/:id', name: Post, component: Post, meta: { requiresAuth: true } },
+    { path: '/blog/post/:id', name: 'Post', component: Post, meta: { requiresAuth: true } },
     { path: '/life', name: Life, component: Life },
     { path: '/life/diary/:id', name: Passage, component: Passage, meta: { requiresAuth: true } },
     { path: '/user/:id', name: Mine, component: Mine, meta: { requiresAuth: true } },

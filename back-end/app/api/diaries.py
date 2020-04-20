@@ -37,7 +37,7 @@ def create_diary():
 
 @bp.route('/diaries/', methods=['GET'])
 def get_diaries():
-    '''返回文章集合，分页'''
+    """返回文章集合，分页"""
     page = request.args.get('page', 1, type=int)
     per_page = min(
         request.args.get(
@@ -106,7 +106,7 @@ def update_diary(id):
 @bp.route('/diaries/<int:id>', methods=['DELETE'])
 @token_auth.login_required
 def delete_diary(id):
-    '''删除一篇文章'''
+    """删除一篇文章"""
     diary = Diary.query.get_or_404(id)
     if g.current_user != diary.author:
         return error_response(403)
