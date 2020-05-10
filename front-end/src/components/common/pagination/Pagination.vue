@@ -37,7 +37,7 @@ export default {
       required: true
     },
     perPage: {
-      default: 3
+      default: 10
     },
     totalPages: {
       required: true
@@ -50,28 +50,33 @@ export default {
     }
   },
   computed: {
-    // eslint-disable-next-line vue/return-in-computed-property
     iter_pages: function () {
+      // 构建分页导航，当前页左、右两边各显示2页，比如  1, 2, ... 7, 8, 9, 10, 11 ... 30, 31
       let arr = [1, 2]
-      for (let i = this.leftPages; i > 0; i--) {
+      for (var i = this.leftPages; i > 0; i--) {
         arr.push(this.curPage - i)
       }
       arr.push(this.curPage)
-      for (let i = 1; i <= this.rightPages; i++) {
+      // eslint-disable-next-line no-redeclare
+      for (var i = 1; i <= this.rightPages; i++) {
         arr.push(this.curPage + i)
       }
       arr.push(this.totalPages - 1)
       arr.push(this.totalPages)
 
+      // 小于1，或大于最大页数的都是非法的，要去除
       arr = arr.filter(item => item > 0 && item <= this.totalPages)
+      // 去除重复项
       arr = [...new Set(arr)]
-      if (this.curPage + this.right < this.totalPages - 2) {
+      // 假设当前页为1，总页数为6或6以上时，在倒数第2个位置插入特殊标记  1, 2, 3 ... 5, 6
+      if (this.curPage + this.rightPages < this.totalPages - 2) {
         arr.splice(-2, 0, 'NaN')
       }
-
+      // 当前页为6或6以上时，在第3个位置插入特殊标记  1, 2 ... 4, 5, 6
       if (this.curPage - this.leftPages - 1 > 2) {
         arr.splice(2, 0, 'NaN')
       }
+
       return arr
     }
   }

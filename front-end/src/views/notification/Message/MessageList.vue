@@ -38,8 +38,8 @@
 </template>
 
 <script>
-import store from '../../../../store/store'
-import Comment from '../../../../components/common/comment/Comment'
+import store from '../../../store/store'
+import Comment from '../../../components/common/comment/Comment'
 export default {
   name: 'MessageList',
   inject: ['reload'],

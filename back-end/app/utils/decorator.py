@@ -5,7 +5,7 @@ from app.models import Permission
 
 
 def permission_required(permission):
-    '''检查常规权限'''
+    """检查常规权限"""
     def decorator(f):
         @wraps(f)
         def decorated_function(*args, **kwargs):
@@ -17,5 +17,5 @@ def permission_required(permission):
 
 
 def admin_required(f):
-    '''检查管理员权限'''
+    """检查管理员权限"""
     return permission_required(Permission.ADMIN)(f)

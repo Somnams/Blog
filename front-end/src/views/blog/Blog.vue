@@ -3,7 +3,7 @@
     <nav-bar class="nav-bar" id="blog-nav"/>
     <div>
       <header>
-        Blog  List
+        <nav-header/>
       </header>
       <div class="main-content" id="blog-content">
         <div v-if="posts" class="content">
@@ -31,6 +31,7 @@
 
 <script>
 import NavBar from '../../components/common/nav/NavBar'
+import NavHeader from '../../components/common/nav/NavHeader'
 import List from '../../components/common/list/List'
 import Pagination from '../../components/common/pagination/Pagination'
 import store from '../../store/store'
@@ -40,7 +41,8 @@ export default {
   components: {
     NavBar,
     List,
-    Pagination
+    Pagination,
+    NavHeader
   },
   data () {
     return {
@@ -87,7 +89,9 @@ export default {
 <style scoped>
   #blog-content {
     clear: both;
+    top: 50px;
     display: block;
+    margin-top: 200px;
   }
   .content {
     width: 100%

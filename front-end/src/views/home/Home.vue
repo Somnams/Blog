@@ -7,7 +7,7 @@
       </p>
     </main>
     <nav id="home-nav">
-      <router-link tag="a" target="_blank" to="/blog"><div class="anchor">click</div></router-link>
+      <router-link tag="a" to="/blog"><div class="anchor">click</div></router-link>
     </nav>
     <footer>
       <ul>
@@ -35,6 +35,9 @@ export default {
 </script>
 
 <style scoped>
+  .page {
+    overflow-y: hidden;
+  }
   #home-nav {
     width: 120px;
     height: 120px;

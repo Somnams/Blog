@@ -1,0 +1,128 @@
+# Translations template for PROJECT.
+# Copyright (C) 2020 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2020.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2020-05-06 15:00+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.8.0\n"
+
+#: madblog.py:22
+msgid "Hello, World!"
+msgstr ""
+
+#: app/api/users.py:20 app/api/users.py:115 app/api/users.py:676
+#: app/api/users.py:738 app/api/users.py:790 app/api/users.py:810
+msgid "You must post JSON data."
+msgstr ""
+
+#: app/api/users.py:24 app/api/users.py:119
+msgid "Please provide a valid username."
+msgstr ""
+
+#: app/api/users.py:27 app/api/users.py:123 app/api/users.py:745
+msgid "Please provide a valid email address."
+msgstr ""
+
+#: app/api/users.py:29 app/api/users.py:792
+msgid "Please provide a valid password."
+msgstr ""
+
+#: app/api/users.py:32 app/api/users.py:127
+msgid "Please use a different username."
+msgstr ""
+
+#: app/api/users.py:34 app/api/users.py:130
+msgid "Please use a different email address."
+msgstr ""
+
+#: app/api/users.py:177
+msgid "You cannot follow yourself."
+msgstr ""
+
+#: app/api/users.py:179
+msgid "You have already followed that user."
+msgstr ""
+
+#: app/api/users.py:187
+#, python-format
+msgid "You are now following %(username)s."
+msgstr ""
+
+#: app/api/users.py:208
+#, python-format
+msgid "You are not following %(username)s anymore."
+msgstr ""
+
+#: app/api/users.py:648
+#, python-format
+msgid "You are now blocking %(username)s."
+msgstr ""
+
+#: app/api/users.py:666
+#, python-format
+msgid "You are not blocking %(username)s anymore."
+msgstr ""
+
+#: app/api/users.py:678 app/api/users.py:742
+msgid "Please provide a valid confirm email base url."
+msgstr ""
+
+#: app/api/users.py:709
+msgid "A new confirmation email has been sent to you by email."
+msgstr ""
+
+#: app/api/users.py:718
+msgid "You have already confirmed your account."
+msgstr ""
+
+#: app/api/users.py:726
+msgid "You have confirmed your account. Thanks!"
+msgstr ""
+
+#: app/api/users.py:730
+msgid "The confirmation link is invalid or has expired."
+msgstr ""
+
+#: app/api/users.py:781
+msgid "An email with instructions to reset your password has been sent to you."
+msgstr ""
+
+#: app/api/users.py:795
+msgid "The reset password link is invalid or has expired."
+msgstr ""
+
+#: app/api/users.py:800
+msgid "Your password has been reset."
+msgstr ""
+
+#: app/api/users.py:813
+msgid "Please provide a valid old password."
+msgstr ""
+
+#: app/api/users.py:815
+msgid "Please provide a valid new password."
+msgstr ""
+
+#: app/api/users.py:817
+msgid "The new password is equal to the old password."
+msgstr ""
+
+#: app/api/users.py:820
+msgid "The old password is wrong."
+msgstr ""
+
+#: app/api/users.py:825
+msgid "Your password has been updated."
+msgstr ""
+

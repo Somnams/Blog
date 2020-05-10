@@ -1,15 +1,18 @@
 <template>
   <div class="page">
-    <h1>Reset Your Password</h1>
-    <div class="row">
-      <div class="col-md-4">
-        <form @submit.prevent="onSubmit">
-          <div class="form-group" v-bind:class="{'u-has-error-v1': resetPasswordForm.passwordError}">
+    <header>
+      <router-link :to="{ path: '/' }" class="home-icon">Home</router-link>
+    </header>
+    <div>
+      <div class="main-content">
+        <h1>Reset Your Password</h1>
+        <form @submit.prevent="onSubmit" class="reset-form">
             <label for="password">New Password</label>
-            <input type="password" v-model="resetPasswordForm.password" class="form-control" id="password" placeholder="">
-            <small class="form-control-feedback" v-show="resetPasswordForm.passwordError">{{ resetPasswordForm.passwordError }}</small>
-          </div>
-          <button type="submit" class="btn btn-primary">Reset Password</button>
+            <input type="password"
+                   v-model="resetPasswordForm.password"
+                   id="password" placeholder="" class="reset-in">
+            <small v-show="resetPasswordForm.passwordError">{{ resetPasswordForm.passwordError }}</small>
+          <button type="submit" class="common-btn reset-btn">Reset Password</button>
         </form>
       </div>
     </div>

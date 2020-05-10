@@ -5,24 +5,24 @@
         <input class="text" v-model="registerForm.username" type="text"
                value="" id="register_username" required/>
         <span>username</span><span v-show="registerForm.usernameError"
-                                   class="invalid-feedback">{{ registerForm.usernameError }}</span>
+                                   class="error-tip">{{ registerForm.usernameError }}</span>
         <br/>
         <input class="text" v-model="registerForm.password" type="text" value=""
                id="register_password" required minlength="8" />
         <span>password</span><span v-show="registerForm.passwordError"
-                                   class="invalid-feedback">{{ registerForm.passwordError }}</span>
+                                   class="error-tip">{{ registerForm.passwordError }}</span>
         <br/>
         <input class="text" name="email" v-model="registerForm.email"
                type="email" value=""
                id="register_email" required />
 <!--               pattern="/^\w+((.\w+)|(-\w+))@[A-Za-z0-9]+((.|-)[A-Za-z0-9]+).[A-Za-z0-9]+$/" />-->
         <span>email</span><span v-show="registerForm.emailError"
-                                class="invalid-feedback">{{ registerForm.emailError }}</span>
+                                class="error-tip">{{ registerForm.emailError }}</span>
         <button class="sign_btn">Submit</button>
       </form>
       <div class="tip">
         <p class="tip-text">
-          * 我们将不会向其他网站透露您的信息，注册一个账号～更方便留言讨论哦～
+          * 我们将不会向其他网站透露您的信息，注册一个账号～更方便留言讨论
         </p>
       </div>
     </div>

@@ -107,6 +107,9 @@ export default {
 </script>
 
 <style scoped>
+  .main-content {
+    top: 20px;
+  }
   #post-title {
     font-size: 30px;
     font-weight: bold;

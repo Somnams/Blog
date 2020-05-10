@@ -1,9 +1,10 @@
 import rq
-from flask import Flask
+import rq_dashboard
+from flask import Flask, request
 from redis import Redis
-
+from elasticsearch import Elasticsearch
 from app.api import bp as api_bp
-from app.extensions import cors, db, migrate, mail
+from app.extensions import cors, db, migrate, mail, babel
 
 
 def create_app(config_class=None):
@@ -32,11 +33,22 @@ def configure_app(app, config_class):
     app.redis = Redis.from_url(app.config['REDIS_URL'])
     app.task_queue = rq.Queue('madblog-tasks', connection=app.redis, default_timeout=3600)
     # 设置任务队列中各任务的执行最大超时时间为 1 小时
+    # Elasticsearch
+    app.elasticsearch = Elasticsearch([app.config['ELASTICSEARCH_URL']]) \
+        if app.config['ELASTICSEARCH_URL'] else None
+    # Init Flask-Babel
+    babel.init_app(app)
+
+    @babel.localeselector
+    def get_locale():
+        return request.accept_languages.best_match(app.config['LANGUAGES'])
 
 
 def configure_blueprints(app):
     # 注册 blueprint
     app.register_blueprint(api_bp, url_prefix='/api')
+    app.config.from_object(rq_dashboard.default_settings)
+    app.register_blueprint(rq_dashboard.blueprint, url_prefix="/rq")
 
 
 def configure_extensions(app):

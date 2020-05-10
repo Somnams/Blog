@@ -1,45 +1,50 @@
 <template>
-  <div class="admin-content">
-    <h1>Posts</h1>
-    <table class="table-reason">
-      <thead>
-      <tr>
-        <th>#</th>
-        <th>Title</th>
-        <th>Time</th>
-        <th>Author</th>
-        <th>Action</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr v-for="(post, index) in posts.items" :key="index">
-        <th>{{ index + 1 }}</th>
-        <td>
-          <router-link :to="{name: 'Post', params: { id: post.id}}">
-            {{ post.title }}
-          </router-link>
-        </td>
-        <td>
-          <span>{{ $moment(post.timestamp).format('YYYY-MM-DD HH:mm:ss') }}</span>
-        </td>
-        <td>
-          <router-link :to="{ path: `user/${post.author.id}`}">
-            {{post.author.username}}
-          </router-link>
-        </td>
-        <td>
-          <a @click="onDeletePost(post)">
-            <img src="../../../assets/icon-img/shanchu.svg" alt="" title="delete this post" class="icon-img">
-          </a>
-        </td>
-      </tr>
-      </tbody>
-    </table>
-    <confirm ref="confirm"/>
-    <div v-if="posts">
-      <pagination :cur-page="posts._meta.page"
-                  :per-page="posts._meta.per_page"
-                  :total-pages="posts._meta.total_pages"/>
+  <div>
+    <header><h3></h3></header>
+    <div class="admin-content">
+      <div class="role-wrapper">
+        <h3>Posts</h3>
+        <table class="table-reason" cellspacing="0" cellpadding="0">
+          <thead>
+          <tr>
+            <th>#</th>
+            <th>Title</th>
+            <th>Time</th>
+            <th>Author</th>
+            <th>Action</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr v-for="(post, index) in posts.items" :key="index">
+            <th>{{ index + 1 }}</th>
+            <td>
+              <router-link :to="{name: 'Post', params: { id: post.id}}">
+                {{ post.title }}
+              </router-link>
+            </td>
+            <td>
+              <span>{{ $moment(post.timestamp).format('YYYY-MM-DD HH:mm:ss') }}</span>
+            </td>
+            <td>
+              <router-link :to="{ path: `user/${post.author.id}`}">
+                {{post.author.username}}
+              </router-link>
+            </td>
+            <td>
+              <a @click="onDeletePost(post)">
+                <img src="../../../assets/icon-img/shanchu.svg" alt="" title="delete this post" class="icon-img">
+              </a>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+      <confirm ref="confirm"/>
+      <div v-if="posts && posts._meta.total_pages > 1">
+        <pagination :cur-page="posts._meta.page"
+                    :per-page="posts._meta.per_page"
+                    :total-pages="posts._meta.total_pages"/>
+      </div>
     </div>
   </div>
 </template>

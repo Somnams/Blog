@@ -1,14 +1,10 @@
 <template>
-  <div class="page">
-    <nav-bar class="nav-bar"/>
-    <div>
-      <div class="main-content">
-        <div>
-          <header id="re-header">
-            Recived Comments
-            <small v-if="comments">(TOTAL:{{comments._meta.total_items}} PAGE:{{comments._meta.total_pages}})</small>
-          </header>
-        </div>
+  <div>
+    <header>
+      <h3>Received Comments</h3>
+    </header>
+    <div class="main-content" id="re-content">
+      <div>
         <div v-if="comments">
           <div v-for="(comment, index) in comments.items" :key="index" :id="'c' + comment.id">
             <div class="detail-body">
@@ -17,7 +13,7 @@
                   <router-link :to="{ path: `/user/${comment.author.id}` }" class="comment-img">
                 <span v-if="comment.is_new">
                   <img :src="comment.author.avatar" class="user-img">
-                  <img src="../../../../assets/icon-img/tubiaozhizuo-.svg" class="icon-img-dian">
+<!--                  <div class="icon-noti"></div>-->
                 </span>
                     <span v-else>
               <img :src="comment.author.avatar" alt="" class="user-img">
@@ -41,35 +37,35 @@
                   <ul>
                     <li v-if="!comment.mark_read">
                       <a @click="onMarkRead(comment)" title="mark_read">
-                        <img src="../../../../assets/icon-img/978weiduxinxi.svg" alt="" class="icon-img">
+                        <img src="../../../assets/icon-img/978weiduxinxi.svg" alt="" class="icon-img">
                       </a>
                     </li>
                     <li v-else>
-                      <img src="../../../../assets/icon-img/biaoshilei_yiduxinxi.svg" alt="" class="icon-img">
+                      <img src="../../../assets/icon-img/biaoshilei_yiduxinxi.svg" alt="" class="icon-img">
                     </li>
                     <li>
                       <a @click="onClickReply(comment)" title="reply">
-                        <img src="../../../../assets/icon-img/tubiaozhizuo-_1.svg" alt="" class="icon-img">
+                        <img src="../../../assets/icon-img/tubiaozhizuo-_1.svg" alt="" class="icon-img">
                       </a>
                     </li>
                     <li>
                       <router-link :to="{ path: `/blog/post/${comment.post.id}`}" title="passage">
-                        <img src="../../../../assets/icon-img/wenzhangguanli.svg" alt="" class="icon-img">
+                        <img src="../../../assets/icon-img/wenzhangguanli.svg" alt="" class="icon-img">
                       </router-link>
                     </li>
                     <li v-if="comment.disabled">
                       <a @click="onEnabledComment(comment)" title="enabled">
-                        <img src="../../../../assets/icon-img/kanjian.svg" alt="" class="icon-img">
+                        <img src="../../../assets/icon-img/kanjian.svg" alt="" class="icon-img">
                       </a>
                     </li>
                     <li v-if="!comment.disabled">
                       <a @click="onDisabledComment(comment)" title="disabled">
-                        <img src="../../../../assets/icon-img/lahei.svg" alt="" class="icon-img">
+                        <img src="../../../assets/icon-img/lahei.svg" alt="" class="icon-img">
                       </a>
                     </li>
                     <li v-if="!comment.disabled">
                       <a @click="onDeleteComment(comment)" title="delete">
-                        <img src="../../../../assets/icon-img/shanchu.svg" alt="" class="icon-img">
+                        <img src="../../../assets/icon-img/shanchu.svg" alt="" class="icon-img">
                       </a></li>
                   </ul>
                 </div>
@@ -77,10 +73,10 @@
             </div>
           </div>
         </div>
-        <div v-if="comments && comments._meta.total_page > 1">
+        <div v-if="comments && comments._meta.total_pages > 1">
           <pagination :cur-page="comments._meta.page"
                       :per-page="comments._meta.per_page"
-                      :total-pages="comments._meta.total_pages" class="list-nav">
+                      :total-pages="comments._meta.total_pages">
           </pagination>
         </div>
         <br>
@@ -93,15 +89,13 @@
 </template>
 
 <script>
-import NavBar from '../../../../components/common/nav/NavBar'
-import store from '../../../../store/store'
-import Pagination from '../../../../components/common/pagination/Pagination'
-import Reply from '../../../../components/common/comment/Reply'
-import { confirmMiXin } from '../../../../common/mixin'
+import store from '../../../store/store'
+import Pagination from '../../../components/common/pagination/Pagination'
+import Reply from '../../../components/common/comment/Reply'
+import { confirmMiXin } from '../../../common/mixin'
 export default {
   name: 'RecivedComments',
   components: {
-    NavBar,
     Pagination,
     Reply
   },
@@ -129,25 +123,6 @@ export default {
     }
   },
   methods: {
-    // getUserNotifications (id) {
-    //   let since = 0
-    //   const path = `/users/${id}/notifications/?since=${since}`
-    //   this.$axios.get(path)
-    //     .then((res) => {
-    //       console.log(res)
-    //       const len = res.data.length
-    //       for (let i = 0; i < len; i++) {
-    //         if (res.data[i].name === 'unread_recived_comments_count') {
-    //           this.unread_recived_comments_counts = res.data[i].payload
-    //           break
-    //         }
-    //         since = res.data[i].timestamp
-    //       }
-    //     })
-    //     .catch((error) => {
-    //       console.error(error)
-    //     })
-    // },
     getUserRecivedComments (id) {
       let page = 1
       // eslint-disable-next-line camelcase
@@ -280,6 +255,9 @@ export default {
 </script>
 
 <style scoped>
+  #re-content {
+    clear: both;
+  }
   .detail-body {
     margin-bottom: 20px;
     display: flex;

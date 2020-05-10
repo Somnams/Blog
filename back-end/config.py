@@ -28,3 +28,7 @@ class Config(object):
     TASKS_PER_PAGE = 10
     # Redis 用于 RQ 任务队列
     REDIS_URL = os.environ.get('REDIS_URL') or 'redis://'
+    #
+    ELASTICSEARCH_URL = os.environ.get('ELASTICSEARCH_URL') or 'https://es.ginshio.top'
+    # 语言
+    LANGUAGES = ['zh', 'en']

@@ -9,7 +9,7 @@ import Router from 'vue-router'
 import moment from 'moment'
 import mavonEditor from 'mavon-editor'
 import 'mavon-editor/dist/css/index.css'
-import 'highlight.js/styles/atom-one-dark-reasonable.css'
+import 'highlight.js/styles/railscasts.css'
 
 Vue.config.productionTip = false
 

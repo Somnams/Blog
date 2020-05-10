@@ -2,12 +2,14 @@ html, body, .page{
     margin: 0; padding: 0;
     width: 100%;
     height: 100%;
-    color: white;
+    color: #E0E0E0;
     /*transition: all 1s cubic-bezier(.5, -0.005, 0.2, 1)!important;*/
     /*transition: all 1s ease!important;*/
-    background: #000;
+    background: #212121;
     overflow-x: hidden;
     overflow-y: auto;
+    scrollbar-width: none;
+    -webkit-font-smoothing: antialiased;
 }
 
 ul li {
@@ -20,6 +22,7 @@ ul li {
     left: 0;
     width: 15%;
     height: 100%;
+    background: #000;
     border-right: 5px solid;
     border-color: #434343;
     z-index: 1;
@@ -29,6 +32,7 @@ ul li {
 .page {
     position: absolute;
     line-height: 40px;
+    /*right: 30px;*/
 }
 .page::-webkit-scrollbar {
     display: none;
@@ -37,17 +41,16 @@ ul li {
 .page .main-content {
     position: relative;
     margin-left: 25%;
-    margin-right: 80px;
+    margin-right: 100px;
     height: 100%;
     transition: 1s;
 }
 
 header{
-    margin: 30px;
-    text-align: center;
+    margin: 10px;
+    width: 80%;
+    float: right;
     display: flex;
-    flex-direction: column;
-
 }
 
 a {
@@ -60,9 +63,12 @@ a:hover,
     opacity: 0.6;
 }
 
+button:hover {
+    cursor: pointer;
+}
 .common-btn {
     margin-right: 20px;
-    background: #000;
+    background: transparent;
     color: #fff;
     width: 100px;
     height: 30px;
@@ -73,7 +79,6 @@ a:hover,
 .common-btn:hover {
     background: #fff;
     color: #000;
-    cursor: pointer;
 }
 
 .icon-font {
@@ -98,44 +103,101 @@ a:hover,
     padding-right: 5px;
     vertical-align: text-bottom;
 }
-.icon-img-dian {
-    width: 20px;
+.icon-noti {
+    position: absolute;
+    top: 10px;
+    left: 12px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #ee9ca7;
 }
 
 .user-img {
-    width: 50px;
-    height: 50px;
+    position: relative;
+    width: 30px;
+    height: 30px;
     border-radius: 50%;
 }
 
 .admin-content {
     position: absolute;
-    top: 10%;
-    right: 0;
-    left: 50px;
+    top: 50px;
+    height: 100%;
     width: 100%;
 }
-
-.table-reason {
-    width: 90%;
-}
-td {
-    opacity: 0.8;
-}
-th, td {
-    text-align: center;
-    border-bottom: 1px solid #fff;
-}
-
-textarea {
+.admin-btn {
+    padding: 5px;
+    border: none;
+    background: transparent;
+    border-bottom: 2px #928bad solid;
     color: #fff;
+    font-weight: bold;
+}
+.admin-btn:hover {
+    transform: scale(1.2);
+    transition: 0.5s all ease-in-out;
+}
+
+.role-wrapper {
+    display: block;
+    margin: 0 auto;
+    width: 90%;
+    padding: 10px 16px;
+    box-shadow: 0 8px 8px 5px rgba(0, 0, 0, 0.8);
+    color: #eee;
+}
+.table-reason {
+    width: 100%;
+}
+.table-reason thead {
+    background: #948e99;
+}
+.table-reason tbody tr td {
+    text-align: center;
+}
+
+textarea, input {
+    color: #E0E0E0;
     border: 2px solid rgba(0, 0, 0, 0);
     border-radius: 10px;
     background: rgba(255, 255, 255, 0.1);
 }
-textarea:focus {
+textarea:focus, input:focus {
     outline: none;
     background: rgba(0, 0, 0, 0);
     border: 2px solid rgba(255, 255, 255, 0.5);
     transition: all 0.5s ease-in-out;
+}
+
+.reset-form {
+    display: flex;
+    flex-direction: column;
+}
+.reset-in {
+    padding: 10px;
+    width: 200px;
+}
+.reset-btn {
+    margin-top: 20px;
+    width: 160px;
+    margin-left: 5px;
+}
+.home-icon {
+    padding: 15px;
+    background: #928bad;
+    border-radius: 50%;
+}
+@media screen and (min-width: 1400px) {
+    table {
+        margin: 0 auto;
+    }
+}
+h3 {
+    font-family: 'Amarante', Tahoma, sans-serif;
+}
+
+.error-tip {
+    color: red;
+    text-shadow: 0px 0px 8px #eee;
 }

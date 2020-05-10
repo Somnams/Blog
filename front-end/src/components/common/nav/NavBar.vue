@@ -4,28 +4,45 @@
       <div>
         <img src="../../../assets/user.jpeg" alt="" class="img">
       </div>
-      <p class="user-name">Tang YiGuang</p>
+      <router-link :to="{ path: `/user/${current_id}`}" class="user-name">{{ user_name }}</router-link>
     </div>
     <div id="nav-ul">
       <div class="nav-title">
-        <router-link to="/blog"><div class="anchor">My Blog</div></router-link>
+        <router-link to="/blog"><div class="anchor">Blog</div></router-link>
       </div>
       <div class="nav-title">
-        <router-link to="/life"><div class="anchor">My Life</div></router-link>
+        <router-link to="/life"><div class="anchor">Essay</div></router-link>
       </div>
       <div class="nav-title">
-        <a @click="toMine">About Me</a>
+        <a @click="onClickShow">
+          Settings +
+        </a>
       </div>
-      <ul class="ul-mine">
+      <ul v-if="isShow">
         <li class="nav-link">
-          <router-link :to="{ path: '/receive-comments' }">Comments</router-link>
+          <router-link :to="{ name: 'Account' }">
+            ChangePassword
+          </router-link>
         </li>
         <li class="nav-link">
-          <router-link :to="{ path: '/message' }">Message</router-link>
+          <router-link :to="{ path: '/edit-profile' }">
+            ChangeProfile
+          </router-link>
         </li>
       </ul>
+      <div class="nav-title">
+        <a>webRTC...loading</a>
+      </div>
+<!--      <ul class="ul-mine">-->
+<!--        <li class="nav-link">-->
+<!--          <router-link :to="{ path: '/receive-comments' }">Comments</router-link>-->
+<!--        </li>-->
+<!--        <li class="nav-link">-->
+<!--          <router-link :to="{ path: '/message' }">Message</router-link>-->
+<!--        </li>-->
+<!--      </ul>-->
       <div class="nav-title" v-if="sharedState.is_authenticated && sharedState.user_perms.includes('admin')">
-        <router-link to="/admin"><div class="anchor">Admin</div></router-link>
+        <router-link to="/admin">Admin</router-link>
       </div>
     </div>
     <br>
@@ -40,14 +57,17 @@ export default {
   name: 'NavBar',
   data () {
     return {
+      isShow: false,
       sharedState: store.state,
       current_id: store.state.user_id,
+      user_name: store.state.user_name,
+      user_avatar: store.state.user_avatar,
       total_count: 0
     }
   },
   methods: {
-    toMine () {
-      this.$router.push('/user/' + this.current_id)
+    onClickShow () {
+      this.isShow = !this.isShow
     }
   }
 }
@@ -62,7 +82,7 @@ export default {
   }
   #nav-header .img{
     width: 80%;
-    border-radius: 50%;
+    border-radius: 8px;
     margin: 0 auto;
   }
   #nav-header .user-name{
@@ -70,6 +90,7 @@ export default {
      font-weight: bold;
    }
   #nav-ul {
+    scrollbar-width: none;
     height: 80%;
     width: 100%;
     overflow-y: auto;
@@ -93,6 +114,7 @@ export default {
     margin-top: 40px;
   }
   .nav-link{
-    margin-left: 60px;
+    text-align: center;
+    background: #212121;
   }
 </style>

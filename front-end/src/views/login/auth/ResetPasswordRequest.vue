@@ -1,13 +1,19 @@
 <template>
     <div class="page">
-      <h1>Reset Your Password</h1>
-      <div>
-        <form @submit.prevent="onSubmit">
-          <label for="email">Email Address</label>
-          <input type="email" v-model="resetPasswordForm.email" id="email">
-          <small>{{resetPasswordForm.emailError}}</small>
-          <button type="submit">submit</button>
-        </form>
+      <header>
+        <router-link :to="{ path: '/' }" class="home-icon">Home</router-link>
+        <router-link :to="{ path: '/login' }">Login In</router-link>
+      </header>
+      <div class="main-content">
+        <h1>Reset Your Password</h1>
+        <div>
+          <form @submit.prevent="onSubmit" class="reset-form">
+            <label for="email">Email Address:</label>
+            <input type="email" v-model="resetPasswordForm.email" id="email" class="reset-in">
+            <small>{{resetPasswordForm.emailError}}</small>
+            <button type="submit" class="common-btn reset-btn">Reset Password</button>
+          </form>
+        </div>
       </div>
     </div>
 </template>
@@ -63,7 +69,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-
-</style>

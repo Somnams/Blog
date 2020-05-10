@@ -5,12 +5,12 @@
       <input class="text" v-model="loginForm.username" type="text"
              value="" id="login_username" required/>
       <span>username</span><span v-show="loginForm.usernameError"
-                                 class="invalid-feedback">{{ loginForm.usernameError }}</span>
+                                 class="error-tip">{{ loginForm.usernameError }}</span>
       <br/>
       <input class="text" v-model="loginForm.password" type="text" value=""
              id="login_password" required minlength="8" />
       <span>password</span><span v-show="loginForm.passwordError"
-                                 class="invalid-feedback">{{ loginForm.passwordError }}</span>
+                                 class="error-tip">{{ loginForm.passwordError }}</span>
       <br/>
       <input name="" type="checkbox" value="" id="checkbox-1-1" class="custom-checkbox" />
       <label for="checkbox-1-1">Keep me Signed in</label>
@@ -124,8 +124,7 @@ export default {
     width: 200px;
   }
   .tip-text {
-    opacity: 0.8;
-    color: #928bad;
+    color: #ffdde1;
     font-weight: bold;
   }
   form {

@@ -56,8 +56,8 @@ export default {
   .article-list {
     width: 80%;
     margin: 0 auto;
-    border: 1px solid #fff;
-    padding: 50px;
+    padding: 30px;
+    border-radius: 20px;
   }
   .article-title {
     font-size: 28px;

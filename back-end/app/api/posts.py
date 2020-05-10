@@ -128,7 +128,7 @@ def delete_post(id):
 ##
 @bp.route('/posts/<int:id>/comments/', methods=['GET'])
 def get_post_comments(id):
-    '''返回当前文章下面的一级评论'''
+    """返回当前文章下面的一级评论"""
     post = Post.query.get_or_404(id)
     page = request.args.get('page', 1, type=int)
     per_page = min(
@@ -136,7 +136,7 @@ def get_post_comments(id):
             'per_page', current_app.config['COMMENTS_PER_PAGE'], type=int), 100)
     # 先获取一级评论
     data = Comment.to_collection_dict(
-        post.comments.filter(Comment.parent==None).order_by(Comment.timestamp.desc()), page, per_page,
+        post.comments.filter(Comment.parent == None).order_by(Comment.timestamp.desc()), page, per_page,
         'api.get_post_comments', id=id)
     # 再添加子孙到一级评论的 descendants 属性上
     for item in data['items']:
@@ -146,3 +146,39 @@ def get_post_comments(id):
         from operator import itemgetter
         item['descendants'] = sorted(descendants, key=itemgetter('timestamp'))
     return jsonify(data)
+
+
+@bp.route('/search/', methods=['GET'])
+def search():
+    """Elasticsearch全文检索博客文章"""
+    q = request.args.get('q')
+    if not q:
+        return bad_request(message='keyword is required.')
+
+    page = request.args.get('page', 1, type=int)
+    per_page = min(
+        request.args.get(
+            'per_page', current_app.config['POSTS_PER_PAGE'], type=int), 100)
+
+    total, hits_basequery = Post.search(q, page, per_page)
+    # 总页数
+    total_pages, div = divmod(total, per_page)
+    if div > 0:
+        total_pages += 1
+
+    # 不能使用 Post.to_collection_dict()，因为查询结果已经分页过了
+    data = {
+        'items': [item.to_dict() for item in hits_basequery],
+        '_meta': {
+            'page': page,
+            'per_page': per_page,
+            'total_pages': total_pages,
+            'total_items': total
+        },
+        '_links': {
+            'self': url_for('api.search', q=q, page=page, per_page=per_page),
+            'next': url_for('api.search', q=q, page=page + 1, per_page=per_page) if page < total_pages else None,
+            'prev': url_for('api.search', q=q, page=page - 1, per_page=per_page) if page > 1 else None
+        }
+    }
+    return jsonify(data=data, message='Total items: {}, current page: {}'.format(total, page))

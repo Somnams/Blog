@@ -11,7 +11,10 @@
           <input type="text" v-model="EditForm.summary" class="text">
         </div>
       </div>
-      <mavon-editor v-model="EditForm.body" :ishljs="true"/>
+      <mavon-editor
+        v-model="EditForm.body"
+        :ishljs="true"
+        />
       <br>
       <button class="mark-button" type="submit">submit</button>
     </form>
@@ -57,10 +60,11 @@ export default {
 
       this.$axios.post(path, payload)
         .then((res) => {
-          console.log('diary created Ok.')
+          this.$toasted.success('Post created successfully.', { icon: 'fingerprint' })
           this.EditForm.title = ''
           this.EditForm.summary = ''
           this.EditForm.body = ''
+          this.$router.replace('/life')
         })
         .catch((err) => {
           console.error(err)
@@ -77,6 +81,9 @@ export default {
 </script>
 
 <style scoped>
+  .mark-down {
+    background-color: #212121 !important;
+  }
   .text {
     margin-left: 10px;
     width: 300px;

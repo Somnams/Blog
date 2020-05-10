@@ -3,7 +3,7 @@
     <nav-bar class="nav-bar" id="life-nav"/>
     <div>
       <header>
-        Life  List
+        <nav-header/>
       </header>
       <div class="main-content" id="life-content">
         <div v-if="diaries" class="content">
@@ -34,10 +34,12 @@ import NavBar from '../../components/common/nav/NavBar'
 import List from '../../components/common/list/List'
 import Pagination from '../../components/common/pagination/Pagination'
 import store from '../../store/store'
+import NavHeader from '../../components/common/nav/NavHeader'
 export default {
   name: 'Life',
   components: {
     NavBar,
+    NavHeader,
     List,
     Pagination
   },
@@ -86,6 +88,7 @@ export default {
 <style scoped>
   #life-content {
     clear: both;
+    top: 50px;
     display: block;
   }
   .content {

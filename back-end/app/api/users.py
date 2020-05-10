@@ -83,20 +83,19 @@ def create_user():
 @bp.route('/users/', methods=['GET'])
 @token_auth.login_required
 def get_users():
-    """返回用户集合，分页"""
+    '''返回用户集合，分页'''
     page = request.args.get('page', 1, type=int)
     per_page = min(
         request.args.get(
             'per_page', current_app.config['USERS_PER_PAGE'], type=int), 100)
-    data = User.to_collection_dict(User.query.order_by(User.member_since.desc()),
-                                   page, per_page, 'api.get_users')
+    data = User.to_collection_dict(User.query.order_by(User.member_since.desc()), page, per_page, 'api.get_users')
     return jsonify(data)
 
 
 @bp.route('/users/<int:id>', methods=['GET'])
 @token_auth.login_required
 def get_user(id):
-    """返回一个用户"""
+    '''返回一个用户'''
     user = User.query.get_or_404(id)
     if g.current_user == user:
         return jsonify(user.to_dict(include_email=True))
@@ -664,7 +663,7 @@ def unblock(id):
     db.session.commit()
     return jsonify({
         'status': 'success',
-        'message': _('You are not blocking %(username)s anymore.', username=user.username)
+        'message': _('You are not blocking %(username)s anymore.', username=username)
     })
 
 

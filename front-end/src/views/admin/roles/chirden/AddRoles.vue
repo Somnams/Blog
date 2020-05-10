@@ -1,32 +1,37 @@
 <template>
-    <div class="admin-content">
-      <h1>Add Role</h1>
-      <form @submit.prevent="onSubmit">
-        <div>
-          <label for="slug">Slug</label>
-          <input type="text" v-model="roleForm.slug" id="slug" placeholder="please input role's slug">
-          <small>{{ roleForm.slugError }}</small>
-        </div>
-        <div>
-          <label for="name">Name</label>
-          <input type="text" v-model="roleForm.name" id="name" placeholder="">
-          <small>{{ roleForm.nameError }}</small>
-        </div>
-        <div>
-          <label for="permissions">Permissions</label>
-          <div>
-            <label v-for="(perm, index) in perms" :key="index">
-              <input type="checkbox" :id="perm.dec" :value="perm.dec" v-model="checkPerms">{{ perm.name }}
+    <transition name="fade">
+      <div v-if="isShow">
+        <div class="add-roles">
+          <header><h3>Add Role</h3></header>
+          <form @submit.prevent="onSubmit" @reset.prevent="onClosed" class="addForm">
+            <div class="add-row">
+              <label for="slug">Slug</label>
+              <input type="text" v-model="roleForm.slug" id="slug" placeholder="please input role's slug" class="add-input">
+              <small>{{ roleForm.slugError }}</small>
+            </div>
+            <div class="add-row">
+              <label for="name">Name</label>
+              <input class="add-input" type="text" v-model="roleForm.name" id="name" placeholder="">
+              <small>{{ roleForm.nameError }}</small>
+            </div>
+            <div class="add-row">
+              <label>Permissions</label>
               <div>
-                <i></i>
+                <label v-for="(perm, index) in perms" :key="index">
+                  <input type="checkbox" :id="perm.dec" :value="perm.dec"
+                         v-model="checkPerms" class="custom-checkbox">{{ perm.name }}
+                  <div>
+                    <i></i>
+                  </div>
+                </label>
               </div>
-              {{ perm.name }}
-            </label>
-          </div>
+            </div>
+            <button type="submit" class="icon-btn add-yesClick">Submit</button>
+            <button type="reset" class="add-noClick">X</button>
+          </form>
         </div>
-        <button type="submit">Submit</button>
-      </form>
-    </div>
+      </div>
+    </transition>
 </template>
 
 <script>
@@ -36,6 +41,8 @@ export default {
   data () {
     return {
       sharedState: store.state,
+      isShow: false,
+      promiseStatus: null,
       roleForm: {
         slug: '',
         name: '',
@@ -49,6 +56,13 @@ export default {
     }
   },
   methods: {
+    addRoles () {
+      const self = this
+      this.isShow = true
+      return new Promise((resolve, reject) => {
+        self.promiseStatus = { resolve, reject }
+      })
+    },
     getPerms () {
       const path = '/roles/perms'
       this.$axios.get(path)
@@ -85,6 +99,8 @@ export default {
       this.$axios.post(path, payload)
         .then((res) => {
           this.$toasted.success('Add a new role', { icon: 'fingerprint' })
+          this.isShow = false
+          this.promiseStatus && this.promiseStatus.resolve()
           this.$router.push({ name: 'AdminRoles' })
         })
         .catch((error) => {
@@ -98,6 +114,10 @@ export default {
             }
           }
         })
+    },
+    onClosed (e) {
+      this.isShow = false
+      this.promiseStatus && this.promiseStatus.reject()
     }
   },
   created () {
@@ -107,5 +127,87 @@ export default {
 </script>
 
 <style scoped>
+  .fade-enter-active, .fade-leave-active {
+    transition: opacity .5s;
+  }
+  .fade-enter, .fade-leave-to {
+    opacity: 0;
+  }
+  .add-roles {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 10;
+  }
+  .addForm {
+    position: absolute;
+    top: 10%;
+    right: 0;
+    left: 0;
+    width: 80%;
+    margin: 0 auto;
+    background: #212121;
+    border-radius: 20px;
+    padding: 10px;
+  }
+  .add-noClick {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: transparent;
+    border: none;
+    color: #928bad;
+    font-size: 20px;
+    font-weight: bold;
+  }
+  .add-row {
+    width: 80%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+  }
+  .add-row > label {
+    font-weight: bold;
+    margin-left: 10px;
+  }
+  .add-input {
+    padding: 10px;
+    width: 80%;
+  }
+  .add-yesClick {
+    float: right;
+  }
+  .custom-checkbox {
+    margin-left: 20px;
+  }
 
+  .custom-checkbox {
+    -webkit-appearance: none;
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 8px;
+    border-radius: 2px;
+    display: inline-block;
+    position: relative;
+    top: 6px;
+  }
+
+  .custom-checkbox:checked {
+    background-color: #928bad;
+  }
+
+  .custom-checkbox:checked:after {
+    content: '\2714';
+    font-size: 10px;
+    position: absolute;
+    top: 1px;
+    left: 4px;
+    color: #fff;
+  }
+
+  .custom-checkbox:focus {
+    outline: none;
+  }
 </style>

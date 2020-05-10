@@ -1,39 +1,42 @@
 <template>
-    <div class="admin-content">
-      <div>
-        user
+    <div>
+      <header><h3></h3></header>
+      <div class="admin-content">
+        <div class="role-wrapper">
+          <h3>User</h3>
+          <table class="table-reason" cellpadding="0" cellspacing="0">
+            <thead>
+            <tr>
+              <th>#</th>
+              <th>User</th>
+              <th>Role</th>
+              <th>Confirmed</th>
+              <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr v-for="(user, index) in users.items" :key="index">
+              <th>{{index + 1}}</th>
+              <td>{{ user.username }}</td>
+              <td>{{ user.role_name }}</td>
+              <td>
+                <i v-if="user.confirmed">Y</i>
+                <i v-else>X</i>
+              </td>
+              <td>
+                <router-link :to="{name: 'AdminEditUsers', params: {id: user.id}}">
+                  <img src="../../../assets/icon-img/bianji.svg" alt="" class="icon-img" title="edit this user">
+                </router-link>
+                <a @click="onDeleteUser(user)">
+                  <img src="../../../assets/icon-img/shanchu.svg" alt="" class="icon-img" title="delete this user">
+                </a>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+        <confirm ref="confirm"/>
       </div>
-      <table class="table-reason">
-        <thead>
-        <tr>
-          <th>#</th>
-          <th>User</th>
-          <th>Role</th>
-          <th>Confirmed</th>
-          <th>Action</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr v-for="(user, index) in users.items" :key="index">
-          <th>{{index + 1}}</th>
-          <td>{{ user.username }}</td>
-          <td>{{ user.role_name }}</td>
-          <td>
-            <i v-if="user.confirmed">Y</i>
-            <i v-else>X</i>
-          </td>
-          <td>
-            <router-link :to="{name: 'AdminEditUsers', params: {id: user.id}}">
-              <img src="../../../assets/icon-img/bianji.svg" alt="" class="icon-img" title="edit this user">
-            </router-link>
-            <a @click="onDeleteUser(user)">
-              <img src="../../../assets/icon-img/shanchu.svg" alt="" class="icon-img" title="delete this user">
-            </a>
-          </td>
-        </tr>
-        </tbody>
-      </table>
-      <confirm ref="confirm"/>
     </div>
 </template>
 

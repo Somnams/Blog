@@ -4,12 +4,21 @@
     <list default="true" id="bfd25569-9722-4618-a57c-c0bcf369fb08" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app.db" beforeDir="false" afterPath="$PROJECT_DIR$/app.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/api/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/api/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/api/diaries.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/api/diaries.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/api/roles.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/api/roles.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/api/messages.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/api/messages.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/api/posts.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/api/posts.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/api/users.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/api/users.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/extensions.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/extensions.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/utils/decorator.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/utils/decorator.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/config.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../front-end/src/assets/commen.css" beforeDir="false" afterPath="$PROJECT_DIR$/../front-end/src/assets/commen.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front-end/src/assets/icon-img/bianji.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../front-end/src/assets/icon-img/bianji.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front-end/src/components/common/addPost/AddLife.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../front-end/src/components/common/addPost/AddLife.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front-end/src/components/common/list/List.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../front-end/src/components/common/list/List.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front-end/src/components/common/nav/NavBar.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../front-end/src/components/common/nav/NavBar.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front-end/src/components/common/pagination/Pagination.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../front-end/src/components/common/pagination/Pagination.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front-end/src/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/../front-end/src/main.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../front-end/src/router/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/../front-end/src/router/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../front-end/src/views/admin/Admin.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../front-end/src/views/admin/Admin.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../front-end/src/views/admin/comments/Comments.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../front-end/src/views/admin/comments/Comments.vue" afterDir="false" />
@@ -18,15 +27,23 @@
       <change beforePath="$PROJECT_DIR$/../front-end/src/views/admin/roles/chirden/AddRoles.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../front-end/src/views/admin/roles/chirden/AddRoles.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../front-end/src/views/admin/roles/chirden/EditRoles.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../front-end/src/views/admin/roles/chirden/EditRoles.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../front-end/src/views/admin/users/Users.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../front-end/src/views/admin/users/Users.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../front-end/src/views/admin/users/chirden/EditUsers.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../front-end/src/views/admin/users/chirden/EditUsers.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front-end/src/views/blog/Blog.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../front-end/src/views/blog/Blog.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front-end/src/views/home/Home.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../front-end/src/views/home/Home.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front-end/src/views/life/Life.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../front-end/src/views/life/Life.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front-end/src/views/life/children/Passage.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../front-end/src/views/life/children/Passage.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front-end/src/views/login/Login.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../front-end/src/views/login/Login.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front-end/src/views/login/auth/ResetPassword.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../front-end/src/views/login/auth/ResetPassword.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front-end/src/views/login/auth/ResetPasswordRequest.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../front-end/src/views/login/auth/ResetPasswordRequest.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front-end/src/views/profile/Mine.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../front-end/src/views/profile/Mine.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front-end/src/views/profile/children/Comments/RecivedComments.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front-end/src/views/profile/children/Message/Index.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front-end/src/views/profile/children/Message/MessageList.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../front-end/src/views/profile/children/edit/EditProfile.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../front-end/src/views/profile/children/edit/EditProfile.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
-  </component>
-  <component name="FavoritesManager">
-    <favorites_list name="back-end" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -44,11 +61,11 @@
   </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
-    <option name="showExcludedFiles" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
@@ -88,11 +105,14 @@
       <workItem from="1584334819996" duration="31725000" />
       <workItem from="1584511012929" duration="21026000" />
       <workItem from="1585318933907" duration="15453000" />
+      <workItem from="1587646984113" duration="1811000" />
+      <workItem from="1587790602323" duration="15172000" />
+      <workItem from="1588498102292" duration="4976000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="1" />
+    <option name="version" value="2" />
   </component>
   <component name="UnknownFeatures">
     <option featureType="com.intellij.fileTypeFactory" implementationName="*.env" />

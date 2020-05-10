@@ -1,10 +1,11 @@
 <template>
-    <div class="admin-content">
-      Roles
-      <div>
-        role table
-        <table class="table-reason">
-          <thead>
+    <div>
+      <header><h3></h3></header>
+      <div class="admin-content">
+        <div class="role-wrapper">
+          <h3>Roles' Table</h3>
+          <table class="table-reason" cellpadding="0" cellspacing="0">
+            <thead>
             <tr>
               <th>#</th>
               <th>Slug</th>
@@ -12,27 +13,29 @@
               <th>Permissions</th>
               <th>Action</th>
             </tr>
-          </thead>
-          <tbody>
-          <tr v-for="(role, index) in roles.items" :key="index">
-            <th>{{index + 1}}</th>
-            <td>{{ role.slug }}</td>
-            <td>{{ role.name }}</td>
-            <td>{{ role.permissions }}</td>
-            <td>
-              <router-link :to="{ name: 'AdminEditRoles', params: { id: role.id }}">
-                <img src="../../../assets/icon-img/bianji.svg" alt="" title="edit this role" class="icon-img">
-              </router-link>
-              <a @click="onDeleteRole(role)">
-                <img src="../../../assets/icon-img/shanchu.svg" alt="" title="delete" class="icon-img">
-              </a>
-            </td>
-          </tr>
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+            <tr v-for="(role, index) in roles.items" :key="index">
+              <th>{{index + 1}}</th>
+              <td>{{ role.slug }}</td>
+              <td>{{ role.name }}</td>
+              <td>{{ role.permissions }}</td>
+              <td>
+                <router-link :to="{ name: 'AdminEditRoles', params: { id: role.id } }">
+                  <img src="../../../assets/icon-img/bianji.svg" title="edit" class="icon-img">
+                </router-link>
+                <a @click="onDeleteRole(role)">
+                  <img src="../../../assets/icon-img/shanchu.svg" title="delete" class="icon-img">
+                </a>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
         <confirm ref="confirm"/>
-        <div class="">
-          <router-link :to="{ name: 'AdminAddRoles' }">Add Roles</router-link>
+        <div class="add-btn">
+          <button class="admin-btn" @click="onAddRoles">Add</button>
+          <add-roles ref="add"/>
         </div>
       </div>
     </div>
@@ -40,12 +43,17 @@
 
 <script>
 import { confirmMiXin } from '../../../common/mixin'
+import AddRoles from './chirden/AddRoles'
 
 export default {
   name: 'Role',
+  components: {
+    AddRoles
+  },
   data () {
     return {
-      roles: ''
+      roles: '',
+      isShow: false
     }
   },
   mixins: [confirmMiXin],
@@ -87,6 +95,15 @@ export default {
         .catch((val) => {
           this.$toasted.success('The role is safe', { icon: 'fingerprint' })
         })
+    },
+    onAddRoles () {
+      this.$refs.add.addRoles()
+        .then((res) => {
+          this.$toasted.success('Add success', { icon: 'fingerprint' })
+        })
+        .catch((err) => {
+          console.log(err)
+        })
     }
   },
   created () {
@@ -96,9 +113,8 @@ export default {
 </script>
 
 <style scoped>
-  @media screen and (min-width: 1400px) {
-     table {
-       margin:0 auto;
-     }
+  .add-btn {
+    position: absolute;
+    right: 50px;
   }
 </style>

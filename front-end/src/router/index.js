@@ -7,26 +7,34 @@ import Blog from '../views/blog/Blog'
 import Life from '../views/life/Life'
 import Mine from '../views/profile/Mine'
 import EditProfile from '../views/profile/children/edit/EditProfile'
+import Account from '../views/profile/children/edit/Account'
 import Post from '../views/blog/children/Post'
 import Passage from '../views/life/children/Passage'
-import RecivedComments from '../views/profile/children/Comments/RecivedComments'
 import Add from '../components/common/addPost/Add'
 import AddLife from '../components/common/addPost/AddLife'
-import Index from '../views/profile/children/Message/Index'
-import MessageList from '../views/profile/children/Message/MessageList'
 import Unconfirmed from '../views/login/auth/Unconfirmed'
 import ResetPasswordRequest from '../views/login/auth/ResetPasswordRequest'
 import Demo from '../components/Demo'
+import MessageHistory from '../components/common/comment/MessageHistory'
 import ResetPassword from '../views/login/auth/ResetPassword'
+import SearchResult from '../components/SearchResult'
 
 import Admin from '../views/admin/Admin'
 import Comments from '../views/admin/comments/Comments'
 import Posts from '../views/admin/posts/Posts'
 import Roles from '../views/admin/roles/Roles'
-import AddRoles from '../views/admin/roles/chirden/AddRoles'
 import EditRoles from '../views/admin/roles/chirden/EditRoles'
 import Users from '../views/admin/users/Users'
 import EditUsers from '../views/admin/users/chirden/EditUsers'
+
+import Notification from '../views/notification/Notification'
+import RecivedComments from '../views/notification/Comments/RecivedComments'
+import CommentsLikes from '../views/notification/Comments/CommentsLikes'
+import MessageList from '../views/notification/Message/MessageList'
+import List from '../views/notification/Message/List'
+import Index from '../views/notification/Message/Index'
+
+import About from '../views/about/About'
 
 Vue.use(VueRouter)
 
@@ -34,22 +42,23 @@ const router = new VueRouter({
   routes: [
     { path: '/', name: Home, component: Home },
     { path: '/register', name: Register, component: Register },
-    { path: '/unconfirmed', name: Unconfirmed, component: Unconfirmed, meta: { requiresAuth: true } },
-    { path: '/reset-password-request', name: ResetPasswordRequest, component: ResetPasswordRequest },
-    { path: '/reset-password', name: ResetPassword, component: ResetPassword },
+    { path: '/unconfirmed', name: 'Unconfirmed', component: Unconfirmed, meta: { requiresAuth: true } },
+    { path: '/reset-password-request', name: 'ResetPasswordRequest', component: ResetPasswordRequest },
+    { path: '/reset-password', name: 'ResetPassword', component: ResetPassword },
     { path: '/login', name: Login, component: Login },
-    { path: '/edit-profile', name: EditProfile, component: EditProfile, meta: { requiresAuth: true } },
-    { path: '/blog', name: Blog, component: Blog, meta: { requiresAuth: true } },
-    { path: '/blog/post/:id', name: 'Post', component: Post, meta: { requiresAuth: true } },
+    { path: '/edit-profile', name: 'EditProfile', component: EditProfile, meta: { requiresAuth: true } },
+    { path: '/change-password', name: 'Account', component: Account, meta: { requiresAuth: true } },
+    { path: '/blog', name: Blog, component: Blog },
+    { path: '/blog/post/:id', name: 'Post', component: Post },
     { path: '/life', name: Life, component: Life },
     { path: '/life/diary/:id', name: Passage, component: Passage, meta: { requiresAuth: true } },
-    { path: '/user/:id', name: Mine, component: Mine, meta: { requiresAuth: true } },
-    { path: '/receive-comments', name: RecivedComments, component: RecivedComments },
+    { path: '/user/:id', name: 'Mine', component: Mine, meta: { requiresAuth: true } },
+    { path: '/send-messages', name: 'MessagesHistoryResource', component: MessageHistory, meta: { requiresAuth: true } },
+    // { path: '/receive-comments', name: 'ReceivedComments', component: RecivedComments },
     { path: '/add', name: Add, component: Add, meta: { requiresAuth: true } },
     { path: '/test/:id', name: Demo, component: Demo, meta: { requiresAuth: true } },
     { path: '/add-life', name: AddLife, component: AddLife, meta: { requiresAuth: true } },
-    { path: '/message', name: Index, component: Index, meta: { requiresAuth: true } },
-    { path: '/message/list', name: MessageList, component: MessageList, meta: { requiresAuth: true } },
+    { path: '/search', name: 'SearchResult', component: SearchResult },
     // ADMIN
     {
       path: '/admin',
@@ -57,7 +66,6 @@ const router = new VueRouter({
       children: [
         { path: '', component: Roles },
         { path: 'roles', name: 'AdminRoles', component: Roles },
-        { path: 'add-roles', name: 'AdminAddRoles', component: AddRoles },
         { path: 'edit-roles', name: 'AdminEditRoles', component: EditRoles },
         { path: 'users', name: 'AdminUsers', component: Users },
         { path: 'edit-users', name: 'AdminEditUsers', component: EditUsers },
@@ -68,7 +76,29 @@ const router = new VueRouter({
         requiresAuth: true,
         requiresAdmin: true
       }
-    }
+    },
+    // Notification
+    {
+      path: '/notification',
+      component: Notification,
+      children: [
+        { path: '', component: RecivedComments },
+        { path: 'received-comments', name: 'ReceivedComments', component: RecivedComments },
+        { path: 'received-comments-likes', name: 'CommentsLikes', component: CommentsLikes },
+        {
+          path: 'messages',
+          component: Index,
+          children: [
+            { path: '', name: 'MessageIndex', component: List },
+            { path: 'history', name: 'MessageList', component: MessageList }
+          ]
+        }
+      ],
+      meta: {
+        requiresAuth: true
+      }
+    },
+    { path: '/about-us', name: 'About', component: About }
   ]
 })
 
