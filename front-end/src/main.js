@@ -11,7 +11,6 @@ import mavonEditor from 'mavon-editor'
 import 'mavon-editor/dist/css/index.css'
 import 'highlight.js/styles/railscasts.css'
 
-
 Vue.config.productionTip = false
 
 Vue.prototype.$axios = axios
