@@ -53,7 +53,7 @@ const router = new VueRouter({
     { path: '/life', name: Life, component: Life },
     { path: '/life/diary/:id', name: Passage, component: Passage, meta: { requiresAuth: true } },
     { path: '/user/:id', name: 'Mine', component: Mine, meta: { requiresAuth: true } },
-    { path: '/send-messages', name: 'MessagesHistoryResource', component: MessageHistory, meta: { requiresAuth: true } },
+    { path: '/send-messages', name: 'MessagesHistoryResource', component: MessageHistory },
     // { path: '/receive-comments', name: 'ReceivedComments', component: RecivedComments },
     { path: '/add', name: Add, component: Add, meta: { requiresAuth: true } },
     { path: '/test/:id', name: Demo, component: Demo, meta: { requiresAuth: true } },
