@@ -7,19 +7,17 @@
         </header>
         <vuescroll :ops="ops" ref="area">
           <div class="chat-area" ref="inner">
-            <comment @onSubmitMessage="onSubmitMessage"/>
             <div v-for="(message, index) in messages.items" :key="index">
-              <div>
-                <section v-if="message.sender.id == sharedState.user_id" class="chat-sender">
-                  <div class="chat-p sender-p">{{message.body}}</div>
-                  <img :src="user._links.avatar" alt="" class="user-img">
-                </section>
-                <section v-else class="chat-recipient">
-                  <img :src="message.sender._links.avatar" alt="" class="user-img">
-                  <div class="chat-p recipient-p">{{message.body}}</div>
-                </section>
-              </div>
+              <section v-if="message.sender.id == sharedState.user_id" class="chat-sender">
+                <div class="chat-p sender-p">{{message.body}}</div>
+                <img :src="user._links.avatar" alt="" class="user-img">
+              </section>
+              <section v-else class="chat-recipient">
+                <img :src="message.sender._links.avatar" alt="" class="user-img">
+                <div class="chat-p recipient-p">{{message.body}}</div>
+              </section>
             </div>
+            <comment @onSubmitMessage="onSubmitMessage"/>
           </div>
         </vuescroll>
       </div>
@@ -61,7 +59,7 @@ export default {
     }
   },
   watch: {
-    mockData: {
+    messages: {
       handler: function () {
         this.$nextTick(() => {
           this.$refs.area.scrollTo({
