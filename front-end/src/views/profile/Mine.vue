@@ -4,8 +4,8 @@
     <header>
       <h2>Personal Profile</h2>
     </header>
-    <main class="main-content" id="mine-content">
-      <div class="mine-detail">
+    <main class="main-content">
+      <div>
         <h3>
           <img src="../../assets/icon-img/iconfuzhi.svg" alt="" class="icon-img">
           {{ user.username }}
@@ -102,10 +102,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-  #mine-content {
-    clear: both;
-    display: block;
-  }
-</style>

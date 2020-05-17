@@ -1,10 +1,12 @@
 <template>
-  <div class="page">
-
-    <h5 class="h5 g-color-gray-dark-v1 mb-0">
-      <span class="g-color-red">Need another confirmation email?</span>
-      <button v-on:click="onResendConfirm()" type="button" class="btn btn-primary">Click here</button>
-    </h5>
+  <div class="unconfirmed">
+    <header>
+      <h3>Need another confirmation email?</h3>
+    </header>
+<!--    <h5 class="h5 g-color-gray-dark-v1 mb-0">-->
+<!--      <span class="g-color-red">Need another confirmation email?</span>-->
+<!--      <button v-on:click="onResendConfirm()" type="button" class="btn btn-primary">Click here</button>-->
+<!--    </h5>-->
   </div>
 </template>
 

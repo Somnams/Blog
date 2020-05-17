@@ -31,6 +31,11 @@
         </div>
       </div>
       <comment @onSubmitMessage="onSubmitMessage" @onResetMessage="onResetMessage"/>
+      <div v-if="messages && messages._meta.total.pages > 1">
+        <pagination :cur-page="messages._meta.page"
+                    :per-page="messages._meta.per_page"
+                    :total-pages="messages._meta.total_pages"/>
+      </div>
     </main>
     <br>
     <br>
@@ -40,6 +45,7 @@
 <script>
 import store from '../../../store/store'
 import Comment from '../../../components/common/comment/Comment'
+import Pagination from '../../../components/common/pagination/Pagination'
 export default {
   name: 'MessageList',
   inject: ['reload'],
@@ -51,7 +57,8 @@ export default {
     }
   },
   components: {
-    Comment
+    Comment,
+    Pagination
   },
   methods: {
     getUser (id) {
@@ -113,6 +120,10 @@ export default {
     const user_id = this.sharedState.user_id
     this.getUser(user_id)
     this.getUserHistoryMessages(user_id)
+  },
+  beforeRouteUpdate (to, from, next) {
+    next()
+    this.getUserHistoryMessages()
   }
 }
 </script>

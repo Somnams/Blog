@@ -105,11 +105,11 @@ def query_index(index, query, page, per_page, ids=None):
 
 
 def es_highlight(source, keyword):
-    '''搜索结果中高亮关键词'''
+    """搜索结果中高亮关键词"""
     for key in keyword.split('+'):
         source = re.sub(
             r'(%s)' % re.escape(key),
-            "<span style='color: red; background: yellow;'>\g<1></span>",
+            "<span style='font-weight: bold; text-shadow: 0 0 4px #ee9ca7;'>\g<1></span>",
             source,
             flags=re.IGNORECASE)
     return source

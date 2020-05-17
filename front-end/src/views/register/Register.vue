@@ -22,7 +22,7 @@
       </form>
       <div class="tip">
         <p class="tip-text">
-          * 我们将不会向其他网站透露您的信息，注册一个账号～更方便留言讨论
+          *We promise not to disclose your personal information to other websites.
         </p>
       </div>
     </div>
@@ -218,23 +218,6 @@ export default {
     top: 6px;
   }
 
-  .custom-checkbox:checked {
-    background-color: rgba(17, 97, 237, 1);
-  }
-
-  .custom-checkbox:checked:after {
-    content: '\2714';
-    font-size: 10px;
-    position: absolute;
-    top: 1px;
-    left: 4px;
-    color: #fff;
-  }
-
-  .custom-checkbox:focus {
-    outline: none;
-  }
-
   label {
     display: inline-block;
     padding-top: 10px;
@@ -282,9 +265,9 @@ export default {
   }
   .tip{
     position: fixed;
-    right: 50px;
-    bottom: 30px;
-    width: 200px;
+    right: 30px;
+    bottom: 10px;
+    width: 300px;
   }
   .tip-text {
     opacity: 0.8;

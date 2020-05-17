@@ -170,6 +170,12 @@ textarea:focus, input:focus {
     transition: all 0.5s ease-in-out;
 }
 
+.reset-password {
+    position: absolute;
+    padding: 0 100px 100px 100px;
+    top: 10%;
+    box-shadow: 6px 4px 4px 6px #000;
+}
 .reset-form {
     display: flex;
     flex-direction: column;
@@ -179,21 +185,21 @@ textarea:focus, input:focus {
     width: 200px;
 }
 .reset-btn {
-    margin-top: 20px;
     width: 160px;
-    margin-left: 5px;
+    margin: 40px 0 0 10px;
 }
 .home-icon {
-    padding: 15px;
-    background: #928bad;
+    padding: 16px;
     border-radius: 50%;
+    background: linear-gradient(45deg, #bfa885, #bfb4a2, #5f5442);
+    box-shadow: 0 0 8px #bfb4a2;
 }
 @media screen and (min-width: 1400px) {
     table {
         margin: 0 auto;
     }
 }
-h3 {
+h1, h2, h3 {
     font-family: 'Amarante', Tahoma, sans-serif;
 }
 

@@ -69,9 +69,6 @@ export default {
         .catch((err) => {
           console.error(err)
         })
-    },
-    create () {
-      // eslint-disable-next-line camelcase
     }
   }
 }
@@ -83,10 +80,10 @@ export default {
     top: 50px;
   }
   .edit-form {
-    width: 60%;
+    width: 80%;
   }
   .edit-clo {
-    border-bottom: 1px #928bad solid;
+    width: 100%;
     display: flex;
     margin: 30px;
   }

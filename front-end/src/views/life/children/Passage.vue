@@ -4,8 +4,8 @@
     <div>
       <header></header>
       <main class="main-content" v-if="diary.author">
-        <div>
-          <div id="post-title">{{diary.title}}</div>
+        <div class="passage">
+          <h1>{{diary.title}}</h1>
           <div id="post-other">
             <div><img src="../../../assets/icon-img/iconzhucetouxiang.svg" alt="" class="icon-img">: {{diary.author.username}}</div>
             <div><img src="../../../assets/icon-img/shijian.svg" alt="" class="icon-img">{{diary.timestamp}}</div>
@@ -107,13 +107,8 @@ export default {
 </script>
 
 <style scoped>
-  .main-content {
-    top: 20px;
-  }
-  #post-title {
-    font-size: 30px;
-    font-weight: bold;
-    margin: 0;
+  .passage {
+    margin-top: 50px;
   }
   #post-other {
     width: 100%;

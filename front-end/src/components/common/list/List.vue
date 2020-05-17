@@ -17,7 +17,7 @@
           <span>
             <img src="../../../assets/icon-img/shijian.svg" alt="" class="icon-img">
             :{{article.timestamp}}</span></div>
-        <div class="article-body">SUMMARY:{{article.summary}}</div>
+        <div class="article-body">CATEGORY: {{article.category}}</div>
       </div>
     </div>
 </template>

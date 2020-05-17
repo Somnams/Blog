@@ -7,7 +7,7 @@
       <span>username</span><span v-show="loginForm.usernameError"
                                  class="error-tip">{{ loginForm.usernameError }}</span>
       <br/>
-      <input class="text" v-model="loginForm.password" type="text" value=""
+      <input class="text" v-model="loginForm.password" type="password" value=""
              id="login_password" required minlength="8" />
       <span>password</span><span v-show="loginForm.passwordError"
                                  class="error-tip">{{ loginForm.passwordError }}</span>
@@ -25,7 +25,7 @@
     </div>
     <div class="tip">
       <p class="tip-text">
-        * 我们将不会向其他网站透露您的信息，注册一个账号～更方便留言讨论哦～
+        *We promise not to disclose your personal information to other websites.
       </p>
     </div>
   </div>
@@ -117,16 +117,6 @@ export default {
     padding: 40px 40px;
     margin: 20px auto;
   }
-  .tip{
-    position: fixed;
-    right: 50px;
-    bottom: 30px;
-    width: 200px;
-  }
-  .tip-text {
-    color: #ffdde1;
-    font-weight: bold;
-  }
   form {
     padding-top: 30px;
   }
@@ -134,10 +124,6 @@ export default {
   .active {
     /*border-bottom: 2px solid #1161ed;*/
     border-bottom: 2px solid #928bad;
-  }
-
-  .nonactive {
-    color: rgba(255, 255, 255, 0.2);
   }
 
   h2 {
@@ -278,9 +264,9 @@ export default {
   }
   .tip{
     position: fixed;
-    right: 50px;
-    bottom: 30px;
-    width: 200px;
+    right: 30px;
+    bottom: 10px;
+    width: 300px;
   }
   .tip-text {
     opacity: 0.8;

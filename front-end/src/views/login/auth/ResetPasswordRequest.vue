@@ -1,18 +1,19 @@
 <template>
     <div class="page">
       <header>
-        <router-link :to="{ path: '/' }" class="home-icon">Home</router-link>
-        <router-link :to="{ path: '/login' }">Login In</router-link>
+        <router-link :to="{ path: '/' }" class="home-icon" title="Home"></router-link>
       </header>
       <div class="main-content">
-        <h1>Reset Your Password</h1>
-        <div>
-          <form @submit.prevent="onSubmit" class="reset-form">
-            <label for="email">Email Address:</label>
-            <input type="email" v-model="resetPasswordForm.email" id="email" class="reset-in">
-            <small>{{resetPasswordForm.emailError}}</small>
-            <button type="submit" class="common-btn reset-btn">Reset Password</button>
-          </form>
+        <div class="reset-password">
+          <h1>Reset Your Password</h1>
+          <div>
+            <form @submit.prevent="onSubmit" class="reset-form">
+              <label for="email"><h3>Email Address:</h3></label>
+              <input type="email" v-model="resetPasswordForm.email" id="email" class="reset-in" required>
+              <small class="error-tip">{{resetPasswordForm.emailError}}</small>
+              <button type="submit" class="common-btn reset-btn">Reset Password</button>
+            </form>
+          </div>
         </div>
       </div>
     </div>

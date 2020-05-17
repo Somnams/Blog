@@ -207,7 +207,7 @@ class Role(PaginatedAPIMixin, db.Model):
             self.permissions -= perm
 
     def get_permissions(self):
-        '''获取角色的具体操作权限列表'''
+        """获取角色的具体操作权限列表"""
         p = [(Permission.FOLLOW, 'follow'), (Permission.COMMENT, 'comment'), (Permission.WRITE, 'write'), (Permission.ADMIN, 'admin')]
         # 过滤掉没有权限，注意不能用 for 循环，因为遍历列表时删除元素可能结果并不是你想要的，参考: https://segmentfault.com/a/1190000007214571
         new_p = filter(lambda x: self.has_permission(x[0]), p)
@@ -620,6 +620,7 @@ class Post(SearchableMixin, PaginatedAPIMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(255))
     summary = db.Column(db.Text)
+    category = db.Column(db.Text)
     body = db.Column(db.Text)
     timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
     views = db.Column(db.Integer, default=0)
@@ -648,6 +649,7 @@ class Post(SearchableMixin, PaginatedAPIMixin, db.Model):
             'id': self.id,
             'title': self.title,
             'summary': self.summary,
+            'category': self.category,
             'body': self.body,
             'timestamp': self.timestamp,
             'views': self.views,
@@ -677,7 +679,7 @@ class Post(SearchableMixin, PaginatedAPIMixin, db.Model):
         return data
 
     def from_dict(self, data):
-        for field in ['title', 'summary', 'body', 'timestamp', 'views']:
+        for field in ['title', 'summary', 'body', 'timestamp', 'views', 'category']:
             if field in data:
                 setattr(self, field, data[field])
 

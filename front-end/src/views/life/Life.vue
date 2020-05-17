@@ -54,7 +54,7 @@ export default {
       // eslint-disable-next-line no-unused-vars
       let page = 1
       // eslint-disable-next-line camelcase,no-unused-vars
-      let per_page = 5
+      let per_page = 10
       if (typeof this.$route.query.page !== 'undefined') {
         page = this.$route.query.page
       }

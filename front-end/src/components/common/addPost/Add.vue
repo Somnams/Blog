@@ -7,8 +7,8 @@
           <input type="text" class="text" v-model="EditForm.title">
         </div>
         <div class="right">
-          <span>Summary</span>
-          <input type="text" v-model="EditForm.summary" class="text">
+          <span>Category</span>
+          <input type="text" v-model="EditForm.category" class="text">
         </div>
       </div>
       <mavon-editor v-model="EditForm.body" :ishljs="true"/>
@@ -39,6 +39,7 @@ export default {
       EditForm: {
         title: '',
         summary: '',
+        category: '',
         body: '',
         errors: 0,
         titleError: null,
@@ -52,14 +53,16 @@ export default {
       const payload = {
         title: this.EditForm.title,
         summary: this.EditForm.summary,
+        category: this.EditForm.category,
         body: this.EditForm.body
       }
 
       this.$axios.post(path, payload)
         .then((res) => {
-          console.log('post created Ok.')
+          this.$router.replace({ path: '/blog' })
           this.EditForm.title = ''
           this.EditForm.summary = ''
+          this.EditForm.category = ''
           this.EditForm.body = ''
         })
         .catch((err) => {

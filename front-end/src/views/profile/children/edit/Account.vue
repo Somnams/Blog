@@ -9,11 +9,12 @@
           <form @submit.prevent="onSubmitChange" class="edit-form">
             <div class="edit-clo">
               <label for="oldPassword" class="edit-label">oldPassword</label>
-              <input type="text" id="oldPassword" required class="edit-input">
+              <input type="text" v-model="changePasswordForm.oldPassword" id="oldPassword" required class="edit-input">
             </div>
             <div class="edit-clo">
               <label for="newPassword" class="edit-label">newPassword</label>
-              <input type="text" id="newPassword" required class="edit-input">
+              <input type="text" v-model="changePasswordForm.newPassword" id="newPassword" required class="edit-input">
+              <small class="error-tip" v-show="changePasswordForm.newPasswordError">{{changePasswordForm.newPasswordError}}</small>
             </div>
             <button type="submit" class="common-btn edit-btn">Submit</button>
           </form>
@@ -70,7 +71,7 @@ export default {
       this.$axios.post(path, payload)
         .then((res) => {
           this.$toasted.success('Change success', { icon: 'fingerprint' })
-          this.$router.push('/login')
+          this.$router.push({ name: 'Login' })
         })
         .catch((err) => {
           console.error(err)
@@ -89,9 +90,15 @@ export default {
     width: 60%;
   }
   .edit-clo {
-    border-bottom: 1px #928bad solid;
+    position: relative;
     display: flex;
     margin: 30px;
+    width: 100%;
+  }
+  .error-tip {
+    position: absolute;
+    top: 50px;
+    right: 0;
   }
   .edit-label {
     font-size: 20px;
@@ -106,5 +113,6 @@ export default {
   }
   .edit-btn {
     width: 160px;
+    margin-top: 30px;
   }
 </style>

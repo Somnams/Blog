@@ -1,17 +1,17 @@
 <template>
   <div class="page">
     <header>
-      <router-link :to="{ path: '/' }" class="home-icon">Home</router-link>
+      <router-link :to="{ path: '/' }" class="home-icon" title="Home"></router-link>
     </header>
-    <div>
-      <div class="main-content">
+    <div class="main-content">
+      <div class="reset-password">
         <h1>Reset Your Password</h1>
         <form @submit.prevent="onSubmit" class="reset-form">
-            <label for="password">New Password</label>
-            <input type="password"
-                   v-model="resetPasswordForm.password"
-                   id="password" placeholder="" class="reset-in">
-            <small v-show="resetPasswordForm.passwordError">{{ resetPasswordForm.passwordError }}</small>
+          <label for="password"><h3>New Password</h3></label>
+          <input type="password"
+                 v-model="resetPasswordForm.password"
+                 id="password" placeholder="" class="reset-in" required>
+          <small v-show="resetPasswordForm.passwordError" class="error-tip">{{ resetPasswordForm.passwordError }}</small>
           <button type="submit" class="common-btn reset-btn">Reset Password</button>
         </form>
       </div>

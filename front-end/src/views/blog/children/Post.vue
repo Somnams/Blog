@@ -4,10 +4,10 @@
     <div>
       <header></header>
       <main class="main-content" v-if="post.author">
-        <div>
-          <div id="post-title">{{post.title}}</div>
+        <div class="post">
+          <h1 id="post-title">{{post.title}}</h1>
           <div id="post-other">
-            <div><img src="../../../assets/icon-img/iconzhucetouxiang.svg" alt="" class="icon-img">: {{post.author.username}}</div>
+            <div><img src="../../../assets/icon-img/iconzhucetouxiang.svg" alt="" class="icon-img">{{post.author.username}}</div>
             <div><img src="../../../assets/icon-img/shijian.svg" alt="" class="icon-img">{{post.timestamp}}</div>
             <div><img src="../../../assets/icon-img/chakancishu.svg" alt="" class="icon-img">{{post.views}}</div>
           </div>
@@ -29,7 +29,9 @@
           </div>
           <!-- 评论区 -->
           <div class="comments">
-            <div class="comments-title">Comments <img src="../../../assets/icon-img/liuyan.svg" alt="" class="icon-img"></div>
+            <div class="comments-title">
+              <img src="../../../assets/icon-img/liuyan.svg" alt="" class="icon-img">Comments
+            </div>
 
             <form v-if="sharedState.is_authenticated" @submit.prevent="onSubmitAddComment"
                   @reset.prevent="onResetAddComment">
@@ -429,10 +431,8 @@ export default {
 </script>
 
 <style scoped>
-  #post-title {
-    font-size: 30px;
-    font-weight: bold;
-    margin: 0;
+  .post {
+    margin-top: 50px;
   }
   #post-other {
     width: 100%;

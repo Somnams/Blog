@@ -75,7 +75,6 @@ export default {
           const path = `/users/${user_id}/notifications/?since=${since}`
           this.$axios.get(path)
             .then((res) => {
-              console.log('ok')
               for (let i = 0; i < res.data.length; i++) {
                 switch (res.data[i].name) {
                   case 'unread_recived_comments_count':

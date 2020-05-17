@@ -62,13 +62,12 @@ export default {
     getUserMessagesSenders (id) {
       const page = 1
       // eslint-disable-next-line camelcase
-      const per_page = 5
+      const per_page = 10
       // eslint-disable-next-line camelcase
       const path = `/users/${id}/messages-senders/?page=${page}&per_page=${per_page}`
       this.$axios.get(path)
         .then((res) => {
           this.messages = res.data
-          console.log(res.data)
         })
         .catch((err) => {
           console.error(err)
@@ -120,6 +119,8 @@ export default {
     position: relative;
     top: 20px;
     width: 80%;
+    margin-top: 20px;
+    padding-bottom: 10px;
     border-bottom: 1px #928bad dashed;
   }
   .msg-options {
