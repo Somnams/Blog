@@ -1,32 +1,27 @@
 <template>
     <div class="page">
       <nav-bar class="nav-bar"/>
-      <header class="chat-header" v-if="messages">
-        <h3>
-          <router-link :to="{ name: 'MessageIndex' }">Go Back</router-link> Session with {{user.username}} ({{messages._meta.total_items}} / {{messages._meta.total_pages}})</h3>
-      </header>
-      <div class="main-content" ref="chat" v-if="messages">
-        <div class="chat-area">
-          <div v-for="(message, index) in messages.items" :key="index">
-            <div>
-              <section v-if="message.sender.id == sharedState.user_id" class="chat-sender">
-                <div class="chat-p sender-p">{{message.body}}</div>
-                <span class="icon-font">{{$moment(message.timestamp).format('YYYY-MM-DD HH:mm:ss')}}</span>
-                <img :src="message.sender._links.avatar" alt="" class="user-img">
-              </section>
-              <section v-else class="chat-recipient">
-                <img :src="message.sender._links.avatar" alt="" class="user-img">
-                <div class="chat-p recipient-p">{{message.body}}</div>
-              </section>
+      <div class="main-content">
+        <header class="chat-header">
+          <h3>Session with {{user.username}}</h3>
+        </header>
+        <vuescroll :ops="ops" ref="area">
+          <div class="chat-area" ref="inner">
+            <comment @onSubmitMessage="onSubmitMessage"/>
+            <div v-for="(message, index) in messages.items" :key="index">
+              <div>
+                <section v-if="message.sender.id == sharedState.user_id" class="chat-sender">
+                  <div class="chat-p sender-p">{{message.body}}</div>
+                  <img :src="user._links.avatar" alt="" class="user-img">
+                </section>
+                <section v-else class="chat-recipient">
+                  <img :src="message.sender._links.avatar" alt="" class="user-img">
+                  <div class="chat-p recipient-p">{{message.body}}</div>
+                </section>
+              </div>
             </div>
           </div>
-        </div>
-        <comment @onSubmitMessage="onSubmitMessage" class="comment" ref="comment"/>
-        <div v-if="messages && messages._meta.total_pages > 1">
-          <pagination :cur-page="messages._meta.page"
-                      :per-page="messages._meta.per_page"
-                      :total-pages="messages._meta.total_pages"/>
-        </div>
+        </vuescroll>
       </div>
     </div>
 </template>
@@ -36,19 +31,46 @@ import NavBar from '../nav/NavBar'
 import Comment from './Comment'
 import store from '../../../store/store'
 import Pagination from '../pagination/Pagination'
+import vuescroll from 'vuescroll'
 
 export default {
   name: 'MessageHistory',
   components: {
     NavBar,
     Comment,
-    Pagination
+    // eslint-disable-next-line vue/no-unused-components
+    Pagination,
+    vuescroll
   },
   data () {
     return {
+      ops: {
+        rail: {
+          gutterOfSide: '0px',
+          keepShow: false,
+          opacity: 0,
+          size: '10px'
+        },
+        bar: {
+          disable: true
+        }
+      },
       sharedState: store.state,
       messages: '',
       user: ''
+    }
+  },
+  watch: {
+    mockData: {
+      handler: function () {
+        this.$nextTick(() => {
+          this.$refs.area.scrollTo({
+            x: 0,
+            y: '100%'
+          }, 0)
+        })
+      },
+      deep: true
     }
   },
   methods: {
@@ -101,43 +123,51 @@ export default {
         .catch((err) => {
           console.error(err)
         })
-    },
-    Init () {
-      window.scrollTo(0, 1200)
-      console.log(window.scrollTop)
     }
   },
   created () {
     this.getUser(this.$route.query.from)
     this.getUserHistoryMessages(this.sharedState.user_id)
   },
-  mounted () {
-    this.Init()
-  },
   // 当路由变化后(比如变更查询参数 page 和 per_page)重新加载数据
   beforeRouteUpdate (to, from, next) {
     next()
     this.getUser(this.$route.query.from)
     this.getUserHistoryMessages(this.sharedState.user_id)
+  },
+  mounted () {
+    this.$nextTick(() => {
+      this.$refs.area.scrollTo({
+        x: 0,
+        y: '100%'
+      }, 0)
+    })
   }
 }
 </script>
 
 <style scoped>
+  .page {
+    overflow: hidden;
+  }
   .main-content {
+    transform: translate(0, 0);
+    height: 100vh;
     clear: both;
+    border: 1px solid transparent;
   }
-  .comment {
-    margin-top: 50px;
-  }
+
   .chat-header {
-    position: sticky;
+    position: fixed;
     background: #212121;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.4);
     z-index: 1;
     top: 0;
+    margin: 0;
+    width: 90%;
   }
   .chat-area {
+    padding-top: 80px;
     width: 90%;
     display: flex;
     flex-direction: column;
