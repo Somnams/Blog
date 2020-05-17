@@ -194,9 +194,15 @@ textarea:focus, input:focus {
     background: linear-gradient(45deg, #bfa885, #bfb4a2, #5f5442);
     box-shadow: 0 0 8px #bfb4a2;
 }
-@media screen and (min-width: 1400px) {
-    table {
-        margin: 0 auto;
+@media screen and (min-width: 1500px) {
+    .nav-bar {
+        display: none;
+    }
+    .main-content {
+    }
+    header {
+        width: 100%;
+        margin-left: 20px;
     }
 }
 h1, h2, h3 {

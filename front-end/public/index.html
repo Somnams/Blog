@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
     <link rel="icon" href="<%= BASE_URL %>favicon.ico">
     <link rel="shortcut icon" type="image/x-icon" href="favicon.ico"/>
     <title><%= htmlWebpackPlugin.options.title %></title>
@@ -15,4 +15,23 @@
     <div id="app"></div>
     <!-- built files will be auto injected -->
   </body>
+  <script>
+    window.onload = function () {
+      document.addEventListener('touchstart', function(event) {
+        if (event.touches.length > 1) {
+          event.preventDefault()
+        }
+      })
+      document.addEventListener('geturestart', function (event) {
+        event.preventDefault()
+      })
+      let lastTouchEnd = 0
+      document.addEventListener('touchend', function (event) {
+        let now = (new Date()).getTime()
+        if (now - lastTouchEnd <= 300) {
+          event.preventDefault()
+        }
+      }, false)
+    }
+  </script>
 </html>
