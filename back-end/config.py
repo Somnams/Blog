@@ -20,6 +20,8 @@ class Config(object):
     MAIL_USERNAME = os.environ.get('MAIL_USERNAME')
     MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
     MAIL_SENDER = os.environ.get('MAIL_SENDER')
+    # 同源策略
+    ORIGINS = [x.strip() for x in os.environ.get('ORIGINS').split(',')]
     # 分页设置
     POSTS_PER_PAGE = 10
     USERS_PER_PAGE = 10
