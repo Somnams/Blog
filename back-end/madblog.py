@@ -60,3 +60,8 @@ def test(coverage):
         print('')
         print('HTML report be stored in: %s' % os.path.join(covdir, 'index.html'))
         COV.erase()
+
+
+if __name__ == "__main__":
+    app.run()
+
