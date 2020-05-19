@@ -54,7 +54,7 @@ def configure_blueprints(app):
 def configure_extensions(app):
     """Configures the extensions."""
     # Enable CORS
-    cors.init_app(app, {r"/api/*": {"origins": app.config['ORIGINS']}})
+    cors.init_app(app, resources={r"/api/*": {"origins": app.config['ORIGINS']}})
     # Init Flask-SQLAlchemy
     db.init_app(app)
     # Init Flask-Migrate

@@ -17,6 +17,11 @@ if os.environ.get('FLASK_COVERAGE'):
     COV.start()
 
 
+@app.route('/')
+def hello_world():
+    return _('Hello, World!')
+
+
 @app.shell_context_processor
 def make_shell_context():
     return {'db': db, 'Role': Role, 'User': User, 'Post': Post, 'Comment': Comment,
@@ -59,4 +64,3 @@ def test(coverage):
 
 if __name__ == "__main__":
     app.run()
-

@@ -43,7 +43,7 @@ def create_user():
     # 发送确认账户的邮件
     token = user.generate_confirm_jwt()
     if not data.get('confirm_email_base_url'):
-        confirm_url = 'http://127.0.0.1:5000/api/confirm/' + token
+        confirm_url = app.config['BLOG_HOST'] + '/api/confirm/' + token
     else:
         confirm_url = data.get('confirm_email_base_url') + token
 

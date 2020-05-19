@@ -7,7 +7,7 @@ from flask_mail import Mail
 from flask_babel import Babel
 
 # Flask-Cors plugin
-cors = CORS(r"/api/*", {"origins": app.config['ORIGINS']})
+cors = CORS()
 # Flask-SQLAlchemy plugin
 naming_convention = {
     "ix": 'ix_%(column_0_label)s',

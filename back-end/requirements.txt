@@ -23,4 +23,3 @@ rq==1.4.1
 rq-dashboard==0.6.1
 traitlets==4.3.3
 wcwidth==0.1.9
-
