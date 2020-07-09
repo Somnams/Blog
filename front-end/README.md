@@ -1,34 +1,17 @@
-# front-end
+# frontend
 
-## Project setup
-```
-npm install
-```
+## init
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+可以使用：`npm run init` 来快速初始化项目，其实就是 dll + serve
 
-### Compiles and minifies for production
-```
-npm run build
-```
+## DLL
 
-### Run your tests
-```
-npm run test
-```
+`npm run dll` 生成动态链接库
 
-### Lints and fixes files
-```
-npm run lint
-```
+## Serve
 
-### Run your unit tests
-```
-npm run test:unit
-```
+`npm run serve` 或 `npm run start` 本地运行
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+## cache
+
+没事干了记得清理一下 configs/.cache--happypack
