@@ -1,7 +1,7 @@
-workers = 4
+workers = 2
 worker_class = 'gevent'
-bind = '127.0.0.1:8000'
-timeout = 60
+bind = '127.0.0.1:9199'
+timeout = 90
 backlog = 1024
 daemon = True
 loglever = 'warning'

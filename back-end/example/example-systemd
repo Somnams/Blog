@@ -1,0 +1,16 @@
+[Unit]
+Description=Somnams Blog Back-End
+After=network.target
+Wants=network.target
+
+[Service]
+WorkingDirectory=/path/to/back-end/
+Type=forking
+PIDFile=/run/somnams-blog.pid
+ExecStart=gunicorn -c gunicorn.py madblog:app --pid /run/somnams-blog.pid
+ExecReload=/bin/kill -s HUP $MAINPID
+ExecStop=/bin/kill -s TERM $MAINPID
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
