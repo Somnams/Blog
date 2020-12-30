@@ -64,6 +64,7 @@ const developmentConfig = webpackMerge(baseWebpackConfig, {
     open: false,
     openPage: '',
     hot: true,
+    host: '0.0.0.0'
   },
 });
 

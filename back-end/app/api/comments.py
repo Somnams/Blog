@@ -120,7 +120,7 @@ def delete_comment(id):
 @token_auth.login_required
 @permission_required(Permission.COMMENT)
 def like_comment(id):
-    '''点赞评论'''
+    """点赞评论"""
     comment = Comment.query.get_or_404(id)
     comment.liked_by(g.current_user)
     db.session.add(comment)

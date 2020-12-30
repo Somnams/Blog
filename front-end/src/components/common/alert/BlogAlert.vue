@@ -1,11 +1,13 @@
 <template>
 <!--  TODO:: TEST ALERT-->
-  <div class="wrapper">
-    <div class="outer">
+  <div v-if="visible" class="wrapper">
+    <div class="outer" ref="outer">
       <div :class="classObject" ref="alert">
         <div class="a-header">
-          <div class="a-title">{{title}}</div>
-          <div class="a-close">X</div>
+          <div class="a-title">{{title}}:</div>
+          <div class="a-close" @click="onClickClose">
+            <a>Close Now</a>
+          </div>
         </div>
         <div class="a-content">{{message}}</div>
       </div>
@@ -19,9 +21,7 @@ export default {
   props: {
     type: {
       type: String,
-      validator: function (val) {
-        return ['error', 'success', 'warn', 'info'].indexOf(val) !== -1
-      }
+      default: 'info'
     },
     title: {
       type: String,
@@ -35,41 +35,84 @@ export default {
 
     }
   },
-  computed: {
-    classObject: function () {
-      return `inner ${this.type}`
-    }
-  },
   data () {
     return {
+      visible: true,
+      classObject: '',
+      typeList: ['error', 'warn', 'success', 'info']
     }
   },
+  mounted () {
+    this.init();
+    this.showAlert('begin');
+  },
   methods: {
+    init() {
+      this.classObject = this.typeList.includes(this.type) ? `inner ${this.type}` : 'inner info';
+      return this.classObject
+    },
+    showAlert(signal) {
+      let curWidth = 0;
+      let speed = 0;
+      const target = this.$refs.outer.clientWidth;
+      const aStyle = this.$refs.alert.style;
+
+      (signal === 'begin') && (aStyle.left = `${target}px`);
+
+      const timer = setInterval(() => {
+        const distance = target - curWidth;
+        speed = Math.ceil(distance / 5);
+        curWidth = curWidth + speed;
+
+        if (signal === 'begin' && distance === 0) {
+          clearInterval(timer);
+        }
+        if (signal === 'end' && curWidth === target) {
+          clearInterval(timer);
+          this.visible = false;
+        }
+
+        aStyle.left = (signal === 'begin') ? `${distance}px` : `${curWidth}px`;
+
+      }, 50);
+    },
+    onClickClose() {
+      this.showAlert('end');
+    }
   }
 }
 </script>
 
 <style scoped>
 .wrapper {
-  height: 100%;
+  height: 40px;
   width: 100%;
-  background-color: rgba(255, 255, 255, .2);
   position: relative;
 }
 .outer {
   position: absolute;
   color: #000;
-  top: 100px;
-  left: 10%;
-  width: 80%;
-  height: 180px;
+  top: 0;
+  width: 100%;
+  height: 40px;
 }
 .inner {
   height: 100%;
   width: 100%;
+  position: relative;
   border-radius: 3px;
+  display: flex;
 }
-.warning {
+.a-header {
+  padding-left: 18px;
+  font-size: 16px;
+}
+.a-content {
+  padding-left: 8px;
+  font-size: 14px;
+}
+
+.warn {
   background-color: #fffbe6;
   border: 2px solid #ffe58f;
 }
@@ -85,21 +128,10 @@ export default {
   background-color: #f6ffed;
   border: 1px solid #b7eb8f;
 }
-.a-header {
-  padding: 12px 0 0 20px;
-}
-.a-title {
-  font-size: 16px;
-}
 .a-close {
   position: absolute;
-  right: 18px;
+  right: 16px;
   top: 0;
-}
-.a-content {
-  padding: 0 0 0 20px;
-  line-height: 24px;
-  font-size: 14px;
 }
 
 </style>

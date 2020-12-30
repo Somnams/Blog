@@ -1,9 +1,15 @@
 <template>
   <div>
     <blog-alert
-      type="error"
-      title="errorTitle"
-      message="????"/>
+      type="success"
+      title="error"
+      message="hi~welcome to my blog!"
+    />
+    <blog-alert
+      type="success"
+      title="error"
+      message="hi~welcome to my blog!"
+    />
   </div>
 </template>
 
