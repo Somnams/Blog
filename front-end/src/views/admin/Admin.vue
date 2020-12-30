@@ -8,26 +8,26 @@
             <a class="menu-trigger" data-open="OPEN" data-close="CLOSE" @click="onOpen"></a>
             <ul>
               <li><router-link :to="{ path: '/' }">
-                <img src="../../assets/icon-img/github.svg" alt="" class="wi">
+                <img :src="imageDatas.github" alt="" class="wi">
               </router-link></li>
               <li>
                 <router-link :to="{ name: 'AdminRoles' }">
-                  <img src="../../assets/icon-img/iconzhucetouxiang.svg" title="AdminRoles" class="wi">
+                  <img :src="imageDatas.iconzhucetouxiang" title="AdminRoles" class="wi">
                 </router-link>
               </li>
               <li>
                 <router-link :to="{ name: 'AdminUsers' }">
-                  <img src="../../assets/icon-img/iconfuzhi.svg" title="AdminUsers" class="wi">
+                  <img :src="imageDatas.iconfuzhi" title="AdminUsers" class="wi">
                 </router-link>
               </li>
               <li>
                 <router-link :to="{ name: 'AdminPosts' }">
-                  <img src="../../assets/icon-img/wenzhangguanli.svg" title="AdminPosts" class="wi">
+                  <img :src="imageDatas.wenzhangguanli" title="AdminPosts" class="wi">
                 </router-link>
               </li>
               <li>
                 <router-link :to="{ name: 'AdminComments' }">
-                  <img src="../../assets/icon-img/liuyan.svg" title="AdminComments" class="wi">
+                  <img :src="imageDatas.liuyan" title="AdminComments" class="wi">
                 </router-link>
               </li>
             </ul>
@@ -39,11 +39,13 @@
 </template>
 
 <script>
+import store from '@/store/store'
 export default {
   name: 'Admin',
   data () {
     return {
-      isOpen: false
+      isOpen: false,
+      imageDatas: store.state.imageData
     }
   },
   methods: {

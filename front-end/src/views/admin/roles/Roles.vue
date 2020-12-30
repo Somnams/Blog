@@ -22,10 +22,10 @@
               <td>{{ role.permissions }}</td>
               <td>
                 <router-link :to="{ name: 'AdminEditRoles', params: { id: role.id } }">
-                  <img src="../../../assets/icon-img/bianji.svg" title="edit" class="icon-img">
+                  <img :src="imageDatas.bianji" title="edit" class="icon-img">
                 </router-link>
                 <a @click="onDeleteRole(role)">
-                  <img src="../../../assets/icon-img/shanchu.svg" title="delete" class="icon-img">
+                  <img :src="imageDatas.shanchu" title="delete" class="icon-img">
                 </a>
               </td>
             </tr>
@@ -42,7 +42,8 @@
 </template>
 
 <script>
-import { confirmMiXin } from '../../../common/mixin'
+import { confirmMiXin } from '@/common/mixin'
+import store from '@store/store'
 import AddRoles from './chirden/AddRoles'
 
 export default {
@@ -53,7 +54,8 @@ export default {
   data () {
     return {
       roles: '',
-      isShow: false
+      isShow: false,
+      imageDatas: store.state.imageData
     }
   },
   mixins: [confirmMiXin],

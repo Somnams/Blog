@@ -2,7 +2,7 @@
   <div class="nav-bar">
     <div id="nav-header">
       <div>
-        <img src="../../../assets/user.jpeg" alt="" class="img">
+        <img src="@/assets/user.jpeg" alt="" class="img">
       </div>
       <router-link :to="{ path: `/user/${current_id}`}" class="user-name">{{ user_name }}</router-link>
     </div>
@@ -33,14 +33,6 @@
       <div class="nav-title">
         <a>webRTC...loading</a>
       </div>
-<!--      <ul class="ul-mine">-->
-<!--        <li class="nav-link">-->
-<!--          <router-link :to="{ path: '/receive-comments' }">Comments</router-link>-->
-<!--        </li>-->
-<!--        <li class="nav-link">-->
-<!--          <router-link :to="{ path: '/message' }">Message</router-link>-->
-<!--        </li>-->
-<!--      </ul>-->
       <div class="nav-title" v-if="sharedState.is_authenticated && sharedState.user_perms.includes('admin')">
         <router-link to="/admin">Admin</router-link>
       </div>
@@ -51,7 +43,7 @@
 </template>
 
 <script>
-import store from '../../../store/store'
+import store from '@/store/store'
 
 export default {
   name: 'NavBar',

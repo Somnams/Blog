@@ -26,7 +26,7 @@
               <ul class="res-other">
                 <li>
                   <img
-                    src="../assets/icon-img/iconzhucetouxiang.svg"
+                    :src="imageDatas.iconzhucetouxiang"
                     class="icon-img"
                   >
                   <router-link :to="{ path: `/user/${post.author.id}` }">
@@ -35,7 +35,7 @@
                 </li>
                 <li>
                   <img
-                    src="../assets/icon-img/shijian.svg"
+                    :src="imageDatas.shijian"
                     class="icon-img"
                   ><span class="icon-font">{{
                     $moment(post.timestamp).format('YYYY/MM/DD HH:mm:ss')
@@ -43,7 +43,7 @@
                 </li>
                 <li>
                   <img
-                    src="../assets/icon-img/chakancishu.svg"
+                    :src="imageDatas.chakancishu"
                     class="icon-img"
                   >{{ post.views }}
                 </li>
@@ -68,9 +68,9 @@
 import NavHeader from './common/nav/NavHeader';
 import NavBar from './common/nav/NavBar';
 import Pagination from './common/pagination/Pagination';
-import store from '../store/store';
+import store from '@/store/store';
 import VueMarkdown from 'vue-markdown';
-import { confirmMiXin } from '../common/mixin';
+import { confirmMiXin } from '@/common/mixin';
 
 export default {
   name: 'SearchResult',
@@ -84,6 +84,7 @@ export default {
   data() {
     return {
       sharedState: store.state,
+      imageDatas: store.state.imageData,
       posts: '',
       postForm: {
         title: '',

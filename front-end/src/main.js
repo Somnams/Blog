@@ -4,6 +4,7 @@ import router from './router';
 import plugins from './utils';
 import axios from './network/request';
 import store from './store';
+import GlobalStore from './store/store';
 import VueToasted from 'vue-toasted';
 import Router from 'vue-router';
 import moment from 'moment';
@@ -44,3 +45,5 @@ new Vue({
   store,
   render: h => h(App),
 }).$mount('#app');
+
+GlobalStore.imageResource();

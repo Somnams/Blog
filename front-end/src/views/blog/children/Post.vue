@@ -7,9 +7,9 @@
         <div class="post">
           <h1 id="post-title">{{post.title}}</h1>
           <div id="post-other">
-            <div><img src="../../../assets/icon-img/iconzhucetouxiang.svg" alt="" class="icon-img">{{post.author.username}}</div>
-            <div><img src="../../../assets/icon-img/shijian.svg" alt="" class="icon-img">{{post.timestamp}}</div>
-            <div><img src="../../../assets/icon-img/chakancishu.svg" alt="" class="icon-img">{{post.views}}</div>
+            <div><img :src="imageDatas.iconzhucetouxiang" alt="" class="icon-img">{{post.author.username}}</div>
+            <div><img :src="imageDatas.shijian" alt="" class="icon-img">{{post.timestamp}}</div>
+            <div><img :src="imageDatas.chakancishu" alt="" class="icon-img">{{post.views}}</div>
           </div>
           <article>
             <vue-markdown
@@ -23,14 +23,14 @@
           <reply ref="reply"/>
           <div class="operation" v-if="post.author.id == sharedState.user_id">
             <a @click="onDeletePost(post)" title="delete this post">
-              <img src="../../../assets/icon-img/shanchu.svg" alt="" class="icon-img"></a>
+              <img :src="imageDatas.shanchu" alt="" class="icon-img"></a>
             <a @click="toEdit" title="edit this post">
-              <img src="../../../assets/icon-img/bianji.svg" alt="" class="icon-img"></a>
+              <img :src="imageDatas.bianji" alt="" class="icon-img"></a>
           </div>
           <!-- 评论区 -->
           <div class="comments">
             <div class="comments-title">
-              <img src="../../../assets/icon-img/liuyan.svg" alt="" class="icon-img">Comments
+              <img :src="imageDatas.liuyan" alt="" class="icon-img">Comments
             </div>
 
             <form v-if="sharedState.is_authenticated" @submit.prevent="onSubmitAddComment"
@@ -43,15 +43,18 @@
               </div>
             </form>
             <div v-else>
-              <button type="button">发表评论前，请先登录...</button>
-              <router-link :to="{ path: '/login', query: { redirect: $route.fullPath } }"></router-link>
+              <router-link :to="{ path: '/login', query: { redirect: $route.fullPath } }">
+                Please log in before commenting...
+              </router-link>
             </div>
             <div v-if="comments" class="comments-detail">
               <div v-for="(comment, index) in comments.items" :key="index">
                 <div :id="'c' + comment.id">
                   <div class="detail-body">
-                    <div class="comment-img"><img class="user-img" :src="comment.author.avatar"
-                                               :alt="comment.author.name || comment.author.username"></div>
+                    <div class="comment-img">
+                      <img class="user-img" :src="comment.author.avatar"
+                           :alt="comment.author.name || comment.author.username">
+                    </div>
                     <div class="comment">
                       <div class="comment-title">
                         <span v-if="comment.author.id == comment.post.author_id">
@@ -71,27 +74,27 @@
                           <li v-if="!comment.disabled">
                             <a @click="onLikeOrUnlike(comment)" title="likes">
                               <span v-if="comment.likers_id.length > 0">{{comment.likers_id.length}}person likes</span>
-                              <span v-else><img src="../../../assets/icon-img/zantuijian.svg" class="icon-img"></span>
+                              <span v-else><img :src="imageDatas.zantuijian" class="icon-img"></span>
                             </a>
                           </li>
                           <li v-if="!comment.disabled">
                             <a @click="onClickReply(comment)" title="reply">
-                              <img src="../../../assets/icon-img/tubiaozhizuo-_1.svg" class="icon-img">
+                              <img :src="imageDatas.tubiaozhizuo-_1" class="icon-img">
                             </a>
                           </li>
                           <li v-if="!comment.disabled && post.author.id == sharedState.user_id">
                             <a @click="onDisabledComment(comment)" title="disabled">
-                              <img src="../../../assets/icon-img/lahei.svg" alt=""  class="icon-img">
+                              <img :src="imageDatas.lahei" alt=""  class="icon-img">
                             </a>
                           </li>
                           <li v-if="comment .disabled && post.author.id == sharedState.user_id">
                             <a @click="onEnabledComment(comment)" title="enabled">
-                              <img src="../../../assets/icon-img/kanjian.svg" alt="" class="icon-img">
+                              <img :src="imageDatas.kanjian" alt="" class="icon-img">
                             </a>
                           </li>
                           <li v-if="!comment.disabled && comment.author.id == sharedState.user_id || post.author.id == sharedState.user_id">
                             <a  @click="onDeleteComment(comment)">
-                              <img src="../../../assets/icon-img/shanchu.svg" alt="delete" title="delete" class="icon-img">
+                              <img :src="imageDatas.shanchu" alt="delete" title="delete" class="icon-img">
                             </a>
                           </li>
                         </ul>
@@ -126,22 +129,22 @@
                               <li v-if="!child.disabled">
                                 <a @click="onLikeOrUnlike(child)" title="likes">
                                   <span v-if="child.likers_id.length > 0">{{child.likers_id.length}}人赞</span>
-                                  <span v-else><img src="../../../assets/icon-img/zantuijian.svg" class="icon-img"></span>
+                                  <span v-else><img :src="imageDatas.zantuijian" class="icon-img"></span>
                                 </a>
                               </li>
                               <li v-if="!child.disabled">
                                 <a @click="onClickReply(child)">
-                                  <img src="../../../assets/icon-img/tubiaozhizuo-_1.svg" alt="" class="icon-img">
+                                  <img :src="imageDatas.tubiaozhizuo-_1" alt="" class="icon-img">
                                 </a>
                               </li>
                               <li v-if="!child.disabled && post.author.id == sharedState.user_id">
                                 <a @click="onDisabledComment(child)" title="disabled">
-                                  <img src="../../../assets/icon-img/lahei.svg" alt="" class="icon-img">
+                                  <img :src="imageDatas.lahei" alt="" class="icon-img">
                                 </a>
                               </li>
                               <li v-if="child.author.id == sharedState.user_id || post.author.id == sharedState.user_id">
                                 <a @click="onDeleteComment(child)" title="delete">
-                                  <img src="../../../assets/icon-img/shanchu.svg" alt="" class="icon-img">
+                                  <img :src="imageDatas.shanchu" alt="" class="icon-img">
                                 </a>
                               </li>
                             </ul>
@@ -163,12 +166,13 @@
 </template>
 
 <script>
-import NavBar from '../../../components/common/nav/NavBar'
-import Confirm from '../../../components/common/confirm/Confirm'
-import Reply from '../../../components/common/comment/Reply'
-import store from '../../../store/store'
+import NavBar from '@/components/common/nav/NavBar'
+import Confirm from '@/components/common/confirm/Confirm'
+import Reply from '@/components/common/comment/Reply'
+import store from '@/store/store'
 import VueMarkdown from 'vue-markdown'
 import hljs from 'highlight.js'
+
 const highLightCode = () => {
   const blocks = document.querySelectorAll('pre code')
   blocks.forEach((block) => {
@@ -187,6 +191,7 @@ export default {
   data () {
     return {
       sharedState: store.state,
+      imageDatas: store.state.imageData,
       showToc: true,
       post: {},
       comments: '',
@@ -422,7 +427,7 @@ export default {
     this.getPostComments(post_id)
   },
   mounted () {
-    highLightCode()
+    highLightCode();
   },
   updated () {
     highLightCode()

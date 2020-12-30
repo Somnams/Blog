@@ -1,16 +1,24 @@
 <template>
     <div class="nav-header">
       <form @submit.prevent class="nh-form">
-        <input type="text" v-model="searchForm.body" placeholder="search" class="nh-in">
-        <button type="submit" class="nh-btn search-btn" @click="onSubmitSearch">
-          <img src="../../../assets/icon-img/sousuo.svg" title="search" class="icon-img">
+        <input
+          type="text"
+          v-model="searchForm.body"
+          placeholder="search"
+          class="nh-in"
+        />
+        <button type="submit"
+                class="nh-btn search-btn"
+                @click="onSubmitSearch"
+        >
+          <img :src="imageDatas.sousuo" title="search" class="icon-img">
         </button>
       </form>
       <div class="nh-right">
         <div v-if="sharedState">
           <a class="nh-select">
             <router-link :to="{ path: '/notification' }">
-              <img src="../../../assets/icon-img/tongzhi.svg"
+              <img :src="imageDatas.tongzhi"
                    alt="" class="icon-img" :class="{ active: isActive }">
             </router-link>
             <div class="nh-options">
@@ -19,7 +27,7 @@
             </div>
           </a>
           <router-link :to="{ name: 'About' }">
-            <img src="../../../assets/icon-img/guanyuwomen.svg" title="About us" class="icon-img">
+            <img :src="imageDatas.guanyuwomen" title="About us" class="icon-img">
           </router-link>
           <a>
             <button class="nh-btn login-btn" @click="logout()">Logout</button>
@@ -38,7 +46,8 @@
 </template>
 
 <script>
-import store from '../../../store/store'
+import store from '@/store/store';
+
 export default {
   name: 'NavHeader',
   data () {
@@ -47,7 +56,8 @@ export default {
       sharedState: store.state.user_id,
       searchForm: {
         body: ''
-      }
+      },
+      imageDatas: store.state.imageData
     }
   },
   methods: {
@@ -77,18 +87,18 @@ export default {
             .then((res) => {
               for (let i = 0; i < res.data.length; i++) {
                 switch (res.data[i].name) {
-                  case 'unread_recived_comments_count':
-                    // eslint-disable-next-line camelcase
-                    unread_recived_comments_count = res.data[i].payload
-                    break
-                  case 'unread_messages_count':
-                    // eslint-disable-next-line camelcase
-                    unread_messages_count = res.data[i].payload
-                    break
-                  case 'unread_comments_likes_count':
-                    // eslint-disable-next-line camelcase
-                    unread_comments_likes_count = res.data[i].payload
-                    break
+                case 'unread_recived_comments_count':
+                  // eslint-disable-next-line camelcase
+                  unread_recived_comments_count = res.data[i].payload;
+                  break;
+                case 'unread_messages_count':
+                  // eslint-disable-next-line camelcase
+                  unread_messages_count = res.data[i].payload;
+                  break;
+                case 'unread_comments_likes_count':
+                  // eslint-disable-next-line camelcase
+                  unread_comments_likes_count = res.data[i].payload;
+                  break;
                 }
                 since = res.data[i].timestamp
               }

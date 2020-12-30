@@ -7,12 +7,15 @@
         <form @submit.prevent="onSubmit" class="addForm">
           <div class="add-row">
             <label for="slug">Slug</label>
-            <input type="text" v-model="roleForm.slug" id="slug" placeholder="please input role's slug" class="add-input">
+            <input type="text" v-model="roleForm.slug"
+                   id="slug" placeholder="please input role's slug"
+                   class="add-input">
             <small>{{ roleForm.slugError }}</small>
           </div>
           <div class="add-row">
             <label for="name">Name</label>
-            <input class="add-input" type="text" v-model="roleForm.name" id="name" placeholder="">
+            <input class="add-input" type="text" v-model="roleForm.name"
+                   id="name" placeholder="">
             <small>{{ roleForm.nameError }}</small>
           </div>
           <div class="add-row">
@@ -20,7 +23,8 @@
             <div>
               <label v-for="(perm, index) in perms" :key="index">
                 <input type="checkbox" :id="perm.dec" :value="perm.dec"
-                       v-model="checkPerms" class="custom-checkbox">{{ perm.name }}
+                       v-model="checkPerms" class="custom-checkbox">
+                {{ perm.name }}
                 <div>
                   <i></i>
                 </div>
@@ -35,7 +39,7 @@
 </template>
 
 <script>
-import store from '../../../../store/store'
+import store from '@/store/store'
 export default {
   name: 'EditRoles',
   data () {

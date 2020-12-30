@@ -37,7 +37,7 @@
                   <ul>
                     <li v-if="!comment.mark_read">
                       <a @click="onMarkRead(comment)" title="mark_read">
-                        <img src="../../../assets/icon-img/978weiduxinxi.svg" alt="" class="icon-img">
+                        <img src="../../../assets/icon-img/weiduxinxi.svg" alt="" class="icon-img">
                       </a>
                     </li>
                     <li v-else>

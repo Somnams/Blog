@@ -12,10 +12,10 @@
           </a>
         </div>
         <div class="article-other">
-          <img src="../../../assets/icon-img/iconzhucetouxiang.svg" alt="" class="icon-img">
+          <img :src="imageData.iconzhucetouxiang" alt="" class="icon-img">
           :{{article.author.username}}
           <span>
-            <img src="../../../assets/icon-img/shijian.svg" alt="" class="icon-img">
+            <img :src="imageData.shijian" alt="" class="icon-img">
             :{{article.timestamp}}</span></div>
         <div class="article-body">CATEGORY: {{article.category}}</div>
       </div>
@@ -23,11 +23,14 @@
 </template>
 
 <script>
+import store from '@/store/store';
+
 export default {
   name: 'List',
   data () {
     return {
-      currentPath: ''
+      currentPath: '',
+      imageData: store.state.imageData
     }
   },
   props: {

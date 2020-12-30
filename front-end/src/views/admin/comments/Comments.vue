@@ -12,19 +12,19 @@
                 <div class="comment">
                   <div class="comment-title">
                     <router-link :to="{ path: `/user/${comment.author.id}` }" class="comment-img">
-                <span v-if="comment.is_new">
-                  <img :src="comment.author.avatar" class="user-img">
-                  <img src="../../../assets/icon-img/tubiaozhizuo-.svg" class="icon-img-dian">
-                </span>
+                      <span v-if="comment.is_new">
+                        <img :src="comment.author.avatar" class="user-img">
+                        <img :src="imageDatas.tubiaozhizuo" class="icon-img-dian">
+                      </span>
                       <span v-else>
-              <img :src="comment.author.avatar" alt="" class="user-img">
-            </span>
+                        <img :src="comment.author.avatar" alt="" class="user-img">
+                      </span>
                     </router-link>
                     <span class="user-name">
-                <span>{{comment.author.username}}</span>
-                <span>{{ $moment(comment.timestamp).format('YYYY/MM/DD HH:mm:ss') }}</span>
-                <span>( {{comment.post.title}} )</span>
-            </span>
+                      <span>{{comment.author.username}}</span>
+                      <span>{{ $moment(comment.timestamp).format('YYYY/MM/DD HH:mm:ss') }}</span>
+                      <span>( {{comment.post.title}} )</span>
+                    </span>
                   </div>
                   <div class="comment-body">
                     <div v-if="comment.disabled">
@@ -38,30 +38,30 @@
                     <ul>
                       <li v-if="!comment.mark_read">
                         <a @click="onMarkRead(comment)" title="mark_read">
-                          <img src="../../../assets/icon-img/978weiduxinxi.svg" alt="" class="icon-img">
+                          <img :src="imageDatas.weiduxinxi" alt="" class="icon-img">
                         </a>
                       </li>
                       <li v-else>
-                        <img src="../../../assets/icon-img/biaoshilei_yiduxinxi.svg" alt="" class="icon-img">
+                        <img :src="imageDatas.biaoshilei_yiduxinxi" alt="" class="icon-img">
                       </li>
                       <li>
                         <router-link :to="{ path: `/blog/post/${comment.post.id}`}" title="passage">
-                          <img src="../../../assets/icon-img/wenzhangguanli.svg" alt="" class="icon-img">
+                          <img :src="imageDatas.wenzhangguanli" alt="" class="icon-img">
                         </router-link>
                       </li>
                       <li v-if="comment.disabled">
                         <a @click="onEnabledComment(comment)" title="enabled">
-                          <img src="../../../assets/icon-img/kanjian.svg" alt="" class="icon-img">
+                          <img :src="imageDatas.kanjian" alt="" class="icon-img">
                         </a>
                       </li>
                       <li v-if="!comment.disabled">
                         <a @click="onDisabledComment(comment)" title="disabled">
-                          <img src="../../../assets/icon-img/lahei.svg" alt="" class="icon-img">
+                          <img :src="imageDatas.lahei" alt="" class="icon-img">
                         </a>
                       </li>
                       <li v-if="!comment.disabled">
                         <a @click="onDeleteComment(comment)" title="delete">
-                          <img src="../../../assets/icon-img/shanchu.svg" alt="" class="icon-img">
+                          <img :src="imageDatas.shanchu" alt="" class="icon-img">
                         </a></li>
                     </ul>
                   </div>
@@ -81,14 +81,16 @@
 </template>
 
 <script>
-import { confirmMiXin } from '../../../common/mixin'
-import Pagination from '../../../components/common/pagination/Pagination'
+import { confirmMiXin } from '@/common/mixin'
+import Pagination from '@/components/common/pagination/Pagination'
+import store from '@store/store'
 
 export default {
   name: 'Comments',
   data () {
     return {
-      comments: ''
+      comments: '',
+      imageDatas: store.state.imageData
     }
   },
   components: {

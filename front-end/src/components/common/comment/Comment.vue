@@ -1,5 +1,5 @@
 <template>
-  <div id="message-form">
+  <div class="message-form">
     <form @submit.prevent="onSubmitMessage"
           @reset.prevent="onResetMessage">
       <textarea v-model="MessageForm.body" cols="30" rows="10"
@@ -53,7 +53,7 @@ export default {
 </script>
 
 <style>
-  #message-form {
+  .message-form {
     display: block;
     height: 160px;
     width: 80%;

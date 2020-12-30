@@ -7,9 +7,9 @@
         <div class="passage">
           <h1>{{diary.title}}</h1>
           <div id="post-other">
-            <div><img src="../../../assets/icon-img/iconzhucetouxiang.svg" alt="" class="icon-img">: {{diary.author.username}}</div>
-            <div><img src="../../../assets/icon-img/shijian.svg" alt="" class="icon-img">{{diary.timestamp}}</div>
-            <div><img src="../../../assets/icon-img/chakancishu.svg" alt="" class="icon-img">{{diary.views}}</div>
+            <div><img :src="imageDatas.iconzhucetouxiang" alt="" class="icon-img">: {{diary.author.username}}</div>
+            <div><img :src="imageDatas.shijian" alt="" class="icon-img">{{diary.timestamp}}</div>
+            <div><img :src="imageDatas.chakancishu" alt="" class="icon-img">{{diary.views}}</div>
           </div>
           <article>
             <vue-markdown
@@ -20,9 +20,9 @@
           </article>
           <div class="operation" v-if="diary.author.id == sharedState.user_id">
             <a @click="onDeleteDiary(diary)" title="delete this diary">
-              <img src="../../../assets/icon-img/shanchu.svg" alt="" class="icon-img"></a>
+              <img :src="imageDatas.shanchu" alt="" class="icon-img"></a>
             <a @click="toEdit" title="edit this diary">
-              <img src="../../../assets/icon-img/bianji.svg" alt="" class="icon-img"></a>
+              <img :src="imageDatas.bianji" alt="" class="icon-img"></a>
           </div>
         </div>
       </main>
@@ -34,9 +34,9 @@
 </template>
 
 <script>
-import NavBar from '../../../components/common/nav/NavBar'
-import store from '../../../store/store'
-import { confirmMiXin } from '../../../common/mixin'
+import NavBar from '@/components/common/nav/NavBar'
+import store from '@/store/store'
+import { confirmMiXin } from '@/common/mixin'
 import VueMarkdown from 'vue-markdown'
 import hljs from 'highlight.js'
 const highLightCode = () => {
@@ -56,6 +56,7 @@ export default {
   data () {
     return {
       sharedState: store.state,
+      imageDatas: store.state.imageData,
       diary: {}
     }
   },

@@ -1,4 +1,4 @@
-import NavBar from '../components/common/nav/NavBar'
+import NavBar from '@/components/common/nav/NavBar'
 
 function plugins (Vue) {
   Vue.component('nav-bar', NavBar)

@@ -30,11 +30,11 @@
 </template>
 
 <script>
-import NavBar from '../../components/common/nav/NavBar'
-import List from '../../components/common/list/List'
-import Pagination from '../../components/common/pagination/Pagination'
-import store from '../../store/store'
-import NavHeader from '../../components/common/nav/NavHeader'
+import NavBar from '@/components/common/nav/NavBar'
+import List from '@/components/common/list/List'
+import Pagination from '@/components/common/pagination/Pagination'
+import store from '@/store/store'
+import NavHeader from '@/components/common/nav/NavHeader'
 export default {
   name: 'Life',
   components: {

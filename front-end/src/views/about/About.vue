@@ -31,14 +31,14 @@
           <h1 style="color: #827717">Concat us</h1>
           <ul>
             <li>
-              <img src="../../assets/icon-img/youxiang.svg" alt="" class="icon-img">s0mnam.fn@gmail.com
+              <img :src="imageDatas.youxiang" alt="" class="icon-img">s0mnam.fn@gmail.com
             </li>
             <li>
-              <img src="../../assets/icon-img/github.svg" alt="" class="icon-img">
+              <img :src="imageDatas.github" alt="" class="icon-img">
               <a href="https://github.com/Somnams">Somnams</a>
             </li>
             <li>
-              <img src="../../assets/icon-img/qq.svg" alt="" class="icon-img"> 3244345132@qq.com
+              <img :src="imageDatas.qq" alt="" class="icon-img"> 3244345132@qq.com
             </li>
           </ul>
         </div>
@@ -49,11 +49,17 @@
 </template>
 
 <script>
-import NavBar from '../../components/common/nav/NavBar'
+import NavBar from '@/components/common/nav/NavBar'
+import store from '@store/store'
 export default {
   name: 'About',
   components: {
     NavBar
+  },
+  data() {
+    return {
+      imageDatas: store.state.imageData
+    }
   }
 }
 </script>

@@ -32,7 +32,7 @@
             </td>
             <td>
               <a @click="onDeletePost(post)">
-                <img src="../../../assets/icon-img/shanchu.svg" alt="" title="delete this post" class="icon-img">
+                <img :src="imageDatas.shanchu" alt="" title="delete this post" class="icon-img">
               </a>
             </td>
           </tr>
@@ -50,14 +50,16 @@
 </template>
 
 <script>
-import Pagination from '../../../components/common/pagination/Pagination'
-import { confirmMiXin } from '../../../common/mixin'
+import Pagination from '@/components/common/pagination/Pagination'
+import { confirmMiXin } from '@/common/mixin'
+import store from '@store/store'
 
 export default {
   name: 'Posts',
   data () {
     return {
-      posts: ''
+      posts: '',
+      imageDatas: store.state.imageData
     }
   },
   components: {

@@ -25,10 +25,10 @@
               </td>
               <td>
                 <router-link :to="{name: 'AdminEditUsers', params: {id: user.id}}">
-                  <img src="../../../assets/icon-img/bianji.svg" alt="" class="icon-img" title="edit this user">
+                  <img :src="imageDatas.bianji" alt="" class="icon-img" title="edit this user">
                 </router-link>
                 <a @click="onDeleteUser(user)">
-                  <img src="../../../assets/icon-img/shanchu.svg" alt="" class="icon-img" title="delete this user">
+                  <img :src="imageDatas.shanchu" alt="" class="icon-img" title="delete this user">
                 </a>
               </td>
             </tr>
@@ -41,13 +41,15 @@
 </template>
 
 <script>
-import { confirmMiXin } from '../../../common/mixin'
+import { confirmMiXin } from '@/common/mixin';
+import store from '@store/store'
 
 export default {
   name: 'Users',
   data () {
     return {
-      users: ''
+      users: '',
+      imageDatas: store.state.imageData
     }
   },
   mixins: [confirmMiXin],

@@ -4,12 +4,12 @@ import router from '../router';
 import store from '../store/store';
 
 if (process.env.NODE_ENV === 'production') {
-  axios.defaults.baseURL = 'http://95.163.198.43:5000';
+  axios.defaults.baseURL = 'https://blog.somnams.org/api';
 } else {
   axios.defaults.baseURL = 'http://127.0.0.1:5000/api';
 }
+// axios.defaults.baseURL = 'https://blog.somnams.org/api';
 
-// 请求拦截器
 // Add a request interceptor
 axios.interceptors.request.use(
   function (config) {
@@ -26,7 +26,6 @@ axios.interceptors.request.use(
   }
 );
 
-// 响应拦截器
 // Add a response interceptor
 axios.interceptors.response.use(
   function (response) {

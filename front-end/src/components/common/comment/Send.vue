@@ -3,7 +3,7 @@
     <transition name="fade">
       <div class="group-messages" v-if="isShow">
         <div class="msg-form">
-          <img src="../../../assets/icon-img/youjianxinjian.svg" class="icon-img">Group Messages
+          <img :src="imageDatas.youjianxinjian" class="icon-img">Group Messages
           <form @submit.prevent="onSendMessages" @reset.prevent="onResetMessages">
             <textarea name="" id="" cols="30" rows="20"
                       class="msg-input" placeholder="Please input message."
@@ -28,7 +28,8 @@
 </template>
 
 <script>
-import Alert from '../alert/Alert'
+import Alert from '../alert/BlogAlert'
+import store from '@store/store'
 export default {
   name: 'Send',
   components: { Alert },
@@ -37,6 +38,7 @@ export default {
   },
   data () {
     return {
+      imageDatas: store.state.imageData,
       promiseStatus: null,
       isShow: false,
       alerts: [],

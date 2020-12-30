@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import store from '../../../store/store'
+import store from '@/store/store'
 import hljs from 'highlight.js'
 const highLightCode = () => {
   const blocks = document.querySelectorAll('pre code')
@@ -49,12 +49,16 @@ export default {
   },
   methods: {
     onSubmit (e) {
-      const path = '/posts/'
+      const path = '/posts/';
       const payload = {
         title: this.EditForm.title,
         summary: this.EditForm.summary,
         category: this.EditForm.category,
         body: this.EditForm.body
+      };
+
+      if (!payload.title || !payload.body) {
+        return false;
       }
 
       this.$axios.post(path, payload)
@@ -66,12 +70,9 @@ export default {
           this.EditForm.body = ''
         })
         .catch((err) => {
-          console.error(err)
+          console.log(err);
         })
     }
-  },
-  created () {
-    console.log(this.$router)
   },
   mounted () {
     highLightCode()

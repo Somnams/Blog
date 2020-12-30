@@ -29,6 +29,7 @@ class Config(object):
     # Redis 用于 RQ 任务队列
     REDIS_URL = os.environ.get('REDIS_URL') or 'redis://'
     #
-    ELASTICSEARCH_URL = os.environ.get('ELASTICSEARCH_URL') or 'https://es.ginshio.top'
+    # os.environ.get('ELASTICSEARCH_URL') or
+    ELASTICSEARCH_URL = 'http://152.136.208.125/'
     # 语言
     LANGUAGES = ['zh', 'en']

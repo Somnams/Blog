@@ -27,7 +27,7 @@
 <script>
 import NavBar from '../nav/NavBar'
 import Comment from './Comment'
-import store from '../../../store/store'
+import store from '@/store/store'
 import Pagination from '../pagination/Pagination'
 import vuescroll from 'vuescroll'
 

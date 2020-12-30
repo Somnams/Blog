@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import store from '../../../store/store'
+import store from '@/store/store'
 import hljs from 'highlight.js'
 const highLightCode = () => {
   const blocks = document.querySelectorAll('pre code')
@@ -35,7 +35,7 @@ const highLightCode = () => {
 }
 
 export default {
-  name: 'Add',
+  name: 'AddLife',
   data () {
     return {
       sharedState: store.state,

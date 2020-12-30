@@ -7,34 +7,34 @@
     <main class="main-content">
       <div>
         <h3>
-          <img src="../../assets/icon-img/iconfuzhi.svg" alt="" class="icon-img">
+          <img :src="imageDatas.iconfuzhi" alt="" class="icon-img">
           {{ user.username }}
         </h3>
         <h3>
-          <img src="../../assets/icon-img/dingweidizhigpsditu.svg" alt="" class="icon-img">
+          <img :src="imageDatas.dingweidizhigpsditu" alt="" class="icon-img">
           {{ user.location }}
         </h3>
         <h3>
-          <img src="../../assets/icon-img/shoucang.svg" alt="" class="icon-img">
+          <img :src="imageDatas.shoucang" alt="" class="icon-img">
           {{ user.about_me }}
         </h3>
         <!-- Member since -->
         <h4>
-          <img src="../../assets/icon-img/shijian.svg" alt="" class="icon-img">
+          <img :src="imageDatas.shijian" alt="" class="icon-img">
           Member since: <span v-if="user">{{ $moment(user.member_since).format('LLL') }}</span>
         </h4>
       </div>
 
       <div v-if="$route.params.id != sharedState.user_id">
         <router-link :to="{ name: 'MessagesHistoryResource', query: { from: $route.params.id } }" title="send message">
-          <img src="../../assets/icon-img/youjianxinjian.svg" alt="" class="icon-img">
+          <img :src="imageDatas.youjianxinjian" alt="" class="icon-img">
         </router-link>
       </div>
 
       <div v-if="$route.params.id == sharedState.user_id && sharedState.user_perms.includes('admin')">
         <send ref="send" :route-id="$route.params.id"/>
         <a @click="sendMessages()">
-          <img src="../../assets/icon-img/fasong.svg" title="chain-message" class="icon-img">(send message by group)
+          <img :src="imageDatas.fasong" title="chain-message" class="icon-img">(send message by group)
         </a>
       </div>
     </main>
@@ -42,9 +42,9 @@
 </template>
 
 <script>
-import store from '../../store/store'
-import NavBar from '../../components/common/nav/NavBar'
-import Send from '../../components/common/comment/Send'
+import store from '@/store/store';
+import NavBar from '@/components/common/nav/NavBar';
+import Send from '@/components/common/comment/Send';
 
 export default {
   name: 'Mine',
@@ -55,6 +55,7 @@ export default {
   data () {
     return {
       sharedState: store.state,
+      imageDatas: store.state.imageData,
       user: {
         username: '',
         email: '',

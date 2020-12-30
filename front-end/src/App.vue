@@ -10,7 +10,7 @@
 
 <script>
 export default {
-  name: "app",
+  name: 'app',
   provide() {
     return {
       reload: this.reload
@@ -24,7 +24,7 @@ export default {
   methods: {
     reload() {
       this.isRouterAlive = false;
-      this.$nextTick(function() {
+      this.$nextTick(() => {
         this.isRouterAlive = true;
       });
     }
