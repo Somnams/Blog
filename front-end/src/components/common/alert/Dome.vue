@@ -6,10 +6,19 @@
       message="hi~welcome to my blog!"
     />
     <blog-alert
-      type="success"
+      type="error"
       title="error"
       message="hi~welcome to my blog!"
     />
+    <blog-alert
+      type="warn"
+      title="warning"
+    />
+    <blog-alert
+      type="info"
+      title="info"
+    />
+    <blog-alert/>
   </div>
 </template>
 

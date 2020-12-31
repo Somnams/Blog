@@ -1,5 +1,4 @@
 <template>
-<!--  TODO:: TEST ALERT-->
   <div v-if="visible" class="wrapper">
     <div class="outer" ref="outer">
       <div :class="classObject" ref="alert">
@@ -74,7 +73,7 @@ export default {
 
         aStyle.left = (signal === 'begin') ? `${distance}px` : `${curWidth}px`;
 
-      }, 50);
+      }, 30);
     },
     onClickClose() {
       this.showAlert('end');
@@ -88,13 +87,14 @@ export default {
   height: 40px;
   width: 100%;
   position: relative;
+  margin-bottom: 10px;
 }
 .outer {
   position: absolute;
   color: #000;
   top: 0;
   width: 100%;
-  height: 40px;
+  height: 38px;
 }
 .inner {
   height: 100%;
