@@ -11,6 +11,10 @@ import moment from 'moment';
 import mavonEditor from 'mavon-editor';
 import 'mavon-editor/dist/css/index.css';
 import 'highlight.js/styles/railscasts.css';
+// TODO:: plugin Alert
+import alert from '@components/common/alert/alert'
+Vue.use(alert);
+
 
 Vue.config.productionTip = false;
 

@@ -1,11 +1,5 @@
 <template>
   <div>
-    <blog-alert
-      :visible="alertForm.show"
-      :type="alertForm.type"
-      :title="alertForm.title"
-      :message="alertForm.msg"
-    />
     <div class="login">
       <h2 class="active">Login</h2>
       <form @submit.prevent="onSubmit">
@@ -38,27 +32,16 @@
 </template>
 
 <script>
-import BlogAlert from '@components/common/alert/BlogAlert'
-import store from '../../store/store'
+import store from '@store/store'
 
 export default {
   name: 'Login',
-  components: {
-    BlogAlert
-  },
   data () {
     return {
       sharedState: store.state,
-      alertForm: {
-        show: false,
-        type: '',
-        title: '',
-        msg: ''
-      },
       loginForm: {
         username: '',
-        password: '',
-        errors: 0
+        password: ''
       }
     }
   },
@@ -66,22 +49,6 @@ export default {
   },
   methods: {
     onSubmit (e) {
-      this.loginForm.errors = 0 // 重置
-
-      if (!this.loginForm.username) {
-        this.loginForm.errors++;
-        this.$toasted.error('Please input your username');
-      }
-
-      if (!this.loginForm.password) {
-        this.loginForm.errors++;
-        this.$toasted.error('Please input your password');
-      }
-
-      if (this.loginForm.errors > 0) {
-        return false;
-      }
-
       const path = '/tokens'
       // axios 实现Basic Auth需要在config中设置 auth 这个属性即可
       this.$axios.post(path, {}, {
@@ -94,6 +61,7 @@ export default {
         window.localStorage.setItem('madblog-token', res.data.token);
         store.loginAction();
         // TODO::ALERT <toasted>
+        this.$alert('success', {title: 'Login successfully', message: `Hi~ ${this.sharedState.user_name}!`});
         this.$toasted.success(`Hi~ ${this.sharedState.user_name}!`, {icon: 'fingerprint'});
         if (typeof this.$route.query.redirect === 'undefined') {
           this.$router.push('/');
@@ -102,8 +70,8 @@ export default {
         }
       })
       .catch (err => {
-        // this.alertForm.show = true;
-        this.$toasted.error('Check usernamse and password please.');
+        this.$alert('error', {title: 'Error', message: 'Check username and password please.'});
+        // this.$toasted.error('Check usernamse and password please.');
       });
     }
   }

@@ -1,5 +1,6 @@
 <template>
-  <div v-show="show" class="wrapper">
+<!--  TODO:: ALERT position-->
+  <div v-if="visible" class="wrapper">
     <div class="outer" ref="outer">
       <div :class="classObject" ref="alert">
         <div class="a-header">
@@ -18,9 +19,12 @@
 export default {
   name: 'BlogAlert',
   props: {
-    visible: {
-      type: Boolean,
-      default: true
+    autoClose: {
+      type: [Boolean, Number],
+      default: 3,
+      validator(val) {
+        return typeof  val === 'boolean' || typeof val === 'number';
+      }
     },
     type: {
       type: String,
@@ -40,28 +44,32 @@ export default {
   },
   data () {
     return {
-      show: this.visible,
+      visible: true,
       classObject: '',
       typeList: ['error', 'warn', 'success', 'info']
     }
   },
   mounted () {
-    console.log(this.show);
     this.init();
     this.showAlert('begin');
+    this.execAutoClose();
   },
   methods: {
     init() {
       this.classObject = this.typeList.includes(this.type) ? `inner ${this.type}` : 'inner info';
-      return this.classObject
+      return this.classObject;
     },
     showAlert(signal) {
       let curWidth = 0;
       let speed = 0;
-      const target = this.$refs.outer.clientWidth;
-      const aStyle = this.$refs.alert.style;
+      let target;
+      let aStyle;
 
-      (signal === 'begin') && (aStyle.left = `${target}px`);
+      this.$nextTick(() => {
+        target = this.$refs.outer.clientWidth;
+        aStyle = this.$refs.alert.style;
+        (signal === 'begin') && (aStyle.left = `${target}px`);
+      })
 
       const timer = setInterval(() => {
         const distance = target - curWidth;
@@ -73,12 +81,19 @@ export default {
         }
         if (signal === 'end' && curWidth === target) {
           clearInterval(timer);
-          this.show = false;
+          this.visible = false;
         }
 
         aStyle.left = (signal === 'begin') ? `${distance}px` : `${curWidth}px`;
 
       }, 30);
+    },
+    execAutoClose() {
+      if (this.autoClose) {
+        setTimeout(() => {
+          this.onClickClose();
+        }, this.autoClose * 1000);
+      }
     },
     onClickClose() {
       this.showAlert('end');
@@ -96,10 +111,9 @@ export default {
   z-index: 9999;
 }
 .outer {
-  position: relative;
+  position: absolute;
   color: #000;
   top: 0;
-  margin-bottom: 10px;
   width: 100%;
   height: 38px;
 }
@@ -109,6 +123,7 @@ export default {
   overflow: hidden;
   position: relative;
   border-radius: 3px;
+  line-height: 38px;
   display: flex;
 }
 .a-header {

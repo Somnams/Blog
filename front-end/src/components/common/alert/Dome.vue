@@ -20,6 +20,10 @@
       message="oooooooo"
     />
     <blog-alert/>
+
+    <div class="footer">
+      <button @click="showAlert">click here</button>
+    </div>
   </div>
 </template>
 
@@ -32,6 +36,15 @@ export default {
     return {
 
     }
+  },
+  methods: {
+    showAlert () {
+      this.$alert('error', {
+        title: 'err',
+        message: 'this.$alert?????',
+        autoClose: false
+      })
+    },
   }
 }
 </script>
@@ -40,5 +53,9 @@ export default {
 .demo {
   position: relative;
   top: 10px;
+}
+.footer {
+  position: relative;
+  top: 100px;
 }
 </style>
