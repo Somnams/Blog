@@ -1,5 +1,5 @@
 <template>
-  <div v-if="visible" class="wrapper">
+  <div v-show="show" class="wrapper">
     <div class="outer" ref="outer">
       <div :class="classObject" ref="alert">
         <div class="a-header">
@@ -18,13 +18,17 @@
 export default {
   name: 'BlogAlert',
   props: {
+    visible: {
+      type: Boolean,
+      default: true
+    },
     type: {
       type: String,
       default: 'info'
     },
     title: {
       type: String,
-      default: 'info title'
+      default: 'infoTitle'
     },
     message: {
       type: String,
@@ -36,12 +40,13 @@ export default {
   },
   data () {
     return {
-      visible: true,
+      show: this.visible,
       classObject: '',
       typeList: ['error', 'warn', 'success', 'info']
     }
   },
   mounted () {
+    console.log(this.show);
     this.init();
     this.showAlert('begin');
   },
@@ -68,7 +73,7 @@ export default {
         }
         if (signal === 'end' && curWidth === target) {
           clearInterval(timer);
-          this.visible = false;
+          this.show = false;
         }
 
         aStyle.left = (signal === 'begin') ? `${distance}px` : `${curWidth}px`;
@@ -86,19 +91,22 @@ export default {
 .wrapper {
   height: 40px;
   width: 100%;
-  position: relative;
-  margin-bottom: 10px;
+  position: fixed;
+  top: 0;
+  z-index: 9999;
 }
 .outer {
-  position: absolute;
+  position: relative;
   color: #000;
   top: 0;
+  margin-bottom: 10px;
   width: 100%;
   height: 38px;
 }
 .inner {
   height: 100%;
   width: 100%;
+  overflow: hidden;
   position: relative;
   border-radius: 3px;
   display: flex;
@@ -106,6 +114,7 @@ export default {
 .a-header {
   padding-left: 18px;
   font-size: 16px;
+  text-align: center;
 }
 .a-content {
   padding-left: 8px;
@@ -114,7 +123,7 @@ export default {
 
 .warn {
   background-color: #fffbe6;
-  border: 2px solid #ffe58f;
+  border: 1px solid #ffe58f;
 }
 .error {
   background-color: #fff1f0;

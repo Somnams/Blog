@@ -222,6 +222,7 @@ export default {
           const path = `/posts/${post.id}`
           this.$axios.delete(path)
             .then((res) => {
+              // this.$toasted.error()
               this.$toasted.success('Delete success.', { icon: 'fingerprint' })
               if (typeof this.$route.query.redirect === 'undefined') {
                 this.$router.push('/blog')

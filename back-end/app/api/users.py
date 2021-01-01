@@ -49,25 +49,25 @@ def create_user():
 
     text_body = '''
     Dear {},
-    Welcome to Madblog!
+    Welcome to SERENDIPITY!
     To confirm your account please click on the following link: {}
     Sincerely,
-    The Madblog Team
+    The SERENDIPITY Team
     Note: replies to this email address are not monitored.
     '''.format(user.username, confirm_url)
 
     html_body = '''
     <p>Dear {0},</p>
-    <p>Welcome to <b>Madblog</b>!</p>
+    <p>Welcome to <b>SERENDIPITY</b>!</p>
     <p>To confirm your account please <a href="{1}">click here</a>.</p>
     <p>Alternatively, you can paste the following link in your browser's address bar:</p>
     <p><b>{1}</b></p>
     <p>Sincerely,</p>
-    <p>The Madblog Team</p>
+    <p>The SERENDIPITY Team</p>
     <p><small>Note: replies to this email address are not monitored.</small></p>
     '''.format(user.username, confirm_url)
 
-    send_email('[Madblog] Confirm Your Account',
+    send_email('[SERENDIPITY] Confirm Your Account',
                sender=current_app.config['MAIL_SENDER'],
                recipients=[user.email],
                text_body=text_body,
@@ -83,7 +83,7 @@ def create_user():
 @bp.route('/users/', methods=['GET'])
 @token_auth.login_required
 def get_users():
-    '''返回用户集合，分页'''
+    """返回用户集合，分页"""
     page = request.args.get('page', 1, type=int)
     per_page = min(
         request.args.get(
@@ -95,7 +95,7 @@ def get_users():
 @bp.route('/users/<int:id>', methods=['GET'])
 @token_auth.login_required
 def get_user(id):
-    '''返回一个用户'''
+    """返回一个用户"""
     user = User.query.get_or_404(id)
     if g.current_user == user:
         return jsonify(user.to_dict(include_email=True))
@@ -108,7 +108,7 @@ def get_user(id):
 @bp.route('/users/<int:id>', methods=['PUT'])
 @token_auth.login_required
 def update_user(id):
-    '''修改一个用户'''
+    """修改一个用户"""
     user = User.query.get_or_404(id)
     data = request.get_json()
     if not data:
@@ -681,25 +681,25 @@ def resend_confirmation():
 
     text_body = '''
     Dear {},
-    Welcome to Madblog!
+    Welcome to SERENDIPITY!
     To confirm your account please click on the following link: {}
     Sincerely,
-    The Madblog Team
+    The SERENDIPITY Team
     Note: replies to this email address are not monitored.
     '''.format(g.current_user.username, data.get('confirm_email_base_url') + token)
 
     html_body = '''
     <p>Dear {0},</p>
-    <p>Welcome to <b>Madblog</b>!</p>
+    <p>Welcome to <b>SERENDIPITY</b>!</p>
     <p>To confirm your account please <a href="{1}">click here</a>.</p>
     <p>Alternatively, you can paste the following link in your browser's address bar:</p>
     <p><b>{1}</b></p>
     <p>Sincerely,</p>
-    <p>The Madblog Team</p>
+    <p>The SERENDIPITY Team</p>
     <p><small>Note: replies to this email address are not monitored.</small></p>
     '''.format(g.current_user.username, data.get('confirm_email_base_url') + token)
 
-    send_email('[Madblog] Confirm Your Account',
+    send_email('[SERENDIPITY] Confirm Your Account',
                sender=current_app.config['MAIL_SENDER'],
                recipients=[g.current_user.email],
                text_body=text_body,
@@ -755,7 +755,7 @@ def reset_password_request():
         To reset your password click on the following link: {1}
         If you have not requested a password reset simply ignore this message.
         Sincerely,
-        The Madblog Team
+        The SERENDIPITY Team
         Note: replies to this email address are not monitored.
         '''.format(user.username, data.get('confirm_email_base_url') + token)
 
@@ -766,11 +766,11 @@ def reset_password_request():
         <p><b>{1}</b></p>
         <p>If you have not requested a password reset simply ignore this message.</p>
         <p>Sincerely,</p>
-        <p>The Madblog Team</p>
+        <p>The SERENDIPITY Team</p>
         <p><small>Note: replies to this email address are not monitored.</small></p>
         '''.format(user.username, data.get('confirm_email_base_url') + token)
 
-        send_email('[Madblog] Reset Your Password',
+        send_email('[SERENDIPITY] Reset Your Password',
                    sender=current_app.config['MAIL_SENDER'],
                    recipients=[user.email],
                    text_body=text_body,

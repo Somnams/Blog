@@ -1,75 +1,85 @@
 <template>
-  <div class="login">
-    <h2 class="active">Login</h2>
-    <form @submit.prevent="onSubmit">
-      <input class="text" v-model="loginForm.username" type="text"
-             value="" id="login_username" required/>
-      <span>username</span><span v-show="loginForm.usernameError"
-                                 class="error-tip">{{ loginForm.usernameError }}</span>
-      <br/>
-      <input class="text" v-model="loginForm.password" type="password" value=""
-             id="login_password" required minlength="8" />
-      <span>password</span><span v-show="loginForm.passwordError"
-                                 class="error-tip">{{ loginForm.passwordError }}</span>
-      <br/>
-      <input name="" type="checkbox" value="" id="checkbox-1-1" class="custom-checkbox" />
-      <label for="checkbox-1-1">Keep me Signed in</label>
-      <button class="sign_btn" type="submit">Submit</button>
-    </form>
-    <div class="select">
-      <div>Register <i>----</i><router-link to="/register">click</router-link></div>
-      <div>
-        Forget Your Password?
-        <router-link :to="{ name: 'ResetPasswordRequest' }">Click here to reset it.</router-link>
+  <div>
+    <blog-alert
+      :visible="alertForm.show"
+      :type="alertForm.type"
+      :title="alertForm.title"
+      :message="alertForm.msg"
+    />
+    <div class="login">
+      <h2 class="active">Login</h2>
+      <form @submit.prevent="onSubmit">
+        <input class="text" v-model="loginForm.username" type="text"
+               value="" id="login_username" required/>
+        <span>username</span>
+        <br/>
+        <input class="text" v-model="loginForm.password" type="password" value=""
+               id="login_password" required minlength="8" />
+        <span>password</span>
+        <br/>
+        <input name="" type="checkbox" value="" id="checkbox-1-1" class="custom-checkbox" />
+        <label for="checkbox-1-1">Keep me Signed in</label>
+        <button class="sign_btn" type="submit">Submit</button>
+      </form>
+      <div class="select">
+        <div><router-link to="/register">Rgister</router-link></div>
+        <div>
+          Forget Your Password?
+          <router-link :to="{ name: 'ResetPasswordRequest' }">Click here to reset it.</router-link>
+        </div>
       </div>
-    </div>
-    <div class="tip">
-      <p class="tip-text">
-        *We promise not to disclose your personal information to other websites.
-      </p>
+      <div class="tip">
+        <p class="tip-text">
+          *We promise not to disclose your personal information to other websites.
+        </p>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import BlogAlert from '@components/common/alert/BlogAlert'
 import store from '../../store/store'
 
 export default {
   name: 'Login',
+  components: {
+    BlogAlert
+  },
   data () {
     return {
       sharedState: store.state,
+      alertForm: {
+        show: false,
+        type: '',
+        title: '',
+        msg: ''
+      },
       loginForm: {
         username: '',
         password: '',
-        submitted: false,
-        errors: 0,
-        usernameError: null,
-        passwordError: null
+        errors: 0
       }
     }
+  },
+  created () {
   },
   methods: {
     onSubmit (e) {
       this.loginForm.errors = 0 // 重置
 
       if (!this.loginForm.username) {
-        this.loginForm.errors++
-        this.loginForm.usernameError = 'Username required.'
-      } else {
-        this.loginForm.usernameError = null
+        this.loginForm.errors++;
+        this.$toasted.error('Please input your username');
       }
 
       if (!this.loginForm.password) {
-        this.loginForm.errors++
-        this.loginForm.passwordError = 'Password required.'
-      } else {
-        this.loginForm.passwordError = null
+        this.loginForm.errors++;
+        this.$toasted.error('Please input your password');
       }
 
       if (this.loginForm.errors > 0) {
-        // 表单验证没通过时，不继续往下执行，即不会通过 axios 调用后端API
-        return false
+        return false;
       }
 
       const path = '/tokens'
@@ -79,31 +89,22 @@ export default {
           username: this.loginForm.username,
           password: this.loginForm.password
         }
-      }).then((response) => {
-        // handle success
-        window.localStorage.setItem('madblog-token', response.data.token)
-        store.loginAction()
-
-        this.$toasted.success(`Welcome ${this.sharedState.user_name}!`, { icon: 'fingerprint' })
+      })
+      .then(res => {
+        window.localStorage.setItem('madblog-token', res.data.token);
+        store.loginAction();
+        // TODO::ALERT <toasted>
+        this.$toasted.success(`Hi~ ${this.sharedState.user_name}!`, {icon: 'fingerprint'});
         if (typeof this.$route.query.redirect === 'undefined') {
-          this.$router.push('/')
+          this.$router.push('/');
         } else {
-          this.$router.push(this.$route.query.redirect)
+          this.$router.push(this.$route.query.redirect);
         }
       })
-        .catch((error) => {
-          // handle error
-          // console.log('failed', error.response);
-          if (typeof error.response !== 'undefined') {
-            // eslint-disable-next-line eqeqeq
-            if (error.response.status === 401) {
-              this.loginForm.usernameError = 'Invalid username or password.'
-              this.loginForm.passwordError = 'Invalid username or password.'
-            } else {
-              console.log(error.response)
-            }
-          }
-        })
+      .catch (err => {
+        // this.alertForm.show = true;
+        this.$toasted.error('Check usernamse and password please.');
+      });
     }
   }
 }
@@ -226,7 +227,7 @@ export default {
   }
 
   .sign_btn {
-    background-color: #928bad;
+    background-color: #948e99;
     font-family: 'Montserrat', sans-serif;
     color: #fff;
     width: 80%;
@@ -241,8 +242,8 @@ export default {
   }
 
   .sign_btn:hover {
-    background: #948e99;
-    box-shadow: 0px 4px 35px -5px #948e99;
+    background-color: #928bad;
+    box-shadow: 0 0 5px #928bad;
     cursor: pointer;
   }
 

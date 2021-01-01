@@ -4,20 +4,17 @@
       <form @submit.prevent="onSubmit">
         <input class="text" v-model="registerForm.username" type="text"
                value="" id="register_username" required/>
-        <span>username</span><span v-show="registerForm.usernameError"
-                                   class="error-tip">{{ registerForm.usernameError }}</span>
+        <span>username</span>
         <br/>
         <input class="text" v-model="registerForm.password" type="text" value=""
                id="register_password" required minlength="8" />
-        <span>password</span><span v-show="registerForm.passwordError"
-                                   class="error-tip">{{ registerForm.passwordError }}</span>
+        <span>password</span>
         <br/>
         <input class="text" name="email" v-model="registerForm.email"
                type="email" value=""
                id="register_email" required />
 <!--               pattern="/^\w+((.\w+)|(-\w+))@[A-Za-z0-9]+((.|-)[A-Za-z0-9]+).[A-Za-z0-9]+$/" />-->
-        <span>email</span><span v-show="registerForm.emailError"
-                                class="error-tip">{{ registerForm.emailError }}</span>
+        <span>email</span>
         <button class="sign_btn">Submit</button>
       </form>
       <div class="tip">
@@ -38,43 +35,29 @@ export default {
         password: '',
         email: '',
         submitted: false,
-        errors: 0,
-        usernameError: null,
-        passwordError: null,
-        emailError: null
+        errors: 0
       }
     }
   },
   methods: {
     onSubmit (e) {
       this.registerForm.submitted = true
-      this.registerForm.errors = 0
+      this.registerForm.errors = 0;
 
       if (!this.registerForm.username) {
-        this.registerForm.usernameError = 'Username required.'
-        this.registerForm.errors++
-      } else {
-        this.registerForm.usernameError = null
+        this.registerForm.errors++;
       }
 
       if (!this.registerForm.password) {
-        this.registerForm.password = 'Password required.'
-        this.registerForm.errors++
-      } else {
-        this.registerForm.passwordError = null
+        this.registerForm.errors++;
       }
 
       if (!this.registerForm.email) {
-        this.registerForm.emailError = 'Email required.'
-        this.registerForm.errors++
-      } else if (!this.valid_email(this.registerForm.email)) {
-        this.registerForm.emailError = 'Valid email required.'
-      } else {
-        this.registerForm.emailError = null
+        this.registerForm.errors++;
       }
 
       if (this.registerForm.errors > 0) {
-        return false
+        return false;
       }
 
       const path = '/users'
@@ -225,7 +208,7 @@ export default {
   }
 
   .sign_btn {
-    background-color: #928bad;
+    background-color: #948e99;
     font-family: 'Montserrat', sans-serif;
     color: #fff;
     width: 80%;
@@ -240,8 +223,8 @@ export default {
   }
 
   .sign_btn:hover {
-    background: #948e99;
-    box-shadow: 0px 4px 35px -5px #948e99;
+    background: #928bad;
+    box-shadow: 0 0 6px #928bad;
     cursor: pointer;
   }
 

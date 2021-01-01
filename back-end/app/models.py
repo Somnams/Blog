@@ -165,7 +165,7 @@ class Role(PaginatedAPIMixin, db.Model):
 
     @staticmethod
     def insert_roles():
-        '''应用部署时，应该主动执行此函数，添加以下角色
+        """应用部署时，应该主动执行此函数，添加以下角色
         注意: 未登录的用户，可以浏览，但不能评论或点赞等
         shutup:        0b0000 0000 (0x00) 用户被关小黑屋，收回所有权限
         reader:        0b0000 0011 (0x03) 读者，可以关注别人、评论与点赞，但不能发表文章
@@ -173,7 +173,7 @@ class Role(PaginatedAPIMixin, db.Model):
         administrator: 0b1000 0111 (0x87) 超级管理员，拥有全部权限
 
         以后如果要想添加新角色，或者修改角色的权限，修改 roles 数组，再运行函数即可
-        '''
+        """
         roles = {
             'shutup': ('小黑屋', ()),
             'reader': ('读者', (Permission.FOLLOW, Permission.COMMENT)),

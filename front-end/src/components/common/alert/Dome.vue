@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="demo">
     <blog-alert
       type="success"
       title="error"
@@ -17,6 +17,7 @@
     <blog-alert
       type="info"
       title="info"
+      message="oooooooo"
     />
     <blog-alert/>
   </div>
@@ -36,5 +37,8 @@ export default {
 </script>
 
 <style scoped>
-
+.demo {
+  position: relative;
+  top: 10px;
+}
 </style>
