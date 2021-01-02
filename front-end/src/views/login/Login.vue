@@ -91,7 +91,6 @@ export default {
   }
 
   .active {
-    /*border-bottom: 2px solid #1161ed;*/
     border-bottom: 2px solid #928bad;
   }
 

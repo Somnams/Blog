@@ -69,6 +69,7 @@ export default {
         target = this.$refs.outer.clientWidth;
         aStyle = this.$refs.alert.style;
         (signal === 'begin') && (aStyle.left = `${target}px`);
+        console.log(document.body.clientWidth);
       })
 
       const timer = setInterval(() => {
@@ -76,10 +77,10 @@ export default {
         speed = Math.ceil(distance / 5);
         curWidth = curWidth + speed;
 
-        if (signal === 'begin' && distance === 0) {
+        if (signal === 'begin' && distance <= 0) {
           clearInterval(timer);
         }
-        if (signal === 'end' && curWidth === target) {
+        if (signal === 'end' && curWidth >= target) {
           clearInterval(timer);
           this.visible = false;
         }
