@@ -66,13 +66,14 @@ export default {
       let aStyle;
 
       this.$nextTick(() => {
+        console.log('procss.nextTick')
         target = this.$refs.outer.clientWidth;
         aStyle = this.$refs.alert.style;
         (signal === 'begin') && (aStyle.left = `${target}px`);
-        console.log(document.body.clientWidth);
       })
 
       const timer = setInterval(() => {
+        console.log('setTimeout');
         const distance = target - curWidth;
         speed = Math.ceil(distance / 5);
         curWidth = curWidth + speed;
@@ -85,7 +86,7 @@ export default {
           this.visible = false;
         }
 
-        aStyle.left = (signal === 'begin') ? `${distance}px` : `${curWidth}px`;
+        aStyle.transform = (signal === 'begin') ? `translateX(-${curWidth}px)` : `translateX(-${distance}px)`;
 
       }, 30);
     },
