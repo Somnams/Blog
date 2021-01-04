@@ -1,5 +1,4 @@
 <template>
-<!--  TODO:: ALERT position-->
   <div v-if="visible" class="wrapper">
     <div class="outer" ref="outer">
       <div :class="classObject" ref="alert">
@@ -36,10 +35,7 @@ export default {
     },
     message: {
       type: String,
-      default: `Additional description and information about copyrighting..' +
-        'Additional description and information about copyrighting..' +
-        'Additional description and information about copyrighting..`
-
+      default: 'Additional description and information about copyrighting..'
     }
   },
   data () {
@@ -66,14 +62,12 @@ export default {
       let aStyle;
 
       this.$nextTick(() => {
-        console.log('procss.nextTick')
         target = this.$refs.outer.clientWidth;
         aStyle = this.$refs.alert.style;
         (signal === 'begin') && (aStyle.left = `${target}px`);
       })
 
       const timer = setInterval(() => {
-        console.log('setTimeout');
         const distance = target - curWidth;
         speed = Math.ceil(distance / 5);
         curWidth = curWidth + speed;
