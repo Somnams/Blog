@@ -48,7 +48,5 @@ export default {
       imageDatas[imageName] = imagePath;
     });
     this.state.imageData = imageDatas;
-    // todo:: delete
-    console.log(this.state.imageData);
   }
 }

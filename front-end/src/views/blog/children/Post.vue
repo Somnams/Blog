@@ -7,9 +7,9 @@
         <div class="post">
           <h1 id="post-title">{{post.title}}</h1>
           <div id="post-other">
-            <div><img :src="imageDatas.iconzhucetouxiang" alt="" class="icon-img">{{post.author.username}}</div>
-            <div><img :src="imageDatas.shijian" alt="" class="icon-img">{{post.timestamp}}</div>
-            <div><img :src="imageDatas.chakancishu" alt="" class="icon-img">{{post.views}}</div>
+            <div><img :src="imageData.iconzhucetouxiang" alt="" class="icon-img">{{post.author.username}}</div>
+            <div><img :src="imageData.shijian" alt="" class="icon-img">{{post.timestamp}}</div>
+            <div><img :src="imageData.chakancishu" alt="" class="icon-img">{{post.views}}</div>
           </div>
           <article>
             <vue-markdown
@@ -23,14 +23,14 @@
           <reply ref="reply"/>
           <div class="operation" v-if="post.author.id == sharedState.user_id">
             <a @click="onDeletePost(post)" title="delete this post">
-              <img :src="imageDatas.shanchu" alt="" class="icon-img"></a>
+              <img :src="imageData.shanchu" alt="" class="icon-img"></a>
             <a @click="toEdit" title="edit this post">
-              <img :src="imageDatas.bianji" alt="" class="icon-img"></a>
+              <img :src="imageData.bianji" alt="" class="icon-img"></a>
           </div>
           <!-- 评论区 -->
           <div class="comments">
             <div class="comments-title">
-              <img :src="imageDatas.liuyan" alt="" class="icon-img">Comments
+              <img :src="imageData.liuyan" alt="" class="icon-img">Comments
             </div>
 
             <form v-if="sharedState.is_authenticated" @submit.prevent="onSubmitAddComment"
@@ -74,27 +74,27 @@
                           <li v-if="!comment.disabled">
                             <a @click="onLikeOrUnlike(comment)" title="likes">
                               <span v-if="comment.likers_id.length > 0">{{comment.likers_id.length}}person likes</span>
-                              <span v-else><img :src="imageDatas.zantuijian" class="icon-img"></span>
+                              <span v-else><img :src="imageData.zantuijian" class="icon-img"></span>
                             </a>
-                          </li>
+                          </li> 
                           <li v-if="!comment.disabled">
                             <a @click="onClickReply(comment)" title="reply">
-                              <img :src="imageDatas.tubiaozhizuo-_1" class="icon-img">
+                              <img :src="imageData.replay" class="icon-img">
                             </a>
                           </li>
                           <li v-if="!comment.disabled && post.author.id == sharedState.user_id">
                             <a @click="onDisabledComment(comment)" title="disabled">
-                              <img :src="imageDatas.lahei" alt=""  class="icon-img">
+                              <img :src="imageData.lahei" alt=""  class="icon-img">
                             </a>
                           </li>
                           <li v-if="comment .disabled && post.author.id == sharedState.user_id">
                             <a @click="onEnabledComment(comment)" title="enabled">
-                              <img :src="imageDatas.kanjian" alt="" class="icon-img">
+                              <img :src="imageData.kanjian" alt="" class="icon-img">
                             </a>
                           </li>
                           <li v-if="!comment.disabled && comment.author.id == sharedState.user_id || post.author.id == sharedState.user_id">
                             <a  @click="onDeleteComment(comment)">
-                              <img :src="imageDatas.shanchu" alt="delete" title="delete" class="icon-img">
+                              <img :src="imageData.shanchu" alt="delete" title="delete" class="icon-img">
                             </a>
                           </li>
                         </ul>
@@ -129,22 +129,22 @@
                               <li v-if="!child.disabled">
                                 <a @click="onLikeOrUnlike(child)" title="likes">
                                   <span v-if="child.likers_id.length > 0">{{child.likers_id.length}}人赞</span>
-                                  <span v-else><img :src="imageDatas.zantuijian" class="icon-img"></span>
+                                  <span v-else><img :src="imageData.zantuijian" class="icon-img"></span>
                                 </a>
                               </li>
                               <li v-if="!child.disabled">
                                 <a @click="onClickReply(child)">
-                                  <img :src="imageDatas.tubiaozhizuo-_1" alt="" class="icon-img">
+                                  <img :src="imageData.replay" alt="" class="icon-img">
                                 </a>
                               </li>
                               <li v-if="!child.disabled && post.author.id == sharedState.user_id">
                                 <a @click="onDisabledComment(child)" title="disabled">
-                                  <img :src="imageDatas.lahei" alt="" class="icon-img">
+                                  <img :src="imageData.lahei" alt="" class="icon-img">
                                 </a>
                               </li>
                               <li v-if="child.author.id == sharedState.user_id || post.author.id == sharedState.user_id">
                                 <a @click="onDeleteComment(child)" title="delete">
-                                  <img :src="imageDatas.shanchu" alt="" class="icon-img">
+                                  <img :src="imageData.shanchu" alt="" class="icon-img">
                                 </a>
                               </li>
                             </ul>
@@ -191,7 +191,6 @@ export default {
   data () {
     return {
       sharedState: store.state,
-      imageDatas: store.state.imageData,
       showToc: true,
       post: {},
       comments: '',
@@ -203,6 +202,11 @@ export default {
         errors: 0,
         bodyError: null
       }
+    }
+  },
+  computed: {
+    imageData() {
+      return store.state.imageData;
     }
   },
   methods: {

@@ -1,5 +1,12 @@
-<template>
+  <template>
     <div class="page">
+<!--      <header>-->
+<!--        <router-link :to="{path: '/'}">home</router-link>-->
+<!--      </header>-->
+<!--      <div class="main-content">-->
+<!--        reset your password-->
+<!--        <div class="reset-form"></div>-->
+<!--      </div>-->
       <header>
         <router-link :to="{ path: '/' }" class="home-icon" title="Home"></router-link>
       </header>
@@ -9,7 +16,7 @@
           <div>
             <form @submit.prevent="onSubmit" class="reset-form">
               <label for="email"><h3>Email Address:</h3></label>
-              <input type="email" v-model="resetPasswordForm.email" id="email" class="reset-in" required>
+              <input type="email" v-model="resetEmail" id="email" class="reset-in" required>
               <small class="error-tip">{{resetPasswordForm.emailError}}</small>
               <button type="submit" class="common-btn reset-btn">Reset Password</button>
             </form>
@@ -24,49 +31,30 @@ export default {
   name: 'ResetPasswordRequest',
   data () {
     return {
-      resetPasswordForm: {
-        email: '',
-        errors: 0,
-        emailError: null
-      }
+      resetEmail: '',
+      resetPasswordForm: {}
     }
   },
   methods: {
-    onSubmit (e) {
-      this.resetPasswordForm.errors = 0
-      if (!this.resetPasswordForm.email) {
-        this.resetPasswordForm.errors++
-        this.resetPasswordForm.emailError = 'Email required'
-      } else if (!this.validEmail(this.resetPasswordForm.email)) {
-        this.resetPasswordForm.errors++
-        this.resetPasswordForm.emailError = 'Valid email required'
-      } else {
-        this.resetPasswordForm.emailError = null
-      }
-
-      if (this.resetPasswordForm.errors > 0) {
-        return false
-      }
-      const path = '/reset-password-request'
+    onSubmit(e) {
+      const path = '/reset-password-request';
       const payload = {
         confirm_email_base_url: window.location.href.split('/', 4).join('/') + 'reset-password/?token=',
-        email: this.resetPasswordForm.email
-      }
+        email: this.resetEmail
+      };
+
       this.$axios.post(path, payload)
-        .then((res) => {
-          this.$toasted.success(res.data.message)
-          this.$router.push('/login')
+        .then(res => {
+          this.$alert('success', {
+            title: 'SUCCESS',
+            message: res.data.message
+          });
         })
-        .catch((err) => {
-          console.log(err)
-          this.$toasted.error(err.response.data.message)
-        })
-    },
-    validEmail (email) {
-      // eslint-disable-next-line no-useless-escape
-      const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-      return re.test(email)
+        .catch(err => {
+          this.$alert('error', {title: 'ERROR', message: err.response.data.message});
+        });
     }
   }
 }
 </script>
+

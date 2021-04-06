@@ -1,24 +1,24 @@
 <template>
     <div class="nav-header">
-      <form @submit.prevent class="nh-form">
+      <form @submit.prevent class="search-form">
         <input
           type="text"
-          v-model="searchForm.body"
+          v-model="searchKey"
           placeholder="search"
-          class="nh-in"
+          class="search-input"
         />
         <button type="submit"
                 class="nh-btn search-btn"
                 @click="onSubmitSearch"
         >
-          <img :src="imageDatas.sousuo" title="search" class="icon-img">
+          <img :src="imageData.sousuo" title="search" class="icon-img">
         </button>
       </form>
-      <div class="nh-right">
+      <div class="nav-header-right">
         <div v-if="sharedState">
           <a class="nh-select">
             <router-link :to="{ path: '/notification' }">
-              <img :src="imageDatas.tongzhi"
+              <img :src="imageData.tongzhi"
                    alt="" class="icon-img" :class="{ active: isActive }">
             </router-link>
             <div class="nh-options">
@@ -27,7 +27,7 @@
             </div>
           </a>
           <router-link :to="{ name: 'About' }">
-            <img :src="imageDatas.guanyuwomen" title="About us" class="icon-img">
+            <img :src="imageData.guanyuwomen" title="About us" class="icon-img">
           </router-link>
           <a>
             <button class="nh-btn login-btn" @click="logout()">Logout</button>
@@ -54,10 +54,12 @@ export default {
     return {
       isActive: false,
       sharedState: store.state.user_id,
-      searchForm: {
-        body: ''
-      },
-      imageDatas: store.state.imageData
+      searchKey: null
+    }
+  },
+  computed: {
+    imageData() {
+      return store.state.imageData
     }
   },
   methods: {
@@ -67,79 +69,54 @@ export default {
       this.$router.push('/login')
     },
     getUserNewNotifications () {
-      let since = 0
-      // eslint-disable-next-line camelcase,no-unused-vars
-      let total_notifications_count = 0
-      // eslint-disable-next-line camelcase
-      let unread_recived_comments_count = 0
-      // eslint-disable-next-line camelcase
-      let unread_messages_count = 0
-      // eslint-disable-next-line camelcase
-      let unread_comments_likes_count = 0
-      // 记坑：不使用箭头函数回报错TypeError:get is not defined 因为找不到这时this中没有axios实例对象
+      let since = 0;
+      let total_notifications_count = 0;
+      let unread_comments = 0;
+      let unread_messages = 0;
+      let unread_likes = 0;
       setInterval(() => {
         if (this.sharedState) {
-          // eslint-disable-next-line camelcase
-          const user_id = this.sharedState
-          // eslint-disable-next-line camelcase
-          const path = `/users/${user_id}/notifications/?since=${since}`
+          const userId = this.sharedState;
+          const path = `/users/${userId}/notifications/?since=${since}`;
           this.$axios.get(path)
-            .then((res) => {
-              for (let i = 0; i < res.data.length; i++) {
-                switch (res.data[i].name) {
+            .then(({data}) => {
+              data.forEach(value => {
+                switch (value.name) {
                 case 'unread_recived_comments_count':
-                  // eslint-disable-next-line camelcase
-                  unread_recived_comments_count = res.data[i].payload;
+                  unread_comments = value.payload;
                   break;
                 case 'unread_messages_count':
-                  // eslint-disable-next-line camelcase
-                  unread_messages_count = res.data[i].payload;
+                  unread_messages = value.payload;
                   break;
                 case 'unread_comments_likes_count':
-                  // eslint-disable-next-line camelcase
-                  unread_comments_likes_count = res.data[i].payload;
+                  unread_likes = value.payload;
                   break;
                 }
-                since = res.data[i].timestamp
-              }
-              // eslint-disable-next-line camelcase
-              total_notifications_count = unread_recived_comments_count + unread_messages_count + unread_comments_likes_count
-              // eslint-disable-next-line camelcase
-              this.isActive = total_notifications_count > 0
+                since = value.timestamp;
+              });
+              total_notifications_count = unread_comments + unread_messages + unread_likes;
+              this.isActive = total_notifications_count > 0;
             })
             .catch((err) => {
-              console.error(err)
-            })
+              console.error(err);
+            });
         }
-      }, 5000)
+      }, 5000);
     },
     onSubmitSearch () {
-      if (!this.searchForm.body) {
-        return false
+      if (!this.searchKey) {
+        return false;
       }
-      const q = this.searchForm.body
-      let page = 1
-      // eslint-disable-next-line camelcase
-      let per_page = 10
-      if (typeof this.$route.query.page !== 'undefined') {
-        page = this.$route.query.page
-      }
-      if (typeof this.$route.query.per_page !== 'undefined') {
-        // eslint-disable-next-line camelcase
-        per_page = this.$route.query.per_page
-      }
+      const q = this.searchKey;
+      const page = typeof this.$route.query.page !== 'undefined' ? this.$route.query.page : 1;
+      const per_page = typeof this.$route.query.per_page !== 'undefined' ? this.$route.query.per_page : 10;
       this.$router.replace({
         path: '/search',
-        query: {
-          q: q,
-          page: page,
-          per_page: per_page
-        }
-      })
+        query: {q, page, per_page}
+      });
     }
   },
   mounted () {
-    // notifications
     this.getUserNewNotifications()
   }
 }
@@ -177,24 +154,26 @@ export default {
     }
   }
   .nav-header {
+    position: sticky;
+    top: 50px;
     display: flex;
+    justify-content: space-between;
     width: 100%;
     padding-bottom: 10px;
     border-bottom: 4px solid #928bad;
   }
-  .nh-form {
+  .search-form {
     position: relative;
     flex: 4;
-    float: left;
   }
-  .nh-in {
+  .search-input {
     padding-left: 15px;
     height: 50px;
     width: 100%;
+    font-size: 18px;
   }
-  .nh-right {
+  .nav-header-right {
     flex: 2;
-    float: right;
     margin-left: 20px;
   }
   .nh-select {

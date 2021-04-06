@@ -3,7 +3,7 @@
     <div class="outer" ref="outer">
       <div :class="classObject" ref="alert">
         <div class="a-header">
-          <div class="a-title">{{title}}:</div>
+          <div class="a-title">{{title}} :</div>
           <div class="a-close" @click="onClickClose">
             <a>Close Now</a>
           </div>

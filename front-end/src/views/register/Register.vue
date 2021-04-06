@@ -13,9 +13,8 @@
         <input class="text" name="email" v-model="registerForm.email"
                type="email" value=""
                id="register_email" required />
-<!--               pattern="/^\w+((.\w+)|(-\w+))@[A-Za-z0-9]+((.|-)[A-Za-z0-9]+).[A-Za-z0-9]+$/" />-->
         <span>email</span>
-        <button class="sign_btn">Submit</button>
+        <button class="sign_btn" type="submit">Submit</button>
       </form>
       <div class="tip">
         <p class="tip-text">
@@ -33,61 +32,37 @@ export default {
       registerForm: {
         username: '',
         password: '',
-        email: '',
-        submitted: false,
-        errors: 0
+        email: ''
       }
     }
   },
   methods: {
     onSubmit (e) {
-      this.registerForm.submitted = true
-      this.registerForm.errors = 0;
-
-      if (!this.registerForm.username) {
-        this.registerForm.errors++;
-      }
-
-      if (!this.registerForm.password) {
-        this.registerForm.errors++;
-      }
-
-      if (!this.registerForm.email) {
-        this.registerForm.errors++;
-      }
-
-      if (this.registerForm.errors > 0) {
-        return false;
-      }
-
-      const path = '/users'
+      const path = '/users';
       const payload = {
         confirm_email_base_url: window.location.href.split('/', 4).join('/') + '/unconfirmed/?token=',
         username: this.registerForm.username,
         password: this.registerForm.password,
         email: this.registerForm.email
-      }
+      };
       this.$axios.post(path, payload)
-        .then((response) => {
-          this.$router.push('/login')
+        .then(() => {
+          this.$alert('info', {
+            title: 'infoTitle',
+            message: 'Please open your email to confirm your account.',
+            autoClose: 5
+          });
         })
-        .catch((error) => {
-          for (const field in error.response.data.message) {
-            // eslint-disable-next-line eqeqeq
-            if (field === 'username') {
-              this.registerForm.usernameError = error.response.data.message.username
-            } else if (field === 'password') {
-              this.registerForm.passwordError = error.response.data.message.password
-            } else if (field === 'email') {
-              this.registerForm.emailError = error.response.data.message.email
-            }
+        .catch(err => {
+          const errMsg = err.response.data.message;
+          for (const field in errMsg) {
+            this.$alert('error', {
+              title: field,
+              message: errMsg[field],
+              autoClose: false
+            });
           }
-        })
-    },
-    valid_email (email) {
-      // eslint-disable-next-line no-useless-escape
-      const pattern = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-      return pattern.test(email)
+        });
     }
   }
 }
@@ -116,7 +91,6 @@ export default {
   }
 
   .active {
-    /*border-bottom: 2px solid #1161ed;*/
     border-bottom: 2px solid #928bad;
   }
 

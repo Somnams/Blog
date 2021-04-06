@@ -45,7 +45,7 @@
                     </li>
                     <li>
                       <a @click="onClickReply(comment)" title="reply">
-                        <img src="../../../assets/icon-img/tubiaozhizuo-_1.svg" alt="" class="icon-img">
+                        <img src="../../../assets/icon-img/replay.svg" alt="" class="icon-img">
                       </a>
                     </li>
                     <li>

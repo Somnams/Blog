@@ -45,15 +45,15 @@ export default {
         return false
       }
       const token = this.$route.query.token
-      const path = `/api/reset-password/${token}`
+      const path = `/reset-password/${token}`
       const payload = {
         password: this.resetPasswordForm.password
       }
       this.$axios.post(path, payload)
         .then((response) => {
           // handle success
-          this.$toasted.success(response.data.message, { icon: 'fingerprint' })
-          this.$router.push('/login')
+          this.$toasted.success(response.data.message, { icon: 'fingerprint' });
+          this.$router.push('/login');
         })
         .catch((error) => {
           // handle error
