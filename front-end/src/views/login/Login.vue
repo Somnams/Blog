@@ -1,32 +1,29 @@
 <template>
-  <div>
-    <div class="login">
-      <h2 class="active">Login</h2>
-      <form @submit.prevent="onSubmit">
-        <input class="text" v-model="loginForm.username" type="text"
-               value="" id="login_username" required/>
-        <span>username</span>
-        <br/>
-        <input class="text" v-model="loginForm.password" type="password" value=""
-               id="login_password" required minlength="8" />
-        <span>password</span>
-        <br/>
-        <input name="" type="checkbox" value="" id="checkbox-1-1" class="custom-checkbox" />
-        <label for="checkbox-1-1">Keep me Signed in</label>
-        <button class="sign_btn" type="submit">Submit</button>
-      </form>
-      <div class="select">
-        <div><router-link to="/register">Rgister</router-link></div>
-        <div>
-          Forget Your Password?
-          <router-link :to="{ name: 'ResetPasswordRequest' }">Click here to reset it.</router-link>
-        </div>
+  <div class="login">
+    <h2 class="active">Login</h2>
+    <form @submit.prevent="onSubmit">
+      <input class="text" v-model="loginForm.username" type="text" required/>
+      <span>username</span>
+      <br/>
+      <input class="text" v-model="loginForm.password" type="password" value=""
+             required minlength="8" />
+      <span>password</span>
+      <br/>
+      <input name="" type="checkbox" value="" id="checkbox-1-1" class="custom-checkbox" />
+      <label for="checkbox-1-1">Keep me Signed in</label>
+      <button class="sign_btn" type="submit">Submit</button>
+    </form>
+    <div class="select">
+      <div><router-link to="/register">Rgister</router-link></div>
+      <div>
+        Forget Your Password?
+        <router-link :to="{ name: 'ResetPasswordRequest' }">Click here to reset it.</router-link>
       </div>
-      <div class="tip">
-        <p class="tip-text">
-          *We promise not to disclose your personal information to other websites.
-        </p>
-      </div>
+    </div>
+    <div class="tip">
+      <p class="tip-text">
+        *We promise not to disclose your personal information to other websites.
+      </p>
     </div>
   </div>
 </template>
@@ -45,12 +42,10 @@ export default {
       }
     }
   },
-  created () {
-  },
   methods: {
     onSubmit (e) {
       const path = '/tokens'
-      // axios 实现Basic Auth需要在config中设置 auth 这个属性即可
+      // Basic Auth: config中设置 auth
       this.$axios.post(path, {}, {
         auth: {
           username: this.loginForm.username,

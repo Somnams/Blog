@@ -19,6 +19,7 @@
     "moment": "^2.24.0",
     "vue": "^2.6.11",
     "vue-markdown": "^2.2.4",
+    "vue-meditor": "^2.1.1",
     "vue-router": "^3.1.5",
     "vue-socket.io": "^3.0.7",
     "vue-toasted": "^1.1.27",

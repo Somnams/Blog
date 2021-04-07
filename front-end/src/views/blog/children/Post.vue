@@ -76,7 +76,7 @@
                               <span v-if="comment.likers_id.length > 0">{{comment.likers_id.length}}person likes</span>
                               <span v-else><img :src="imageData.zantuijian" class="icon-img"></span>
                             </a>
-                          </li> 
+                          </li>
                           <li v-if="!comment.disabled">
                             <a @click="onClickReply(comment)" title="reply">
                               <img :src="imageData.replay" class="icon-img">

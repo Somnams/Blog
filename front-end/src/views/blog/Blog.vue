@@ -30,11 +30,11 @@
 </template>
 
 <script>
-import NavBar from '../../components/common/nav/NavBar'
-import NavHeader from '../../components/common/nav/NavHeader'
-import List from '../../components/common/list/List'
-import Pagination from '../../components/common/pagination/Pagination'
-import store from '../../store/store'
+import NavBar from '@/components/common/nav/NavBar';
+import NavHeader from '@/components/common/nav/NavHeader';
+import List from '@/components/common/list/List';
+import Pagination from '@/components/common/pagination/Pagination';
+import store from '@/store/store';
 
 export default {
   name: 'Blog',
@@ -51,37 +51,26 @@ export default {
     }
   },
   methods: {
-    getPosts () {
-      // eslint-disable-next-line no-unused-vars
-      let page = 1
-      // eslint-disable-next-line camelcase,no-unused-vars
-      let per_page = 10
-      if (typeof this.$route.query.page !== 'undefined') {
-        page = this.$route.query.page
-      }
-
-      if (typeof this.$route.query.per_page !== 'undefined') {
-        // eslint-disable-next-line camelcase
-        per_page = this.$route.query.per_page
-      }
-
-      // eslint-disable-next-line camelcase
-      const path = `/posts/?page=${page}&per_page=${per_page}`
+    getPosts() {
+      const page = typeof this.$route.query.page === 'undefined' ? 1 : this.$route.query.page;
+      const perPage = typeof this.$route.query.per_page === 'undefined' ? 10 : this.$route.query.per_page;
+      const path = `/posts/?page=${page}&per_page=${perPage}`;
       this.$axios.get(path)
-        .then((res) => {
-          this.posts = res.data
+        .then(({data}) => {
+          this.posts = data;
         })
-        .catch((err) => {
-          console.error(err)
-        })
+        .catch(e => {
+          console.error(e);
+          this.$alert('error', {title: 'Error', message: 'Request Error.'});
+        });
     }
   },
   created () {
-    this.getPosts()
+    this.getPosts();
   },
   beforeRouteUpdate (to, from, next) {
-    next()
-    this.getPosts()
+    next();
+    this.getPosts();
   }
 }
 </script>

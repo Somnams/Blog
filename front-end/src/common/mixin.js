@@ -1,4 +1,4 @@
-import Confirm from '@/components/common/confirm/Confirm'
+import Confirm from '@/components/common/confirm/Confirm';
 
 export const confirmMiXin = {
   components: {
