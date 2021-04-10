@@ -2,7 +2,7 @@
   "name": "somnams-blog",
   "version": "0.1.0",
   "private": true,
-  "description": "Somnams Blog",
+  "description": "Somnambulist Blog",
   "scripts": {
     "serve": "./node_modules/.bin/webpack-dev-server --devtool eval-source-map --progess --colors --config ./configs/webpack.dev.config.js",
     "start": "npm run serve",
@@ -13,6 +13,7 @@
   "dependencies": {
     "@babel/runtime": "^7.10.4",
     "axios": "^0.19.2",
+    "chokidar": "^3.5.1",
     "core-js": "^2.6.11",
     "highlight.js": "^9.18.1",
     "mavon-editor": "^2.7.7",
@@ -65,7 +66,7 @@
     "node-sass": "^4.14.1",
     "postcss-loader": "^3.0.0",
     "progress-bar-webpack-plugin": "^2.1.0",
-    "sass-loader": "^9.0.2",
+    "sass-loader": "^7.3.1",
     "style-loader": "^1.2.1",
     "terser-webpack-plugin": "^3.0.6",
     "uglifyjs-webpack-plugin": "^2.2.0",

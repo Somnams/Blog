@@ -12,11 +12,10 @@
             <div><img :src="imageData.chakancishu" alt="" class="icon-img">{{post.views}}</div>
           </div>
           <article>
-            <vue-markdown
-              :source="post.body"
-              :toc="showToc"
-              :toc-first-level="1"
-              :toc-last-level="3"/>
+            <markdown-preview
+              :initialValue="post.body"
+              theme="dark"
+            />
             <br>
           </article>
           <confirm ref="confirm"/>
@@ -49,109 +48,20 @@
             </div>
             <div v-if="comments" class="comments-detail">
               <div v-for="(comment, index) in comments.items" :key="index">
-                <div :id="'c' + comment.id">
-                  <div class="detail-body">
-                    <div class="comment-img">
-                      <img class="user-img" :src="comment.author.avatar"
-                           :alt="comment.author.name || comment.author.username">
-                    </div>
-                    <div class="comment">
-                      <div class="comment-title">
-                        <span v-if="comment.author.id == comment.post.author_id">
-                          <router-link :to="{ path: `/user/${comment.author.id }`}">
-                            {{comment.author.username}}</router-link>&lt; author &gt;
-                        </span>
-                        <span v-else><router-link :to="{ path: `/user/${comment.author.id}`}">
-                          {{comment.author.username}}</router-link></span>
-                        <span>{{ $moment(comment.timestamp).format('YYYY-MM-DD HH:mm:ss') }}</span>
-                      </div>
-                      <div class="comment-body" v-if="comment.disabled">The comment has been disabled.</div>
-                      <div v-else>
-                        <div class="comment-body">{{comment.body}}</div>
-                      </div>
-                      <div class="comment-bottom">
-                        <ul>
-                          <li v-if="!comment.disabled">
-                            <a @click="onLikeOrUnlike(comment)" title="likes">
-                              <span v-if="comment.likers_id.length > 0">{{comment.likers_id.length}}person likes</span>
-                              <span v-else><img :src="imageData.zantuijian" class="icon-img"></span>
-                            </a>
-                          </li>
-                          <li v-if="!comment.disabled">
-                            <a @click="onClickReply(comment)" title="reply">
-                              <img :src="imageData.replay" class="icon-img">
-                            </a>
-                          </li>
-                          <li v-if="!comment.disabled && post.author.id == sharedState.user_id">
-                            <a @click="onDisabledComment(comment)" title="disabled">
-                              <img :src="imageData.lahei" alt=""  class="icon-img">
-                            </a>
-                          </li>
-                          <li v-if="comment .disabled && post.author.id == sharedState.user_id">
-                            <a @click="onEnabledComment(comment)" title="enabled">
-                              <img :src="imageData.kanjian" alt="" class="icon-img">
-                            </a>
-                          </li>
-                          <li v-if="!comment.disabled && comment.author.id == sharedState.user_id || post.author.id == sharedState.user_id">
-                            <a  @click="onDeleteComment(comment)">
-                              <img :src="imageData.shanchu" alt="delete" title="delete" class="icon-img">
-                            </a>
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <!-- 子级评论，按时间正序排列 -->
+                <comments-list
+                  :comment="comment"
+                  @on-like-or-unlike="onLikeOrUnlike"
+                  @on-click-reply="onClickReply"
+                  @on-disabled-comment="onDisabledComment"
+                  @on-enabled-comment="onEnabledComment"
+                  @on-delete-comment="onDeleteComment"
+                />
                 <div v-if="comment.descendants">
-                  <div v-for="(child, cindex) in comment.descendants" :key="cindex">
-                    <div :id="'c' + child.id">
-                      <div class="detail-body comment-children">
-                        <div class="comment-img">
-                          <img class="user-img" :src="child.author.avatar" :alt="child.author.name || child.author.username">
-                        </div>
-                        <div class="comment">
-                          <div class="comment-title">
-                            <span v-if="child.author.id == child.post.author_id">
-                              <router-link :to="{ path: `/user/${child.author.id }`}">{{child.author.username}}</router-link> <span>author</span>
-                            </span>
-                            <span v-else><router-link :to="{ path: `/user/${child.author.id}`}">{{child.author.username}}</router-link></span>
-                            <span>{{ $moment(child.timestamp).format('YYYY-MM-DD HH:mm:ss') }}</span>
-                          </div>
-                          <div class="comment-body">
-                            <div v-if="child.disabled">The comment has been disabled.</div>
-                            <div v-else>
-                              &nbsp;&nbsp;{{child.body}}
-                            </div>
-                          </div>
-                          <div class="comment-bottom">
-                            <ul>
-                              <li v-if="!child.disabled">
-                                <a @click="onLikeOrUnlike(child)" title="likes">
-                                  <span v-if="child.likers_id.length > 0">{{child.likers_id.length}}人赞</span>
-                                  <span v-else><img :src="imageData.zantuijian" class="icon-img"></span>
-                                </a>
-                              </li>
-                              <li v-if="!child.disabled">
-                                <a @click="onClickReply(child)">
-                                  <img :src="imageData.replay" alt="" class="icon-img">
-                                </a>
-                              </li>
-                              <li v-if="!child.disabled && post.author.id == sharedState.user_id">
-                                <a @click="onDisabledComment(child)" title="disabled">
-                                  <img :src="imageData.lahei" alt="" class="icon-img">
-                                </a>
-                              </li>
-                              <li v-if="child.author.id == sharedState.user_id || post.author.id == sharedState.user_id">
-                                <a @click="onDeleteComment(child)" title="delete">
-                                  <img :src="imageData.shanchu" alt="" class="icon-img">
-                                </a>
-                              </li>
-                            </ul>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+                  <div v-for="(child, cIndex) in comment.descendants" :key="cIndex">
+                    <comments-list
+                      :comment="child" class="comment-children"
+                      @on-like-or-unlike="onLikeOrUnlike"
+                    />
                   </div>
                 </div>
               </div>
@@ -170,26 +80,23 @@ import NavBar from '@/components/common/nav/NavBar'
 import Confirm from '@/components/common/confirm/Confirm'
 import Reply from '@/components/common/comment/Reply'
 import store from '@/store/store'
-import VueMarkdown from 'vue-markdown'
-import hljs from 'highlight.js'
 
-const highLightCode = () => {
-  const blocks = document.querySelectorAll('pre code')
-  blocks.forEach((block) => {
-    hljs.highlightBlock(block)
-  })
-}
+import {MarkdownPreview} from 'vue-meditor';
+import CommentsList from '@components/common/comment/CommentsList';
+
 
 export default {
   name: 'Post',
   components: {
     NavBar,
-    VueMarkdown,
     Confirm,
-    Reply
+    Reply,
+    MarkdownPreview,
+    CommentsList
   },
   data () {
     return {
+      postId: 0,
       sharedState: store.state,
       showToc: true,
       post: {},
@@ -210,57 +117,48 @@ export default {
     }
   },
   methods: {
-    getPost (id) {
-      const path = `/posts/${id}`
+    getPost(id) {
+      const path = `/posts/${id}`;
       this.$axios.get(path)
-        .then((res) => {
-          this.post = res.data
+        .then(({data}) => {
+          this.post = data;
         })
-        .catch((error) => {
-          console.error(error)
-        })
+        .catch(e => {
+          console.ror(e);
+        });
     },
-    onDeletePost (post) {
+    onDeletePost(post) {
       this.$refs.confirm.confirm()
-        .then((res) => {
-          const path = `/posts/${post.id}`
+        .then(() => {
+          const path = `/posts/${post.id}`;
           this.$axios.delete(path)
-            .then((res) => {
-              // this.$toasted.error()
-              this.$toasted.success('Delete success.', { icon: 'fingerprint' })
-              if (typeof this.$route.query.redirect === 'undefined') {
-                this.$router.push('/blog')
+            .then(res => {
+              // TODO:: Toasted!
+              this.$toasted.success('Delete success.', {icon: 'fingerprint'});
+              const redirect = this.$route.query.redirect;
+              if (redirect === 'undefined') {
+                this.$router.push('/blog');
               } else {
-                this.$router.push(this.$route.query.redirect)
+                this.$router.push(redirect);
               }
-            })
+            });
         })
-        // eslint-disable-next-line handle-callback-err
-        .catch((err) => {
-          console.log('this post is safity')
-        })
+        .catch(() => {
+          return false;
+        });
     },
     getPostComments (id) {
-      // eslint-disable-next-line no-unused-vars
-      let page = 1
-      // eslint-disable-next-line camelcase,no-unused-vars
-      let per_page = 10
-      if (typeof this.$route.query.page !== 'undefined') {
-        page = this.$route.query.page
-      }
-      if (typeof this.$route.query.per_page !== 'undefined') {
-        // eslint-disable-next-line camelcase
-        per_page = this.$route.query.per_page
-      }
-      // eslint-disable-next-line camelcase
-      const path = `/posts/${id}/comments/?page=${page}&per_page=${per_page}`
+      const page = typeof this.$route.query.page === 'undefined' ? 1 : this.$route.query.page;
+      const perPage = typeof this.$route.query.per_page === 'undefined' ? 10 : this.$route.query.per_page;
+      const path = `/posts/${id}/comments/?page=${page}&per_page=${perPage}`;
       this.$axios.get(path)
-        .then((res) => {
-          this.comments = res.data
+        .then(({data}) => {
+          this.comments = data;
         })
-        .catch((error) => {
-          console.error(error)
-        })
+        .catch(e => {
+          console.error(e);
+          this.$toasted.error('Get comments Error.', {icon: 'fingerprint'});
+        });
     },
     onResetAddComment () {
       this.commentsForm.body = ''
@@ -315,20 +213,13 @@ export default {
     },
     onLikeOrUnlike (comment) {
       if (!this.sharedState.is_authenticated) {
-        this.$toasted.error('You can comment with login...', { icon: 'fingerprint' })
+        this.$toasted.error('Please login...');
         this.$router.replace({
           path: '/login',
-          query: { redirect: this.$route.path + '#c' + comment.id }
-        })
+          query: {redirect: this.$route.path}
+        });
       }
-
-      let path = ''
-      // eslint-disable-next-line eqeqeq
-      if (comment.likers_id.indexOf(this.sharedState.user_id) != -1) {
-        path = `/comments/${comment.id}/unlike`
-      } else {
-        path = `/comments/${comment.id}/like`
-      }
+      const path = `/comments/${comment.id}` + comment.likers_id.includes(this.userId) ? 'unlike' : 'like';
       this.$axios.get(path)
         .then((res) => {
           this.getPostComments(this.$route.params.id)
@@ -427,15 +318,10 @@ export default {
   },
   created () {
     // eslint-disable-next-line camelcase
+    this.postId = Number(this.$route.params.id);
     const post_id = this.$route.params.id
     this.getPost(post_id)
     this.getPostComments(post_id)
-  },
-  mounted () {
-    highLightCode();
-  },
-  updated () {
-    highLightCode()
   }
 }
 </script>
@@ -513,6 +399,6 @@ export default {
     margin-right: 15px;
   }
   .comment-children {
-    margin-left: 80px;
+    margin-left: 33px;
   }
 </style>

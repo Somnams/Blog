@@ -12,7 +12,7 @@
       <Markdown
         theme="dark"
         v-model="markdownBody"
-        bordered="false"
+        bordered=false
         :height="markdownHeight"
       />
     </div>
