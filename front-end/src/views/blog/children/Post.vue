@@ -28,24 +28,21 @@
           </div>
           <!-- 评论区 -->
           <div class="comments">
-            <div class="comments-title">
-              <img :src="imageData.liuyan" alt="" class="icon-img">Comments
+            <div v-if="sharedState.is_authenticated">
+              <comment-form
+                :parent-id="parentId"
+                :post-id="postId"
+                :author-id="authorId"
+                :author-name="authorName"
+                @addComment="refreshComment"
+              />
             </div>
-
-            <form v-if="sharedState.is_authenticated" @submit.prevent="onSubmitAddComment"
-                  @reset.prevent="onResetAddComment">
-              <textarea v-model="commentsForm.body" class="commentsFormBody" cols="30" rows="10" placeholder="Please input your comment."></textarea>
-              <small v-show="commentsForm.bodyError">{{commentsForm.bodyError}}</small>
-              <div class="operation">
-                <button class="icon-btn" type="submit">Submit</button>
-                <button class="icon-btn" type="reset">Cancel</button>
-              </div>
-            </form>
             <div v-else>
-              <router-link :to="{ path: '/login', query: { redirect: $route.fullPath } }">
-                Please log in before commenting...
+              <router-link :to="{path: '/login', query: {redirect: $route.fullPath}}">
+                Please login before commenting...
               </router-link>
             </div>
+<!--            show comments-->
             <div v-if="comments" class="comments-detail">
               <div v-for="(comment, index) in comments.items" :key="index">
                 <comments-list
@@ -87,6 +84,7 @@ import store from '@/store/store'
 
 import {MarkdownPreview} from 'vue-meditor';
 import CommentsList from '@components/common/comment/CommentsList';
+import CommentForm from '@components/common/comment/CommentForm';
 
 
 export default {
@@ -96,15 +94,19 @@ export default {
     Confirm,
     Reply,
     MarkdownPreview,
-    CommentsList
+    CommentsList,
+    CommentForm
   },
   data () {
     return {
-      postId: 0,
       sharedState: store.state,
       showToc: true,
       post: {},
       comments: '',
+      parentId: 0,
+      authorId: 0,
+      authorName: '',
+      postId: 0,
       commentsForm: {
         body: '',
         author_id: '',
@@ -244,6 +246,9 @@ export default {
       } else {
         this.$refs.reply.confirm()
           .then((res) => {
+            this.parentId = comment.id;
+            this.authorId = comment.post.author_id;
+            this.authorName = comment.author.username;
             this.commentsForm.parent_id = comment.id
             this.commentsForm.author_id = comment.post.author_id
             this.commentsForm.author_name = comment.author.username
@@ -272,6 +277,9 @@ export default {
             // eslint-disable-next-line handle-callback-err
           }).catch(err => { console.log('this box is cloesed') })
       }
+    },
+    refreshComment() {
+      this.getPostComments(this.$route.params.id);
     },
     onResetReply () {
       console.log('reset')

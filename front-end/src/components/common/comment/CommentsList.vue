@@ -85,7 +85,7 @@ export default {
 <style lang="scss" scoped>
 .comment {
   width: 100%;
-  border-left: 2px solid rgba(255, 255, 255, .4);
+  rder-left: 2px solid rgba(255, 255, 255, .4);
   .comment-header {
     padding: 0 10px 0 10px;
     line-height: 24px;
