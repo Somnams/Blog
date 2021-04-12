@@ -6,8 +6,8 @@
           <img class="comment-avatar" :src="comment.author.avatar" alt="avatar">
           <span class="comment-username">{{comment.author.username}}</span>
           <span v-if="comment.author.id === comment.post.author_id">(author)</span>
-          <span class="comment-timestamp">{{$moment(comment.timestamp).format('YYYY-MM-DD HH:mm:ss')}}</span>
         </router-link>
+        <span class="comment-timestamp">{{$moment(comment.timestamp).format('YYYY-MM-DD HH:mm:ss')}}</span>
       </li>
       <li class="comment-body">
         <div v-if="comment.disabled">
@@ -85,7 +85,7 @@ export default {
 <style lang="scss" scoped>
 .comment {
   width: 100%;
-  border: 1px red solid;
+  border-left: 2px solid rgba(255, 255, 255, .4);
   .comment-header {
     padding: 0 10px 0 10px;
     line-height: 24px;

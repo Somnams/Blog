@@ -50,17 +50,21 @@
               <div v-for="(comment, index) in comments.items" :key="index">
                 <comments-list
                   :comment="comment"
-                  @on-like-or-unlike="onLikeOrUnlike"
-                  @on-click-reply="onClickReply"
-                  @on-disabled-comment="onDisabledComment"
-                  @on-enabled-comment="onEnabledComment"
-                  @on-delete-comment="onDeleteComment"
+                  @onLikeOrUnlike="onLikeOrUnlike"
+                  @onClickReply="onClickReply"
+                  @onDisabledComment="onDisabledComment"
+                  @onEnabledComment="onEnabledComment"
+                  @onDeleteComment="onDeleteComment"
                 />
                 <div v-if="comment.descendants">
                   <div v-for="(child, cIndex) in comment.descendants" :key="cIndex">
                     <comments-list
                       :comment="child" class="comment-children"
-                      @on-like-or-unlike="onLikeOrUnlike"
+                      @onLikeOrUnlike="onLikeOrUnlike"
+                      @onClickReply="onClickReply"
+                      @onDisabledComment="onDisabledComment"
+                      @onEnabledComment="onEnabledComment"
+                      @onDeleteComment="onDeleteComment"
                     />
                   </div>
                 </div>
@@ -219,7 +223,7 @@ export default {
           query: {redirect: this.$route.path}
         });
       }
-      const path = `/comments/${comment.id}` + comment.likers_id.includes(this.userId) ? 'unlike' : 'like';
+      const path = `/comments/${comment.id}` + (comment.likers_id.includes(this.userId) ? '/unlike' : '/like');
       this.$axios.get(path)
         .then((res) => {
           this.getPostComments(this.$route.params.id)
