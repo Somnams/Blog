@@ -137,7 +137,6 @@ export default {
             .then(res => {
               // TODO:: Toasted!
               this.$toasted.success('Delete success.');
-              this.$bus.$emit('deletePost');
               this.$router.replace(this.$route.query.redirect || '/blog');
             });
         })

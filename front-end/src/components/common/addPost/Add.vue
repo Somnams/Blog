@@ -42,12 +42,6 @@ export default {
     onClickSidebar() {
       this.sidebarVisible = !this.sidebarVisible;
     },
-    clearEditForm() {
-      this.title = '';
-      this.category = '';
-      this.summary = '';
-      this.markdownBody = '';
-    },
     onSubmit() {
       if (!this.title || !this.markdownBody) {
         this.$alert('error', {title: 'Error', message: 'Title and content are required.'});
@@ -62,11 +56,10 @@ export default {
       };
       this.$axios.post(path, payload)
         .then(res => {
-          this.clearEditForm();
-          this.$router.replace({path: '/blog'});
+          this.$router.replace('/blog');
         })
         .catch(e => {
-          this.$alert('error', {title: 'Error', message: e});
+          this.$alert('error', {title: 'Error', message: e.message});
           console.error(e);
         });
     },

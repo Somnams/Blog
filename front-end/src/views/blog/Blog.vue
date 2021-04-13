@@ -50,6 +50,16 @@ export default {
       posts: ''
     }
   },
+  computed: {
+    path() {
+      return this.$route.path;
+    }
+  },
+  watch: {
+    path(newVal, oldVal) {
+      newVal === '/blog' && this.getPosts();
+    }
+  },
   methods: {
     getPosts() {
       const page = typeof this.$route.query.page === 'undefined' ? 1 : this.$route.query.page;
@@ -68,9 +78,9 @@ export default {
   created () {
     this.getPosts();
   },
-  updated () {
-    this.$bus.$on('deletePost', this.getPosts);
-  },
+  // updated () {
+  //   this.$bus.$on('deletePost', this.getPosts);
+  // },
   beforeRouteUpdate (to, from, next) {
     next();
     this.getPosts();
