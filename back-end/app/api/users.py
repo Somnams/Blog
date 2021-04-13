@@ -140,7 +140,7 @@ def update_user(id):
 @bp.route('/users/<int:id>', methods=['DELETE'])
 @token_auth.login_required
 def delete_user(id):
-    '''删除一个用户'''
+    """删除一个用户"""
     user = User.query.get_or_404(id)
     if g.current_user != user and not g.current_user.can(Permission.ADMIN):
         return error_response(403)
@@ -152,7 +152,7 @@ def delete_user(id):
 @bp.route('/users/<int:id>/notifications/', methods=['GET'])
 @token_auth.login_required
 def get_user_notifications(id):
-    '''返回该用户的新通知'''
+    """返回该用户的新通知"""
     user = User.query.get_or_404(id)
     if g.current_user != user:
         return error_response(403)
@@ -171,7 +171,7 @@ def get_user_notifications(id):
 @token_auth.login_required
 @permission_required(Permission.FOLLOW)
 def follow(id):
-    '''开始关注一个用户'''
+    """开始关注一个用户"""
     user = User.query.get_or_404(id)
     if g.current_user == user:
         return bad_request(_('You cannot follow yourself.'))
@@ -192,7 +192,7 @@ def follow(id):
 @token_auth.login_required
 @permission_required(Permission.FOLLOW)
 def unfollow(id):
-    '''取消关注一个用户'''
+    """取消关注一个用户"""
     user = User.query.get_or_404(id)
     if g.current_user == user:
         return bad_request('You cannot unfollow yourself.')
@@ -215,7 +215,7 @@ def unfollow(id):
 @bp.route('/users/<int:id>/followeds/', methods=['GET'])
 @token_auth.login_required
 def get_followeds(id):
-    '''返回用户已关注的人的列表'''
+    """返回用户已关注的人的列表"""
     user = User.query.get_or_404(id)
     page = request.args.get('page', 1, type=int)
     per_page = min(
@@ -241,7 +241,7 @@ def get_followeds(id):
 @bp.route('/users/<int:id>/followers/', methods=['GET'])
 @token_auth.login_required
 def get_followers(id):
-    '''返回用户的粉丝列表'''
+    """返回用户的粉丝列表"""
     user = User.query.get_or_404(id)
     page = request.args.get('page', 1, type=int)
     per_page = min(
@@ -280,7 +280,7 @@ def get_followers(id):
 @bp.route('/users/<int:id>/posts/', methods=['GET'])
 @token_auth.login_required
 def get_user_posts(id):
-    '''返回该用户的所有博客文章列表'''
+    """返回该用户的所有博客文章列表"""
     user = User.query.get_or_404(id)
     page = request.args.get('page', 1, type=int)
     per_page = min(
@@ -295,7 +295,7 @@ def get_user_posts(id):
 @bp.route('/users/<int:id>/liked-posts/', methods=['GET'])
 @token_auth.login_required
 def get_user_liked_posts(id):
-    '''返回该用户喜欢别人的文章列表'''
+    """返回该用户喜欢别人的文章列表"""
     user = User.query.get_or_404(id)
     page = request.args.get('page', 1, type=int)
     per_page = min(
@@ -310,7 +310,7 @@ def get_user_liked_posts(id):
 @bp.route('/users/<int:id>/followeds-posts/', methods=['GET'])
 @token_auth.login_required
 def get_user_followeds_posts(id):
-    '''返回该用户所关注的大神的所有博客文章列表'''
+    """返回该用户所关注的大神的所有博客文章列表"""
     user = User.query.get_or_404(id)
     if g.current_user != user:
         return error_response(403)
@@ -337,7 +337,7 @@ def get_user_followeds_posts(id):
 @bp.route('/users/<int:id>/comments/', methods=['GET'])
 @token_auth.login_required
 def get_user_comments(id):
-    '''返回该用户发表过的所有评论列表'''
+    """返回该用户发表过的所有评论列表"""
     user = User.query.get_or_404(id)
     if g.current_user != user:
         return error_response(403)
@@ -354,7 +354,7 @@ def get_user_comments(id):
 @bp.route('/users/<int:id>/recived-comments/', methods=['GET'])
 @token_auth.login_required
 def get_user_recived_comments(id):
-    '''返回该用户收到的所有评论'''
+    """返回该用户收到的所有评论"""
     user = User.query.get_or_404(id)
     if g.current_user != user:
         return error_response(403)
@@ -393,7 +393,7 @@ def get_user_recived_comments(id):
 @bp.route('/users/<int:id>/recived-comments-likes/', methods=['GET'])
 @token_auth.login_required
 def get_user_recived_comments_likes(id):
-    '''返回该用户收到的评论赞'''
+    """返回该用户收到的评论赞"""
     user = User.query.get_or_404(id)
     if g.current_user != user:
         return error_response(403)
@@ -446,7 +446,7 @@ def get_user_recived_comments_likes(id):
 @bp.route('/users/<int:id>/recived-posts-likes/', methods=['GET'])
 @token_auth.login_required
 def get_user_recived_posts_likes(id):
-    '''返回该用户收到的文章喜欢'''
+    """返回该用户收到的文章喜欢"""
     user = User.query.get_or_404(id)
     if g.current_user != user:
         return error_response(403)
@@ -499,8 +499,8 @@ def get_user_recived_posts_likes(id):
 @bp.route('/users/<int:id>/messages-recipients/', methods=['GET'])
 @token_auth.login_required
 def get_user_messages_recipients(id):
-    '''我给哪些用户发过私信，按用户分组，返回我给各用户最后一次发送的私信
-    即: 我给 (谁) 最后一次 发了 (什么私信)'''
+    """我给哪些用户发过私信，按用户分组，返回我给各用户最后一次发送的私信
+    即: 我给 (谁) 最后一次 发了 (什么私信)"""
     user = User.query.get_or_404(id)
     if g.current_user != user:
         return error_response(403)
@@ -530,8 +530,8 @@ def get_user_messages_recipients(id):
 @bp.route('/users/<int:id>/messages-senders/', methods=['GET'])
 @token_auth.login_required
 def get_user_messages_senders(id):
-    '''哪些用户给我发过私信，按用户分组，返回各用户最后一次发送的私信
-    即: (谁) 最后一次 给我发了 (什么私信)'''
+    """哪些用户给我发过私信，按用户分组，返回各用户最后一次发送的私信
+    即: (谁) 最后一次 给我发了 (什么私信)"""
     user = User.query.get_or_404(id)
     if g.current_user != user:
         return error_response(403)
@@ -567,7 +567,7 @@ def get_user_messages_senders(id):
 @bp.route('/users/<int:id>/history-messages/', methods=['GET'])
 @token_auth.login_required
 def get_user_history_messages(id):
-    '''返回我与某个用户(由查询参数 from 获取)之间的所有私信记录'''
+    """返回我与某个用户(由查询参数 from 获取)之间的所有私信记录"""
     user = User.query.get_or_404(id)
     if g.current_user != user:
         return error_response(403)
@@ -613,7 +613,7 @@ def get_user_history_messages(id):
 @bp.route('/users/<int:id>/tasks/', methods=['GET'])
 @token_auth.login_required
 def get_user_tasks_in_progress(id):
-    '''返回用户所有正在运行中的后台任务'''
+    """返回用户所有正在运行中的后台任务"""
     user = User.query.get_or_404(id)
     if g.current_user != user:
         return error_response(403)
@@ -634,7 +634,7 @@ def get_user_tasks_in_progress(id):
 @token_auth.login_required
 @permission_required(Permission.FOLLOW)
 def block(id):
-    '''开始拉黑一个用户'''
+    """开始拉黑一个用户"""
     user = User.query.get_or_404(id)
     if g.current_user == user:
         return bad_request('You cannot block yourself.')
@@ -732,7 +732,7 @@ def confirm(token):
 
 @bp.route('/reset-password-request', methods=['POST'])
 def reset_password_request():
-    '''请求重置账户密码，需要提供注册时填写的邮箱地址'''
+    """请求重置账户密码，需要提供注册时填写的邮箱地址"""
     data = request.get_json()
     if not data:
         return bad_request(_('You must post JSON data.'))
@@ -784,7 +784,7 @@ def reset_password_request():
 
 @bp.route('/reset-password/<token>', methods=['POST'])
 def reset_password(token):
-    '''用户点击邮件中的链接，通过验证 JWT 来重置对应的账户的密码'''
+    """用户点击邮件中的链接，通过验证 JWT 来重置对应的账户的密码"""
     data = request.get_json()
     if not data:
         return bad_request(_('You must post JSON data.'))
@@ -804,7 +804,7 @@ def reset_password(token):
 @bp.route('/update-password', methods=['POST'])
 @token_auth.login_required
 def update_password():
-    '''已登录的用户更新自己的密码'''
+    """已登录的用户更新自己的密码"""
     data = request.get_json()
     if not data:
         return bad_request(_('You must post JSON data.'))

@@ -68,6 +68,9 @@ export default {
   created () {
     this.getPosts();
   },
+  updated () {
+    this.$bus.$on('deletePost', this.getPosts);
+  },
   beforeRouteUpdate (to, from, next) {
     next();
     this.getPosts();

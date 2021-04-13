@@ -22,6 +22,8 @@ Vue.prototype.$axios = axios;
 
 Vue.prototype.$moment = moment;
 
+Vue.prototype.$bus = new Vue();
+
 Vue.use(plugins);
 
 const originalPush = Router.prototype.push;

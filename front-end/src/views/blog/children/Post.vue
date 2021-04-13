@@ -6,7 +6,7 @@
       <main class="main-content" v-if="post.author">
         <div class="post">
           <h1 id="post-title">{{post.title}}</h1>
-          <div id="post-other">
+          <div class="post-other">
             <div><img :src="imageData.iconzhucetouxiang" alt="" class="icon-img">{{post.author.username}}</div>
             <div><img :src="imageData.shijian" alt="" class="icon-img">{{post.timestamp}}</div>
             <div><img :src="imageData.chakancishu" alt="" class="icon-img">{{post.views}}</div>
@@ -19,7 +19,6 @@
             <br>
           </article>
           <confirm ref="confirm"/>
-          <reply ref="reply"/>
           <div class="operation" v-if="post.author.id == sharedState.user_id">
             <a @click="onDeletePost(post)" title="delete this post">
               <img :src="imageData.shanchu" alt="" class="icon-img"></a>
@@ -29,6 +28,7 @@
           <!-- 评论区 -->
           <div class="comments">
             <div v-if="sharedState.is_authenticated">
+              <img :src="imageData.liuyan" alt="" class="icon-img cf-icon">Comments Area
               <comment-form
                 :parent-id="parentId"
                 :post-id="postId"
@@ -56,7 +56,8 @@
                 <div v-if="comment.descendants">
                   <div v-for="(child, cIndex) in comment.descendants" :key="cIndex">
                     <comments-list
-                      :comment="child" class="comment-children"
+                      class="comment-children"
+                      :comment="child"
                       @onLikeOrUnlike="onLikeOrUnlike"
                       @onClickReply="onClickReply"
                       @onDisabledComment="onDisabledComment"
@@ -79,7 +80,6 @@
 <script>
 import NavBar from '@/components/common/nav/NavBar'
 import Confirm from '@/components/common/confirm/Confirm'
-import Reply from '@/components/common/comment/Reply'
 import store from '@/store/store'
 
 import {MarkdownPreview} from 'vue-meditor';
@@ -92,7 +92,6 @@ export default {
   components: {
     NavBar,
     Confirm,
-    Reply,
     MarkdownPreview,
     CommentsList,
     CommentForm
@@ -100,27 +99,23 @@ export default {
   data () {
     return {
       sharedState: store.state,
-      showToc: true,
       post: {},
       comments: '',
       parentId: 0,
       authorId: 0,
       authorName: '',
       postId: 0,
-      commentsForm: {
-        body: '',
-        author_id: '',
-        parent_id: '',
-        author_name: '',
-        errors: 0,
-        bodyError: null
-      }
     }
   },
   computed: {
     imageData() {
       return store.state.imageData;
     }
+  },
+  created () {
+    this.postId = Number(this.$route.params.id);
+    this.getPost(this.postId);
+    this.getPostComments();
   },
   methods: {
     getPost(id) {
@@ -130,7 +125,8 @@ export default {
           this.post = data;
         })
         .catch(e => {
-          console.ror(e);
+          this.$toasted.error(e);
+          console.error(e);
         });
     },
     onDeletePost(post) {
@@ -140,20 +136,17 @@ export default {
           this.$axios.delete(path)
             .then(res => {
               // TODO:: Toasted!
-              this.$toasted.success('Delete success.', {icon: 'fingerprint'});
-              const redirect = this.$route.query.redirect;
-              if (redirect === 'undefined') {
-                this.$router.push('/blog');
-              } else {
-                this.$router.push(redirect);
-              }
+              this.$toasted.success('Delete success.');
+              this.$bus.$emit('deletePost');
+              this.$router.replace(this.$route.query.redirect || '/blog');
             });
         })
         .catch(() => {
           return false;
         });
     },
-    getPostComments (id) {
+    getPostComments () {
+      const id = this.postId;
       const page = typeof this.$route.query.page === 'undefined' ? 1 : this.$route.query.page;
       const perPage = typeof this.$route.query.per_page === 'undefined' ? 10 : this.$route.query.per_page;
       const path = `/posts/${id}/comments/?page=${page}&per_page=${perPage}`;
@@ -166,57 +159,6 @@ export default {
           this.$toasted.error('Get comments Error.', {icon: 'fingerprint'});
         });
     },
-    onResetAddComment () {
-      this.commentsForm.body = ''
-      this.commentsForm.parent_id = ''
-      this.commentsForm.author_id = ''
-      this.commentsForm.author_name = ''
-      this.commentsForm.bodyError = null
-    },
-    onSubmitAddComment (e) {
-      this.commentsForm.errors = 0
-      if (!this.commentsForm.body) {
-        this.commentsForm.error++
-        this.commentsForm.bodyError = 'Body is required.'
-      } else {
-        this.commentsForm.bodyError = null
-      }
-
-      if (this.commentsForm.errors > 0) {
-        return false
-      }
-
-      const path = '/comments/'
-      let payload = ''
-      if (this.commentsForm.parent_id) {
-        // 说明是回复评论
-        // eslint-disable-next-line camelcase
-        const at_who = `<a href="/user/${this.commentsForm.author_id}">@${this.commentsForm.author_name}</a>`
-        payload = {
-          // eslint-disable-next-line camelcase
-          body: at_who + this.commentsForm.body,
-          post_id: this.$route.params.id,
-          parent_id: this.commentsForm.parent_id
-        }
-      } else {
-        // 说明是发表一级评论
-        payload = {
-          body: this.commentsForm.body,
-          post_id: this.$route.params.id
-        }
-      }
-
-      this.$axios.post(path, payload)
-        .then((res) => {
-          this.getPostComments(this.$route.params.id)
-          this.$toasted.success('Successed add a new comment', { icon: 'fingerprint' })
-          this.onResetAddComment()
-        })
-        .catch((err) => {
-          console.log(err.res.data)
-          this.$toasted.error(err.res.data.message, { icon: 'fingerprint' })
-        })
-    },
     onLikeOrUnlike (comment) {
       if (!this.sharedState.is_authenticated) {
         this.$toasted.error('Please login...');
@@ -228,112 +170,67 @@ export default {
       const path = `/comments/${comment.id}` + (comment.likers_id.includes(this.userId) ? '/unlike' : '/like');
       this.$axios.get(path)
         .then((res) => {
-          this.getPostComments(this.$route.params.id)
+          this.getPostComments();
           this.$toasted.success(res.data.message, { icon: 'fingerprint' })
         })
         .catch((error) => {
-          console.error(error.res.data)
-          this.$toasted.error(error.res.data.message, { icon: 'fingerprint' })
+          this.$toasted.error(error.message);
         })
     },
     onClickReply (comment) {
-      if (!this.sharedState.is_authenticated) {
-        this.$toasted.error('You should login', { icon: 'fingerprint' })
-        this.$router.replace({
-          path: '/login',
-          query: { redirect: this.$route.path + '#c' + comment.id }
-        })
-      } else {
-        this.$refs.reply.confirm()
-          .then((res) => {
-            this.parentId = comment.id;
-            this.authorId = comment.post.author_id;
-            this.authorName = comment.author.username;
-            this.commentsForm.parent_id = comment.id
-            this.commentsForm.author_id = comment.post.author_id
-            this.commentsForm.author_name = comment.author.username
-            const Form = this.$refs.reply.Form
-            const path = '/comments/'
-            // 回复评论
-            // eslint-disable-next-line camelcase
-            const at_who = `@${this.commentsForm.author_name}  `
-            const payload = {
-              // eslint-disable-next-line camelcase
-              body: at_who + Form.body,
-              post_id: this.$route.params.id,
-              parent_id: this.commentsForm.parent_id
-            }
-
-            this.$axios.post(path, payload)
-              .then((res) => {
-                this.getPostComments(this.$route.params.id)
-                this.$toasted.success('Successed add a new comment', { icon: 'fingerprint' })
-                this.onResetAddComment()
-              })
-              .catch((err) => {
-                console.log(err.res.data)
-                this.$toasted.error(err.res.data.message, { icon: 'fingerprint' })
-              })
-            // eslint-disable-next-line handle-callback-err
-          }).catch(err => { console.log('this box is cloesed') })
-      }
+      this.parentId = comment.id;
+      this.authorId = comment.post.author_id;
+      this.authorName = comment.post.username;
     },
     refreshComment() {
-      this.getPostComments(this.$route.params.id);
-    },
-    onResetReply () {
-      console.log('reset')
+      this.getPostComments();
     },
     onDeleteComment (comment) {
       this.$refs.confirm.confirm()
         .then((res) => {
-          const path = `/comments/${comment.id}`
+          const path = `/comments/${comment.id}`;
           this.$axios.delete(path)
             .then((res) => {
-              this.getPostComments(this.$route.params.id)
+              this.getPostComments();
             })
             .catch((error) => {
-              console.error(error)
-            })
+              this.$toasted.error(error.message);
+            });
         })
-        // eslint-disable-next-line handle-callback-err
-        .catch((err) => {
-          console.log('the comment is safe.')
-        })
+        .catch(() => {
+          return;
+        });
     },
     onDisabledComment (comment) {
       this.$refs.confirm.confirm()
         .then((res) => {
-          const path = `/comments/${comment.id}`
+          const path = `/comments/${comment.id}`;
           this.$axios.put(path, { disabled: true })
             .then((res) => {
-              this.getPostComments(this.$route.params.id)
+              this.$toasted.success('Disabled this comment');
+              this.getPostComments();
             })
             .catch((error) => {
-              console.error(error)
-            })
+              this.$toasted.info(error.message);
+            });
         })
+        .catch(() => {return ;});
     },
     onEnabledComment (comment) {
-      const path = `/comments/${comment.id}`
+      const path = `/comments/${comment.id}`;
       this.$axios.put(path, { disabled: false })
-        .then((response) => {
-          this.getPostComments(this.$route.params.id)
+        .then((res) => {
+          this.$toasted.success('Enabled this comment');
+          this.getPostComments();
         })
         .catch((error) => {
-          console.error(error)
-        })
+          this.$toasted.error(error.message);
+        });
     },
+    // TODO:: to Edit
     toEdit () {
       this.$router.push('/test/' + this.$route.params.id)
     }
-  },
-  created () {
-    // eslint-disable-next-line camelcase
-    this.postId = Number(this.$route.params.id);
-    const post_id = this.$route.params.id
-    this.getPost(post_id)
-    this.getPostComments(post_id)
   }
 }
 </script>
@@ -342,7 +239,7 @@ export default {
   .post {
     margin-top: 50px;
   }
-  #post-other {
+  .post-other {
     width: 100%;
     display: flex;
     margin-left: 60%;
@@ -357,58 +254,12 @@ export default {
     width: 100%;
     margin-top: 50px;
   }
-  .comments-title {}
-  .commentsFormBody {
-    padding: 20px;
-    width: 90%;
-    border: 2px solid rgba(0, 0, 0, 0);
-    height: 60px;
-    border-radius: 10px;
-    background: rgba(255, 255, 255, 0.1);
-  }
-  .commentsFormBody:focus {
-    outline: none;
-    background: rgba(0, 0, 0, 0);
-    border: 2px solid rgba(255, 255, 255, 0.5);
-    transition: all 0.5s ease-in-out;
-  }
-  textarea {
-    color: #fff;
-  }
   .comments-detail {
     width: 100%;
     margin-top: 100px;
   }
-  .detail-body {
-    margin-bottom: 20px;
-    display: flex;
-  }
-  .comment-img {
-  }
-  .comment {
-    width: 90%;
-    margin-left: 30px;
-    border: 1px #ddd solid;
-    border-radius: 8px;
-    display: inline-block;
-  }
-  .comment-title {
-    margin-left: 20px;
-    -webkit-box-orient: horizontal;
-    border-bottom: 1px #928bad solid;
-  }
   .comment-title span {
     margin-right: 20px;
-  }
-  .comment-body {
-    margin-left: 20px;
-  }
-  .comment-bottom {
-    float: right;
-  }
-  ul li {
-    display: inline;
-    margin-right: 15px;
   }
   .comment-children {
     margin-left: 33px;

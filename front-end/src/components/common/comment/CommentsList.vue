@@ -33,15 +33,28 @@
           <img :src="imageData.shanchu" alt="delete" class="icon-img">
         </a>
       </li>
+      <li class="comment-reply" v-if="false">
+        <comment-form
+          :post-id="postId"
+          :parent-id="parentId"
+          :author-name="authorName"
+          :author-id="authorId"
+        />
+      </li>
     </ul>
   </div>
 </template>
 <script>
 import store from '@store/store';
+import CommentForm from '@components/common/comment/CommentForm';
 export default {
   name: 'CommentsList',
+  components: {CommentForm},
   data() {
     return {
+      isReply: false,
+      parentId: 0,
+      authorName: '',
       userId: store.state.user_id
     }
   },
@@ -59,6 +72,10 @@ export default {
       default() {
         return {};
       }
+    },
+    postId: {
+      type: Number,
+      default: 0
     }
   },
   methods: {
@@ -75,6 +92,9 @@ export default {
       this.$emit('onDeleteComment', comment);
     },
     onClickReply(comment) {
+      this.isReply = !this.isReply;
+      this.parentId = comment.id;
+      this.authorName = comment.post.username;
       this.$emit('onClickReply', comment);
     }
   }
@@ -107,6 +127,10 @@ export default {
   .comment-footer {
     display: flex;
     justify-content: flex-end;
+  }
+  .comment-reply {
+    border-top: 1px #8590a6 solid;
+    border-bottom: #8590a6 1px solid;
   }
 }
 </style>

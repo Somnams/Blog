@@ -1,6 +1,5 @@
 <template>
   <div>
-    <img :src="imageData.liuyan" alt="" class="icon-img cf-icon">Comments Area
     <form @submit.prevent="onSubmit">
       <input type="text" v-model="formData" class="cf-input">
       <button
@@ -16,7 +15,6 @@
 
 <script>
 import {debounce} from '@/common/utils';
-import store from '@store/store';
 export default {
   name: 'CommentForm.vue',
   props: {
@@ -41,11 +39,6 @@ export default {
     return {
       formData: '',
       disabled: true
-    }
-  },
-  computed: {
-    imageData() {
-      return store.state.imageData;
     }
   },
   watch: {
