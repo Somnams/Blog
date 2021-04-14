@@ -71,6 +71,9 @@ export default {
         })
         .catch((e) => {
           this.$toasted.error(`Error: ${e.data.message}`);
+        })
+        .finally(() => {
+          this.formData = '';
         });
     }
   }
