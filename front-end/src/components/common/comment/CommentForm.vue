@@ -18,13 +18,13 @@ import {debounce} from '@/common/utils';
 export default {
   name: 'CommentForm.vue',
   props: {
-    parentId: {
-      type: Number,
-      default: 0
-    },
     postId: {
       type: Number,
       required: true
+    },
+    parentId: {
+      type: Number,
+      default: 0
     },
     authorId: {
       type: Number,
@@ -60,7 +60,7 @@ export default {
         body: this.formData,
         post_id: this.postId
       } : {
-        body: `<a href="/user/${this.authorId}">@${this.authorName}></a> ${this.formData}`,
+        body: `@ ${this.authorName} ${this.formData}`,
         post_id: this.postId,
         parent_id: this.parentId
       };
@@ -70,7 +70,7 @@ export default {
           this.$emit('addComment');
         })
         .catch((e) => {
-          this.$toasted.error(`Error: ${e.data.message}`);
+          this.$toasted.error(`Error: ${e.message}`);
         })
         .finally(() => {
           this.formData = '';

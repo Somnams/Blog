@@ -5,11 +5,13 @@
       <header></header>
       <main class="main-content" v-if="post.author">
         <div class="post">
-          <h1 id="post-title">{{post.title}}</h1>
-          <div class="post-other">
-            <div><img :src="imageData.iconzhucetouxiang" alt="" class="icon-img">{{post.author.username}}</div>
-            <div><img :src="imageData.shijian" alt="" class="icon-img">{{post.timestamp}}</div>
-            <div><img :src="imageData.chakancishu" alt="" class="icon-img">{{post.views}}</div>
+          <div class="post-header">
+            <h1 class="post-title">{{post.title}}</h1>
+            <div class="post-other">
+              <img :src="imageData.iconzhucetouxiang" alt="" class="icon-img post-other-icon"><span class="post-other-font">{{post.author.username}}</span>
+              <img :src="imageData.shijian" alt="" class="icon-img post-other-icon"><span class="post-other-font">{{post.timestamp}}</span>
+              <img :src="imageData.chakancishu" alt="" class="icon-img post-other-icon"><span class="post-other-font">{{post.views}}</span>
+            </div>
           </div>
           <article>
             <markdown-preview
@@ -31,10 +33,7 @@
             <div v-if="sharedState.is_authenticated">
               <img :src="imageData.liuyan" alt="" class="icon-img cf-icon">Comments Area
               <comment-form
-                :parent-id="parentId"
                 :post-id="postId"
-                :author-id="authorId"
-                :author-name="authorName"
                 @addComment="refreshComment"
               />
             </div>
@@ -49,7 +48,7 @@
                 <comments-list
                   :comment="comment"
                   @onLikeOrUnlike="onLikeOrUnlike"
-                  @onClickReply="onClickReply"
+                  @addComment="getPostComments"
                   @onDisabledComment="onDisabledComment"
                   @onEnabledComment="onEnabledComment"
                   @onDeleteComment="onDeleteComment"
@@ -60,7 +59,7 @@
                       class="comment-children"
                       :comment="child"
                       @onLikeOrUnlike="onLikeOrUnlike"
-                      @onClickReply="onClickReply"
+                      @addComment="getPostComments"
                       @onDisabledComment="onDisabledComment"
                       @onEnabledComment="onEnabledComment"
                       @onDeleteComment="onDeleteComment"
@@ -102,9 +101,6 @@ export default {
       sharedState: store.state,
       post: {},
       comments: '',
-      parentId: 0,
-      authorId: 0,
-      authorName: '',
       postId: 0,
     }
   },
@@ -177,11 +173,8 @@ export default {
           this.$toasted.error(error.message);
         })
     },
-    onClickReply (comment) {
-      this.parentId = comment.id;
-      this.authorId = comment.post.author_id;
-      this.authorName = comment.post.username;
-    },
+    // onClickReply (comment) {
+    // },
     refreshComment() {
       this.getPostComments();
     },
@@ -235,14 +228,27 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
   .post {
     margin-top: 50px;
   }
-  .post-other {
+  .post-header {
     width: 100%;
     display: flex;
-    margin-left: 60%;
+    height: 100px;
+    .post-title {
+      flex: 1
+    }
+    .post-other {
+      flex: 1;
+      margin-top: 30px;
+      font-size: 14px;
+      display: inline-flex;
+      justify-content: flex-end;
+      .post-other-icon {
+        margin-top: -30px;
+      }
+    }
   }
   .operation {
     float: right;

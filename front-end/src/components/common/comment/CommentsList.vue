@@ -33,12 +33,13 @@
           <img :src="imageData.shanchu" alt="delete" class="icon-img">
         </a>
       </li>
-      <li class="comment-reply" v-if="false">
+      <li class="comment-reply" v-if="isReply">
         <comment-form
           :post-id="postId"
-          :parent-id="parentId"
-          :author-name="authorName"
           :author-id="authorId"
+          :author-name="authorName"
+          :parent-id="parentId"
+          @addComment="addComment"
         />
       </li>
     </ul>
@@ -64,6 +65,9 @@ export default {
     },
     authorId() {
       return this.comment.post.author_id;
+    },
+    postId() {
+      return this.comment.post.id;
     }
   },
   props: {
@@ -72,10 +76,6 @@ export default {
       default() {
         return {};
       }
-    },
-    postId: {
-      type: Number,
-      default: 0
     }
   },
   methods: {
@@ -94,8 +94,11 @@ export default {
     onClickReply(comment) {
       this.isReply = !this.isReply;
       this.parentId = comment.id;
-      this.authorName = comment.post.username;
-      this.$emit('onClickReply', comment);
+      this.authorName = comment.author.username;
+    },
+    addComment() {
+      this.isReply = false;
+      this.$emit('addComment');
     }
   }
 }
