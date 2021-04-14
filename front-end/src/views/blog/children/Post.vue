@@ -22,8 +22,9 @@
           <div class="operation" v-if="post.author.id == sharedState.user_id">
             <a @click="onDeletePost(post)" title="delete this post">
               <img :src="imageData.shanchu" alt="" class="icon-img"></a>
-            <a @click="toEdit" title="edit this post">
-              <img :src="imageData.bianji" alt="" class="icon-img"></a>
+            <router-link :to="{path: '/post-operation/edit', query: {id: postId}}" title="edit this post">
+              <img :src="imageData.bianji" alt="" class="icon-img">
+            </router-link>
           </div>
           <!-- 评论区 -->
           <div class="comments">

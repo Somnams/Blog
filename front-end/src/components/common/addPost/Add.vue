@@ -35,18 +35,31 @@ export default {
       title: '',
       summary: '',
       category: '',
-      markdownBody: ''
+      markdownBody: '',
+      param: ''
     }
   },
+  created () {
+    this.param = this.$route.params.create;
+    this.param === 'edit' && this.getPost();
+  },
   methods: {
+    getPost() {
+      const {id} = this.$route.query;
+      this.$axios.get(`/posts/${id}`)
+        .then(({data}) => {
+          this.markdownBody = data.body;
+          this.title = data.title;
+          this.summary = data.summary;
+        })
+        .catch(e => {
+          this.$toasted.error(e);
+        });
+    },
     onClickSidebar() {
       this.sidebarVisible = !this.sidebarVisible;
     },
-    onSubmit() {
-      if (!this.title || !this.markdownBody) {
-        this.$alert('error', {title: 'Error', message: 'Title and content are required.'});
-        return false;
-      }
+    addPost() {
       const path = '/posts/';
       const payload = {
         title: this.title,
@@ -62,6 +75,32 @@ export default {
           this.$alert('error', {title: 'Error', message: e.message});
           console.error(e);
         });
+    },
+    onEditPost() {
+      const {id} = this.$route.query;
+      const path = `/posts/${id}`;
+      const payload = {
+        title: this.title,
+        summary: this.summary,
+        category: this.category,
+        body: this.markdownBody
+      };
+      this.$axios.put(path, payload)
+        .then(res => {
+          this.$toasted.success('Update the post');
+          this.$router.replace(`/blog/post/${id}`);
+        })
+        .catch(e => {
+          this.$toasted.error(e);
+        });
+    },
+    onSubmit() {
+      if (!this.title || !this.markdownBody) {
+        this.$alert('error', {title: 'Error', message: 'Title and content are required.'});
+        return false;
+      }
+      this.param === 'add' && this.addPost();
+      this.param === 'edit' && this.onEditPost();
     },
   }
 }

@@ -18,7 +18,7 @@
           </pagination>
         </div>
         <div v-if="sharedState.user_perms.includes('write')">
-          <router-link to="/add">
+          <router-link to="/post-operation/add">
             <button class="common-btn">Add</button>
           </router-link>
         </div>

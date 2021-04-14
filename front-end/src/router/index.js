@@ -64,7 +64,7 @@ const router = new VueRouter({
       meta: { requiresAuth: true },
     },
     // { path: '/receive-comments', name: 'ReceivedComments', component: RecivedComments },
-    { path: '/add', name: 'Add', component: Add, meta: { requiresAuth: true } },
+    { path: '/post-operation/:create', name: 'Add', component: Add, meta: { requiresAuth: true } },
     { path: '/add-life', name: 'AddLife', component: AddLife, meta: { requiresAuth: true } },
     { path: '/search', name: 'SearchResult', component: SearchResult },
     // ADMIN
