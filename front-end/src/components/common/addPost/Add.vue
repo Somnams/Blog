@@ -2,8 +2,6 @@
   <div class="markdown-edit">
     <div class="markdown-none-sidebar" @click="onClickSidebar"></div>
     <form class="markdown-sidebar" v-show="sidebarVisible">
-      <span class="markdown-input-label">Title:</span>
-      <input type="text" class="markdown-input" v-model="title" required />
       <span class="markdown-input-label">Category:</span>
       <input type="text" class="markdown-input" v-model="category" required />
       <button @click="onSubmit" class="common-btn markdown-btn">submit</button>
@@ -60,9 +58,11 @@ export default {
       this.sidebarVisible = !this.sidebarVisible;
     },
     addPost() {
+      const body = this.markdownBody;
+      const title = body.match(/(?<=#).*/)[0].trim();
       const path = '/posts/';
       const payload = {
-        title: this.title,
+        title,
         summary: this.summary,
         category: this.category,
         body: this.markdownBody
@@ -95,7 +95,7 @@ export default {
         });
     },
     onSubmit() {
-      if (!this.title || !this.markdownBody) {
+      if (!this.markdownBody) {
         this.$alert('error', {title: 'Error', message: 'Title and content are required.'});
         return false;
       }
@@ -114,7 +114,7 @@ export default {
 }
 .markdown-sidebar {
   padding: 8px;
-  height: 200px;
+  height: 120px;
   position: fixed;
   top: 30px;
   left: 20%;
