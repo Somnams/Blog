@@ -22,7 +22,6 @@
           </div>
         </div>
         <div>
-        <confirm ref="confirm" />
         <div v-if="posts && posts._meta.total_pages > 1">
           <pagination
             :cur-page="posts._meta.page"
@@ -42,7 +41,6 @@ import NavBar from './common/nav/NavBar';
 import Pagination from './common/pagination/Pagination';
 import store from '@/store/store';
 import {MarkdownPreview} from 'vue-meditor';
-import { confirmMiXin } from '@/common/mixin';
 
 export default {
   name: 'SearchResult',
@@ -52,27 +50,9 @@ export default {
     MarkdownPreview,
     Pagination,
   },
-  mixins: [confirmMiXin],
   data() {
     return {
-      sharedState: store.state,
-      posts: '',
-      postForm: {
-        title: '',
-        summary: '',
-        body: '',
-        errors: 0,
-        titleError: null,
-        bodyError: null,
-      },
-      editPostForm: {
-        title: '',
-        summary: '',
-        body: '',
-        errors: 0,
-        titleError: null,
-        bodyError: null,
-      },
+      posts: ''
     };
   },
   computed: {

@@ -106,7 +106,7 @@ const router = new VueRouter({
         requiresAuth: true,
       },
     },
-    { path: '/about-us', name: 'About', component: About },
+    { path: '/about-us', name: 'About', component: About }
   ],
 });
 
