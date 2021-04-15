@@ -7,7 +7,7 @@
       </header>
       <div class="main-content" v-if="posts">
         <h3>
-          All posts ({{ posts._meta.total_items }} / {{ posts._meta.total_pages }})
+          All posts: total posts {{posts._meta.total_items}} total pages: {{ posts._meta.total_pages }}
         </h3>
         <div v-for="(post, index) in posts.items" :key="index">
           <div class="result-post">
@@ -97,6 +97,8 @@ export default {
           if (data.data._meta.total_items > 0) {
             this.posts = data.data;
             this.$toasted.success(data.message);
+          } else {
+            this.$toasted.error('Can not find anymore.');
           }
         })
         .catch(e => {
@@ -116,7 +118,6 @@ export default {
 $borderWidth: 3px;
 .result-post {
   width: 100%;
-  height: 200px;
   margin-bottom: 20px;
   position: relative;
   z-index: 2;
@@ -129,10 +130,10 @@ $borderWidth: 3px;
 .result-post:after {
   content: "";
   position: absolute;
-  top: 0;
-  left: calc(-1 * #{$borderWidth} * 2);
-  height: 100%;
-  width: 1%;
+  top: calc(-1 * #{$borderWidth} * 2);
+  left: 0;
+  height: $borderWidth * 2;
+  width: 100%;
   background: linear-gradient(60deg, #f79533, #f37055, #ef4e7b, #a166ab, #5073b8, #1098ad, #07b39b, #6fba82);
   z-index: -1;
 }
