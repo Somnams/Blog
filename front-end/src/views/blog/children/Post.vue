@@ -20,7 +20,7 @@
             />
             <br>
           </article>
-          <confirm ref="confirm"/>
+          <confirm ref="confirm" :content="confirmMsg"/>
           <div class="operation" v-if="post.author.id == sharedState.user_id">
             <a @click="onDeletePost(post)" title="delete this post">
               <img :src="imageData.shanchu" alt="" class="icon-img"></a>
@@ -102,6 +102,7 @@ export default {
       post: {},
       comments: '',
       postId: 0,
+      confirmMsg: ''
     }
   },
   computed: {
@@ -173,12 +174,11 @@ export default {
           this.$toasted.error(error.message);
         })
     },
-    // onClickReply (comment) {
-    // },
     refreshComment() {
       this.getPostComments();
     },
     onDeleteComment (comment) {
+      this.confirmMsg = 'Delete ?';
       this.$refs.confirm.confirm()
         .then((res) => {
           const path = `/comments/${comment.id}`;
@@ -195,6 +195,7 @@ export default {
         });
     },
     onDisabledComment (comment) {
+      this.confirmMsg = 'Disabled ?';
       this.$refs.confirm.confirm()
         .then((res) => {
           const path = `/comments/${comment.id}`;
